@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Introduction &#8212; Kellogg Research Support Open Source LLM Cookbook</title>
+    <title>How to Use Llama-cpp to run LLMs &#8212; Kellogg Research Support Open Source LLM Cookbook</title>
   
   
   
@@ -65,8 +65,8 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'llama-cpp';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Introduction" href="retrieval.html" />
-    <link rel="prev" title="Introduction" href="transformers.html" />
+    <link rel="next" title="How to Use Transformers to run LLMs" href="transformers.html" />
+    <link rel="prev" title="Slurm Job Management and GPU Usage" href="slurm_gpu_usage.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -147,8 +147,14 @@ const thebe_selector_output = ".output, .cell_output"
   
   
   
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Kellogg Research Support Open Source LLM Cookbook - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Kellogg Research Support Open Source LLM Cookbook - Home"/>`);</script>
   
-    <p class="title logo__title">Kellogg Research Support Open Source LLM Cookbook</p>
   
 </a></div>
         <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
@@ -167,20 +173,20 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Running Open Source LLMs on KLC</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="slurm_gpu_usage.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="transformers.html">Introduction</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="slurm_gpu_usage.html">Slurm Job Management and GPU Usage</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">How to Use Llama-cpp to run LLMs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="transformers.html">How to Use Transformers to run LLMs</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Use Cases</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="retrieval.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="fine-tuning.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="survey.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="vision.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="retrieval.html">Retrieval Augmented Generation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fine-tuning.html">Fine-tuning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="survey.html">LLMs for Survey</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vision.html">Vision: image to text</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Summary</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="takeaways.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="takeaways.html">Summary and Takeaways</a></li>
 </ul>
 
     </div>
@@ -362,7 +368,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Introduction</h1>
+    <h1>How to Use Llama-cpp to run LLMs</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -376,8 +382,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="introduction">
-<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="how-to-use-llama-cpp-to-run-llms">
+<h1>How to Use Llama-cpp to run LLMs<a class="headerlink" href="#how-to-use-llama-cpp-to-run-llms" title="Permalink to this heading">#</a></h1>
 </section>
 
     <script type="text/x-thebe-config">
@@ -411,20 +417,20 @@ document.write(`
                   <!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="transformers.html"
+       href="slurm_gpu_usage.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Introduction</p>
+        <p class="prev-next-title">Slurm Job Management and GPU Usage</p>
       </div>
     </a>
     <a class="right-next"
-       href="retrieval.html"
+       href="transformers.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Introduction</p>
+        <p class="prev-next-title">How to Use Transformers to run LLMs</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
