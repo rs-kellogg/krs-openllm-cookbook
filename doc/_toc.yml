@@ -1,0 +1,29 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+
+format: jb-book
+root: welcome
+parts:
+- caption: Introduction to Open Source Large Language Models (LLMs)
+  chapters:
+  - file: introduction
+- caption: Running Open Source LLMs on KLC
+  numbered: false
+  chapters:
+  - file: slurm_gpu_usage
+  - file: transformers
+  - file: llama-cpp
+- caption: Use Cases
+  numbered: false
+  chapters:
+  - file: retrieval
+  - file: fine-tuning
+  - file: survey
+  - file: vision
+- caption: Summary
+  numbered: false
+  chapters:
+  - file: takeaways
+
+  
+
