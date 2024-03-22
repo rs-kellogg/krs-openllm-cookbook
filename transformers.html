@@ -357,7 +357,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -373,6 +375,14 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-workflow">Basic workflow</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -384,6 +394,64 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="how-to-use-transformers-to-run-llms">
 <h1>How to Use Transformers to run LLMs<a class="headerlink" href="#how-to-use-transformers-to-run-llms" title="Permalink to this heading">#</a></h1>
+<section id="basic-workflow">
+<h2>Basic workflow<a class="headerlink" href="#basic-workflow" title="Permalink to this heading">#</a></h2>
+<p><font color='red'>1. Load the model parameters</font><br />
+<font color='orange'>2. Convert prompt query to tokens</font><br />
+<font color='darkblue'>3. Call model to process tokens and generate response tokens</font><br />
+<font color='green'>4. Decode tokens to response text</font></p>
+<p><strong># test_llama2.py</strong><br />
+from transformers import AutoTokenizer, AutoModelForCausalLM<br />
+from transformers import BitsAndBytesConfig<br />
+import time<br />
+import pandas as pd<br />
+from pathlib import Path</p>
+<p>start_time = time.time()</p>
+<p>llm_dir = “/kellogg/data/llm_models_opensource/llama2_meta_huggingface”<br />
+llm_model = “meta-llama/Llama-2-7b-chat-hf”<br />
+<em># llm_model = “meta-llama/Llama-2-13b-chat-hf”</em><br />
+<em># llm_model = “meta-llama/Llama-2-70b-chat-hf”</em></p>
+<p><font color='red'>quantization_config = BitsAndBytesConfig(load_in_8bit=True)</font><br />
+<font color='red'>model = AutoModelForCausalLM.from_pretrained(llm_model,cache_dir=llm_dir, device_map=”auto”, quantization_config=quantization_config)</font><br />
+<font color='red'>tokenizer = AutoTokenizer.from_pretrained(llm_model, cache_dir=llm_dir)</font></p>
+<p>print(f”=== Loading time: {time.time() - start_time} seconds”)</p>
+<p><em># For Llama2 chat, need to enclosed your prompt by [INST] and [/INST]</em><br />
+query = “[INST] Tell a fun fact about Kellogg Business School. [/INST]”</p>
+<p>device = “cuda”<br />
+model_input = tokenizer(query, return_tensors=”pt”).to(device)</p>
+<p>customize_setting = {<br />
+“max_new_tokens”: 400,<br />
+“do_sample”: True,<br />
+“temperature”: 0.8,<br />
+}<br />
+print(f”=== Customized setting:”)<br />
+for key, value in customize_setting.items():<br />
+print(f”    {key}: {value}”)</p>
+<p>outputs = model.generate(**model_input, **customize_setting)<br />
+decoded = tokenizer.decode(outputs[0], skip_special_tokens=True)</p>
+<p>print(“====================”)<br />
+print(f”LLM model: {llm_model}”)<br />
+print(f”Query: {query}”)<br />
+print(“Response: “)<br />
+print(decoded)<br />
+print(“====================”)</p>
+<p>end_time = time.time()<br />
+execution_time = end_time - start_time<br />
+print(f”Execution time: {execution_time} seconds”)<br />
+finished_time = time.strftime(‘%Y-%m-%d %H:%M:%S’, time.localtime())<br />
+print(f”Finished at: {finished_time}”)<br />
+print(“====================”)</p>
+<p><em># Logging</em><br />
+columns = [“llm_model”, “query”, “response”, “finished_time”]<br />
+row = [llm_model, query, decoded, finished_time]<br />
+for key, value in customize_setting.items():<br />
+columns.append(key)<br />
+row.append(value)<br />
+df = pd.DataFrame([row], columns=columns)<br />
+llm_name = llm_model.split(“/”)[-1]<br />
+log_file = Path(f”./log_{llm_name}.csv”)<br />
+df.to_csv(log_file, index=False, mode=’a’, header=not log_file.exists())</p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -440,6 +508,20 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-workflow">Basic workflow</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
