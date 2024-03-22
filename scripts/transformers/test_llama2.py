@@ -49,7 +49,7 @@ finished_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
 print(f"Finished at: {finished_time}")
 print("====================")
 
-# Documentation
+# Logging
 columns = ["llm_model", "query", "response", "finished_time"]
 row = [llm_model, query, decoded, finished_time]
 for key, value in customize_setting.items():
