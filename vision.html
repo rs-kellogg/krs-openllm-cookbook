@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Vision: image to text &#8212; Kellogg Research Support Open Source LLM Cookbook</title>
+    <title>Process Images with bakllava &#8212; Kellogg Research Support Open Source LLM Cookbook</title>
   
   
   
@@ -173,8 +173,8 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Running Open Source LLMs on KLC</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="slurm_gpu_usage.html">Slurm Job Management and GPU Usage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="llama-cpp.html">How to Use Llama-cpp to run LLMs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="slurm_gpu_usage.html"><font color="purple">SLURM Jobs and GPU Usage</font></a></li>
+<li class="toctree-l1"><a class="reference internal" href="llama-cpp.html"><font color="purple"><strong>Using llama_cpp_Python to run LLMs</strong></font></a></li>
 <li class="toctree-l1"><a class="reference internal" href="transformers.html">How to Use Transformers to run LLMs</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Use Cases</span></p>
@@ -182,7 +182,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="retrieval.html">Retrieval Augmented Generation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fine-tuning.html">Fine-tuning</a></li>
 <li class="toctree-l1"><a class="reference internal" href="survey.html">LLMs for Survey</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Vision: image to text</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#"><font color="purple"><strong>Process Images with bakllava</strong></font></a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Summary</span></p>
 <ul class="nav bd-sidenav">
@@ -368,7 +368,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Vision: image to text</h1>
+    <h1><font color='purple'>Process Images with bakllava</font></h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -382,8 +382,58 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="vision-image-to-text">
-<h1>Vision: image to text<a class="headerlink" href="#vision-image-to-text" title="Permalink to this heading">#</a></h1>
+  <section id="font-color-purple-process-images-with-bakllava-font">
+<h1><font color='purple'><strong>Process Images with bakllava</strong></font><a class="headerlink" href="#font-color-purple-process-images-with-bakllava-font" title="Permalink to this heading">#</a></h1>
+<p>Here is some sample code that uses the bakllava model:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">llm_core.llm</span> <span class="kn">import</span> <span class="n">LLaVACPPModel</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="s2">&quot;BakLLaVA-1-Q4_K_M.gguf&quot;</span>
+
+<span class="n">llm</span> <span class="o">=</span> <span class="n">LLaVACPPModel</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
+    <span class="n">llama_cpp_kwargs</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">&quot;logits_all&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="s2">&quot;n_ctx&quot;</span><span class="p">:</span> <span class="mi">8000</span><span class="p">,</span>
+        <span class="s2">&quot;verbose&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="s2">&quot;n_gpu_layers&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>  <span class="c1">#: Set to 0 if you don&#39;t have a GPU</span>
+        <span class="s2">&quot;n_threads&quot;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>       <span class="c1">#: Set to the number of available CPU cores</span>
+        <span class="s2">&quot;clip_model_path&quot;</span><span class="p">:</span> <span class="s2">&quot;BakLLaVA-1-clip-model.gguf&quot;</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+
+<span class="n">llm</span><span class="o">.</span><span class="n">load_model</span><span class="p">()</span>
+
+<span class="n">history</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s1">&#39;role&#39;</span><span class="p">:</span> <span class="s1">&#39;user&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;content&#39;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;image_url&#39;</span><span class="p">,</span> <span class="s1">&#39;image_url&#39;</span><span class="p">:</span> <span class="s1">&#39;https://advanced-stack.com/assets/img/mappemonde.jpg&#39;</span><span class="p">}</span>
+        <span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">]</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">llm</span><span class="o">.</span><span class="n">ask</span><span class="p">(</span><span class="s1">&#39;Describe the image as accurately as possible&#39;</span><span class="p">,</span> <span class="n">history</span><span class="o">=</span><span class="n">history</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">choices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Please save the bakllava models and this file to your home directory. You can run this file with the following SLURM script.</p>
+<p>#!/bin/bash</p>
+<p>#SBATCH -A your_quest_allocation_account
+#SBATCH -p gengpu
+#SBATCH –gres=gpu:a100:1
+#SBATCH -N 1
+#SBATCH -n 1
+#SBATCH -t 0:30:00
+#SBATCH –mem=40G</p>
+<p>module purge
+module use modulefiles
+module load llama_cpp/2.38
+python3 image_test.py</p>
 </section>
 
     <script type="text/x-thebe-config">
