@@ -18,7 +18,6 @@ parts:
   chapters:
   - file: retrieval
   - file: fine-tuning
-  - file: survey
   - file: vision
 - caption: Summary
   numbered: false
