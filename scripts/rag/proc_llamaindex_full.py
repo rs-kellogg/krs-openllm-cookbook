@@ -133,7 +133,8 @@ def process_llamaindex(workdir):
     print("====================================")
 
 
-workdir = Path("/kellogg/proj/plu781/klc_workshops/krs-openllm-cookbook/test/selenium_rag")
+file_dir = your_file_dir
+workdir = Path(file_dir)
 url_link = "https://mistral.ai/news/announcing-mistral-7b/"
 prep_text(workdir, url_link)
 
