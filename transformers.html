@@ -380,7 +380,14 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-workflow">Basic workflow</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-workflow-for-using-transformers">Basic workflow for using transformers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#run-llama2-model-with-transformers">Run Llama2 model with transformers</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#python-script">Python script</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#slurm-script">Slurm script</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#run-mistral-model-with-transformers">Run Mistral model with transformers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#run-gemma-model-with-transformers">Run Gemma model with transformers</a></li>
 </ul>
             </nav>
         </div>
@@ -394,20 +401,27 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="how-to-use-transformers-to-run-llms">
 <h1>How to Use Transformers to run LLMs<a class="headerlink" href="#how-to-use-transformers-to-run-llms" title="Permalink to this heading">#</a></h1>
-<section id="basic-workflow">
-<h2>Basic workflow<a class="headerlink" href="#basic-workflow" title="Permalink to this heading">#</a></h2>
+<section id="basic-workflow-for-using-transformers">
+<h2>Basic workflow for using transformers<a class="headerlink" href="#basic-workflow-for-using-transformers" title="Permalink to this heading">#</a></h2>
 <p><font color='red'>1. Load the model parameters</font><br />
 <font color='orange'>2. Convert prompt query to tokens</font><br />
 <font color='darkblue'>3. Call model to process tokens and generate response tokens</font><br />
-<font color='green'>4. Decode tokens to response text</font></p>
-<p><strong># test_llama2.py</strong><br />
-from transformers import AutoTokenizer, AutoModelForCausalLM<br />
+<font color='green'>4. Decode tokens to text response</font></p>
+</section>
+<section id="run-llama2-model-with-transformers">
+<h2>Run Llama2 model with transformers<a class="headerlink" href="#run-llama2-model-with-transformers" title="Permalink to this heading">#</a></h2>
+<p>Model on the Hugging Face site: <a class="reference external" href="https://huggingface.co/meta-llama/Llama-2-13b-chat-hf">https://huggingface.co/meta-llama/Llama-2-13b-chat-hf</a></p>
+<section id="python-script">
+<h3>Python script<a class="headerlink" href="#python-script" title="Permalink to this heading">#</a></h3>
+<p><strong># test_llama2.py</strong></p>
+<p>from transformers import AutoTokenizer, AutoModelForCausalLM<br />
 from transformers import BitsAndBytesConfig<br />
 import time<br />
 import pandas as pd<br />
 from pathlib import Path</p>
 <p>start_time = time.time()</p>
-<p>llm_dir = “/kellogg/data/llm_models_opensource/llama2_meta_huggingface”<br />
+<p><em># Set up model and directory info</em><br />
+llm_dir = “/kellogg/data/llm_models_opensource/llama2_meta_huggingface”<br />
 llm_model = “meta-llama/Llama-2-7b-chat-hf”<br />
 <em># llm_model = “meta-llama/Llama-2-13b-chat-hf”</em><br />
 <em># llm_model = “meta-llama/Llama-2-70b-chat-hf”</em></p>
@@ -419,7 +433,8 @@ llm_model = “meta-llama/Llama-2-7b-chat-hf”<br />
 query = “[INST] Tell a fun fact about Kellogg Business School. [/INST]”</p>
 <p><font color='orange'>device = “cuda”</font><br />
 <font color='orange'>model_input = tokenizer(query, return_tensors=”pt”).to(device)</font></p>
-<p>customize_setting = {<br />
+<p><em># Settings for LLM model</em><br />
+customize_setting = {<br />
 “max_new_tokens”: 400,<br />
 “do_sample”: True,<br />
 “temperature”: 0.8,<br />
@@ -451,6 +466,43 @@ df = pd.DataFrame([row], columns=columns)<br />
 llm_name = llm_model.split(“/”)[-1]<br />
 log_file = Path(f”./log_{llm_name}.csv”)<br />
 df.to_csv(log_file, index=False, mode=’a’, header=not log_file.exists())</p>
+</section>
+<section id="slurm-script">
+<h3>Slurm script<a class="headerlink" href="#slurm-script" title="Permalink to this heading">#</a></h3>
+<p>The following script is for running the GPU job on Quest. To run with Kellogg GPU, change the “#SBATCH -A” and “#SBATCH -p” lines to</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#SBATCH -A kellogg</span>
+<span class="c1">#SBATCH -p kellogg</span>
+</pre></div>
+</div>
+<p><strong># run_batch_llama2.sh</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Run on Quest</span>
+<span class="c1">#!/bin/bash</span>
+
+<span class="c1">#SBATCH -A your_quest_allocation_account</span>
+<span class="c1">#SBATCH -p gengpu</span>
+<span class="c1">#SBATCH --gres=gpu:a100:1</span>
+<span class="c1">#SBATCH -N 1</span>
+<span class="c1">#SBATCH -n 1</span>
+<span class="c1">#SBATCH -t 0:30:00</span>
+<span class="c1">#SBATCH --mem=40G</span>
+
+<span class="n">module</span> <span class="n">purge</span>
+<span class="n">module</span> <span class="n">load</span> <span class="n">mamba</span><span class="o">/</span><span class="mf">23.1.0</span>
+<span class="n">source</span> <span class="o">/</span><span class="n">hpc</span><span class="o">/</span><span class="n">software</span><span class="o">/</span><span class="n">mamba</span><span class="o">/</span><span class="mf">23.1.0</span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">profile</span><span class="o">.</span><span class="n">d</span><span class="o">/</span><span class="n">conda</span><span class="o">.</span><span class="n">sh</span>
+<span class="n">source</span> <span class="n">activate</span> <span class="o">/</span><span class="n">kellogg</span><span class="o">/</span><span class="n">software</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">gpu</span><span class="o">-</span><span class="n">llama2</span>
+
+<span class="n">python</span> <span class="n">test_llama2</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="run-mistral-model-with-transformers">
+<h2>Run Mistral model with transformers<a class="headerlink" href="#run-mistral-model-with-transformers" title="Permalink to this heading">#</a></h2>
+<p>Check out scripts/test_mistral.py.</p>
+</section>
+<section id="run-gemma-model-with-transformers">
+<h2>Run Gemma model with transformers<a class="headerlink" href="#run-gemma-model-with-transformers" title="Permalink to this heading">#</a></h2>
+<p>Check out scripts/tset_gemma.py.</p>
 </section>
 </section>
 
@@ -517,7 +569,14 @@ df.to_csv(log_file, index=False, mode=’a’, header=not log_file.exists())</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-workflow">Basic workflow</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-workflow-for-using-transformers">Basic workflow for using transformers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#run-llama2-model-with-transformers">Run Llama2 model with transformers</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#python-script">Python script</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#slurm-script">Slurm script</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#run-mistral-model-with-transformers">Run Mistral model with transformers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#run-gemma-model-with-transformers">Run Gemma model with transformers</a></li>
 </ul>
   </nav></div>
 

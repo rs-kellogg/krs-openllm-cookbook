@@ -357,7 +357,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -373,6 +375,16 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-it-works"><em>How it Works</em></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-uses-cases"><em>Sample Uses Cases</em></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-retrieving-information-non-existent-in-training"><em>Example: Retrieving Information Non-existent in Training</em></a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -384,6 +396,158 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="retrieval-augmented-generation">
 <h1>Retrieval Augmented Generation<a class="headerlink" href="#retrieval-augmented-generation" title="Permalink to this heading">#</a></h1>
+<p><font color='purple'>Retrieval Augmented Generation (RAG)</font> is a powerful paradigm in natural language processing that combines the strengths of information retrieval and language generation. This approach involves retrieving relevant information from a large dataset and using that information to enhance the generation of accurate text. It can be used as another method to fine-tune your models.</p>
+<p>The phrase <font color='purple'>Retrieval Augmented Generation</font> comes from a recent <a class="reference external" href="https://research.facebook.com/publications/retrieval-augmented-generation-for-knowledge-intensive-nlp-tasks/">paper by Lewis et al. from Facebook AI</a>. The idea is to use a pre-trained language model (LM) to generate text, but to use a separate retrieval system to find relevant documents to condition the LM on.</p>
+<section id="how-it-works">
+<h2><em>How it Works</em><a class="headerlink" href="#how-it-works" title="Permalink to this heading">#</a></h2>
+<p>From start to finish, the RAG relies on 5 steps:
+<img alt="RAG steps" src="_images/rag.png" /></p>
+<p><strong>1. Load</strong><br />
+Load documents from different source files (urls, csvs, pdfs, text) in diverse locations (s3 storage, public sites, etc.)</p>
+<p><strong>2. Transform</strong><br />
+Retrieval also involves determining the relevant parts of documents. To prepare larger document for retrieval it is often necessary to split or chunk the data.</p>
+<p><strong>3. Embed</strong><br />
+Next embeddings must be created for documents to capture the semantic meaning of the text. This later enables mdoels to efficiently find other pieces of text that are similar.</p>
+<p><strong>4. Store</strong><br />
+Vector stores support efficient storage and search of document embeddings.</p>
+<p><strong>5. Retrive</strong><br />
+One the data is organized, the relevant information is retrieved to produce more informed and context-aware responses.</p>
+<p>During runtime, this blending of retrieval and generation enhances the richness and relevance of the generated content.
+<img alt="RAG runtime" src="_images/basic_rag.png" /></p>
+<p><em>Taken from: <span class="xref myst">https://docs.llamaindex.ai/en/stable/_static/getting_started/basic_rag.png</span></em></p>
+</section>
+<section id="sample-uses-cases">
+<h2><em>Sample Uses Cases</em><a class="headerlink" href="#sample-uses-cases" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Question Answering Systems</strong>: Question answering systems retrieve information from vast knowledge bases, such as multiple pdfs or csv files.</p></li>
+<li><p><strong>Content Creation</strong>: In content creation applications, RAG can enhance the generation of creative and informative text by pulling in relevant details from a wide range of sources.</p></li>
+<li><p><strong>Conversational Agents</strong>: Chatbots and conversational agents benefit from RAG by incorporating external knowledge into responses</p></li>
+<li><p><strong>Code Generation</strong>: RAG can assist in generating code snippets by retrieving information from programming knowledge bases. (example today)</p></li>
+<li><p><strong>Prevent Hallucinations</strong>: RAG can be used to bring in external knowledge to check whether a GPT response is a hallucination. (example provided)</p></li>
+</ul>
+</section>
+<section id="example-retrieving-information-non-existent-in-training">
+<h2><em>Example: Retrieving Information Non-existent in Training</em><a class="headerlink" href="#example-retrieving-information-non-existent-in-training" title="Permalink to this heading">#</a></h2>
+<p>One way to use RAG is to feed the LLM with up-to-date information.<br />
+The Llama 2 was trained between January 2023 and July 2023. The Mistral 7B model was released in September, 2023. Let’s ask LLama2 a question about the Mistral 7B model.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Run the query throught Llama2 13B chat model with test_llama2.py  </span>
+<span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;[INST]What is a Mistral 7B language model?[/INST]&quot;</span>
+</pre></div>
+</div>
+<p><strong>Output:</strong></p>
+<blockquote>
+<div><p>[INST]What is a Mistral 7B language model?[/INST]  I’m not familiar with a “Mistral 7B language model.” It’s possible that this is a custom or proprietary language model developed by a specific organization or individual, and not a widely known or used model.</p>
+<p>There are many language models available, each with their own strengths and weaknesses, and it’s important to choose the right model for your specific use case. Some popular language models include BERT, RoBERTa, XLNet, and transformers. These models have been pre-trained on large datasets and can be fine-tuned for specific tasks such as sentiment analysis, question answering, and text classification.</p>
+<p>If you have any more information about the Mistral 7B language model, such as its capabilities, performance, or the organization that developed it, I may be able to provide more assistance.</p>
+</div></blockquote>
+<p>The release of Mistral 7B language model can be found here: <a class="reference external" href="https://mistral.ai/news/announcing-mistral-7b/">https://mistral.ai/news/announcing-mistral-7b/</a></p>
+<p><img alt="Selenium doc" src="_images/mistral.png" /></p>
+<p>To resolve this, we can use RAG to feed details about the release note. The code below will take the contents of a webpage and follow the 5 steps outlined above to retrieve the relevant information.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># === Load libraries</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">llama_index.core</span> <span class="kn">import</span> <span class="n">VectorStoreIndex</span><span class="p">,</span> <span class="n">SimpleDirectoryReader</span>
+<span class="kn">from</span> <span class="nn">llama_index.core</span> <span class="kn">import</span> <span class="n">StorageContext</span><span class="p">,</span> <span class="n">load_index_from_storage</span>
+<span class="kn">from</span> <span class="nn">llama_index.core</span> <span class="kn">import</span> <span class="n">ChatPromptTemplate</span>
+<span class="kn">from</span> <span class="nn">llama_index.core.response_synthesizers</span> <span class="kn">import</span> <span class="n">TreeSummarize</span>
+<span class="kn">from</span> <span class="nn">llama_index.embeddings.openai</span> <span class="kn">import</span> <span class="n">OpenAIEmbedding</span>
+<span class="kn">from</span> <span class="nn">llama_index.core.node_parser</span> <span class="kn">import</span> <span class="n">SentenceSplitter</span>
+<span class="kn">from</span> <span class="nn">llama_index.llms.huggingface</span> <span class="kn">import</span> <span class="n">HuggingFaceLLM</span>
+<span class="kn">from</span> <span class="nn">llama_index.core.llms</span> <span class="kn">import</span> <span class="n">ChatMessage</span><span class="p">,</span> <span class="n">MessageRole</span>
+<span class="kn">import</span> <span class="nn">faiss</span>
+<span class="kn">from</span> <span class="nn">llama_index.vector_stores.faiss</span> <span class="kn">import</span> <span class="n">FaissVectorStore</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
+
+<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">stream</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">()</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">StreamHandler</span><span class="p">(</span><span class="n">stream</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">))</span>
+
+<span class="c1"># Download web content</span>
+<span class="n">url_link</span> <span class="o">=</span> <span class="s2">&quot;https://mistral.ai/news/announcing-mistral-7b/&quot;</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url_link</span><span class="p">)</span>
+<span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">content</span><span class="p">,</span> <span class="s1">&#39;html.parser&#39;</span><span class="p">)</span>
+<span class="n">webpage_content</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">get_text</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+<span class="n">data_folder</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;./test_data&quot;</span><span class="p">)</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">data_folder</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+    <span class="n">data_folder</span><span class="o">.</span><span class="n">mkdir</span><span class="p">()</span>
+<span class="n">txt_file</span> <span class="o">=</span> <span class="n">data_folder</span> <span class="o">/</span> <span class="s2">&quot;webpage_content.txt&quot;</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">txt_file</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">webpage_content</span><span class="p">)</span>
+
+<span class="c1"># openAI api key for using their embedding model</span>
+<span class="n">api_file</span> <span class="o">=</span> <span class="s2">&quot;.env&quot;</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">api_file</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;OPENAI_API_KEY&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+<span class="c1"># Settings for embedding model</span>
+<span class="n">embedding_model</span> <span class="o">=</span> <span class="s2">&quot;text-embedding-3-small&quot;</span>
+<span class="n">embed_model</span> <span class="o">=</span> <span class="n">OpenAIEmbedding</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">embedding_model</span><span class="p">)</span>
+<span class="n">embedding_chunk_size</span> <span class="o">=</span> <span class="mi">512</span>
+
+<span class="c1"># 1. Load</span>
+<span class="n">documents</span> <span class="o">=</span> <span class="n">SimpleDirectoryReader</span><span class="p">(</span><span class="n">data_folder</span><span class="p">)</span><span class="o">.</span><span class="n">load_data</span><span class="p">()</span>
+
+<span class="c1"># Set up FAISS vector store</span>
+<span class="n">d</span> <span class="o">=</span> <span class="mi">1536</span> <span class="c1"># embedding dimension</span>
+<span class="n">faiss_index</span> <span class="o">=</span> <span class="n">faiss</span><span class="o">.</span><span class="n">IndexFlatL2</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+<span class="n">vector_store</span> <span class="o">=</span> <span class="n">FaissVectorStore</span><span class="p">(</span><span class="n">faiss_index</span><span class="o">=</span><span class="n">faiss_index</span><span class="p">)</span>
+
+<span class="n">storage_context</span> <span class="o">=</span> <span class="n">StorageContext</span><span class="o">.</span><span class="n">from_defaults</span><span class="p">(</span><span class="n">vector_store</span><span class="o">=</span><span class="n">vector_store</span><span class="p">)</span>
+<span class="c1"># 4. Store</span>
+<span class="n">index</span> <span class="o">=</span> <span class="n">VectorStoreIndex</span><span class="o">.</span><span class="n">from_documents</span><span class="p">(</span>
+    <span class="n">documents</span><span class="p">,</span> 
+    <span class="c1"># 2. Transform</span>
+    <span class="n">transformations</span><span class="o">=</span><span class="p">[</span><span class="n">SentenceSplitter</span><span class="p">(</span><span class="n">chunk_size</span><span class="o">=</span><span class="n">embedding_chunk_size</span><span class="p">)],</span>
+    <span class="c1"># 3. Embed</span>
+    <span class="n">embed_model</span><span class="o">=</span><span class="n">embed_model</span><span class="p">,</span> 
+    <span class="n">storage_context</span><span class="o">=</span><span class="n">storage_context</span>
+<span class="p">)</span>
+
+<span class="c1"># Settings for LLM</span>
+<span class="n">LLAMA2_13B_CHAT</span> <span class="o">=</span> <span class="s2">&quot;/kellogg/data/llm_models_opensource/llama2_meta_huggingface/models--meta-llama--Llama-2-13b-chat-hf/snapshots/29655417e51232f4f2b9b5d3e1418e5a9b04e80e&quot;</span>
+<span class="n">selected_model</span> <span class="o">=</span> <span class="n">LLAMA2_13B_CHAT</span>
+<span class="n">llm</span> <span class="o">=</span> <span class="n">HuggingFaceLLM</span><span class="p">(</span>
+    <span class="n">context_window</span><span class="o">=</span><span class="mi">4096</span><span class="p">,</span>
+    <span class="n">max_new_tokens</span><span class="o">=</span><span class="mi">256</span><span class="p">,</span>
+    <span class="n">tokenizer_name</span><span class="o">=</span><span class="n">selected_model</span><span class="p">,</span>
+    <span class="n">model_name</span><span class="o">=</span><span class="n">selected_model</span><span class="p">,</span>
+    <span class="n">device_map</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># 5. Retrieve</span>
+<span class="n">query_engine</span> <span class="o">=</span> <span class="n">index</span><span class="o">.</span><span class="n">as_query_engine</span><span class="p">(</span>
+    <span class="n">llm</span> <span class="o">=</span> <span class="n">llm</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;====================================&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Selected LLM: </span><span class="si">{</span><span class="n">selected_model</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;What is a Mistral 7B language model?&quot;</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">query_engine</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;====================================&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Query: </span><span class="si">{</span><span class="n">query</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Response: &quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;====================================&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Output:</strong></p>
+<blockquote>
+<div><p>Selected LLM: /kellogg/data/llm_models_opensource/llama2_meta_huggingface/models–meta-llama–Llama-2-13b-chat-hf/snapshots/29655417e51232f4f2b9b5d3e1418e5a9b04e80e</p>
+<p>INFO:httpx:HTTP Request: POST <a class="reference external" href="https://api.openai.com/v1/embeddings">https://api.openai.com/v1/embeddings</a> “HTTP/1.1 200 OK”</p>
+<p>HTTP Request: POST <a class="reference external" href="https://api.openai.com/v1/embeddings">https://api.openai.com/v1/embeddings</a> “HTTP/1.1 200 OK”</p>
+<p>====================================<br />
+Query: What is a Mistral 7B language model?<br />
+Response:<br />
+Mistral 7B is a 7.3B parameter model that is a powerful language model for its size, outperforming Llama 2 13B on all benchmarks and approaching CodeLlama 7B performance on code. It uses Grouped-query attention (GQA) for faster inference and Sliding Window Attention (SWA) to handle longer sequences at smaller cost. It is released under the Apache 2.0 license and can be used without restrictions.</p>
+</div></blockquote>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -440,6 +604,22 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-it-works"><em>How it Works</em></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-uses-cases"><em>Sample Uses Cases</em></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-retrieving-information-non-existent-in-training"><em>Example: Retrieving Information Non-existent in Training</em></a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
