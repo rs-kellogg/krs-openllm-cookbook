@@ -451,18 +451,26 @@ document.write(`
 <section id="font-color-purple-slurm-script-to-run-llama-cpp-python-font">
 <h2><font color='purple'><strong>SLURM Script to run llama_cpp_python</strong></font><a class="headerlink" href="#font-color-purple-slurm-script-to-run-llama-cpp-python-font" title="Permalink to this heading">#</a></h2>
 <p>You can run this file with the following SLURM script</p>
-<p>#!/bin/bash</p>
-<p>#SBATCH -A your_quest_allocation_account
-#SBATCH -p gengpu
-#SBATCH –gres=gpu:a100:1
-#SBATCH -N 1
-#SBATCH -n 1
-#SBATCH -t 0:30:00
-#SBATCH –mem=40G</p>
-<p>module purge
-module use modulefiles
-module load llama_cpp/2.38
-python3 /code/llama_cpp_test.py</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+
+<span class="c1">#SBATCH -A your_quest_allocation_account</span>
+<span class="c1">#SBATCH -p gengpu</span>
+<span class="c1">#SBATCH --gres=gpu:a100:1</span>
+<span class="c1">#SBATCH -N 1</span>
+<span class="c1">#SBATCH -n 1</span>
+<span class="c1">#SBATCH -t 0:30:00</span>
+<span class="c1">#SBATCH --mem=40G</span>
+
+<span class="n">module</span> <span class="n">purge</span>
+<span class="n">module</span> <span class="n">use</span> <span class="n">modulefiles</span>
+<span class="n">module</span> <span class="n">load</span> <span class="n">llama_cpp</span><span class="o">/</span><span class="mf">2.38</span>
+<span class="n">python3</span> <span class="o">/</span><span class="n">code</span><span class="o">/</span><span class="n">llama_cpp_test</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 </section>
 
