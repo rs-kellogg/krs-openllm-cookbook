@@ -175,11 +175,11 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="slurm_gpu_usage.html"><font color="purple">SLURM Jobs and GPU Usage</font></a></li>
 <li class="toctree-l1"><a class="reference internal" href="llama-cpp.html"><font color="purple"><strong>Using llama_cpp_Python to run LLMs</strong></font></a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Using Transformers to run LLMs</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#"><font color="purple"><strong>Using Transformers to run LLMs</strong></font></a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Use Cases</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="retrieval.html">Retrieval Augmented Generation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="retrieval.html"><font color="purple"><strong>Retrieval Augmented Generation</strong></font></a></li>
 <li class="toctree-l1"><a class="reference internal" href="fine-tuning.html">Fine-tuning</a></li>
 <li class="toctree-l1"><a class="reference internal" href="vision.html"><font color="purple"><strong>Process Images with bakllava</strong></font></a></li>
 </ul>
@@ -369,7 +369,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Using Transformers to run LLMs</h1>
+    <h1><font color='purple'>Using Transformers to run LLMs</font></h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -379,14 +379,14 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-workflow-for-using-transformers">Basic workflow for using transformers</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#run-llama2-model-with-transformers">Run Llama2 model with transformers</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-basic-workflow-for-using-transformers-font"><font color="purple">Basic workflow for using transformers</font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-run-llama2-model-with-transformers-font"><font color="purple">Run Llama2 model with transformers</font></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#python-script">Python script</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#slurm-script">Slurm script</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#run-mistral-model-with-transformers">Run Mistral model with transformers</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#run-gemma-model-with-transformers">Run Gemma model with transformers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#slurm-script">Slurm script</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-run-mistral-model-with-transformers-font"><font color="purple">Run Mistral model with transformers</font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-run-gemma-model-with-transformers-font"><font color="purple">Run Gemma model with transformers</font></a></li>
 </ul>
             </nav>
         </div>
@@ -398,76 +398,94 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="using-transformers-to-run-llms">
-<h1>Using Transformers to run LLMs<a class="headerlink" href="#using-transformers-to-run-llms" title="Permalink to this heading">#</a></h1>
-<section id="basic-workflow-for-using-transformers">
-<h2>Basic workflow for using transformers<a class="headerlink" href="#basic-workflow-for-using-transformers" title="Permalink to this heading">#</a></h2>
-<p><font color='red'>1. Load the model parameters</font><br />
-<font color='orange'>2. Convert prompt query to tokens</font><br />
-<font color='darkblue'>3. Call model to process tokens and generate response tokens</font><br />
-<font color='green'>4. Decode tokens to text response</font></p>
+  <section id="font-color-purple-using-transformers-to-run-llms-font">
+<h1><font color='purple'><strong>Using Transformers to run LLMs</strong></font><a class="headerlink" href="#font-color-purple-using-transformers-to-run-llms-font" title="Permalink to this heading">#</a></h1>
+<section id="font-color-purple-basic-workflow-for-using-transformers-font">
+<h2><font color='purple'>Basic workflow for using transformers</font><a class="headerlink" href="#font-color-purple-basic-workflow-for-using-transformers-font" title="Permalink to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Load the model parameters</p></li>
+<li><p>Convert prompt query to tokens</p></li>
+<li><p>Call model to process tokens and generate response tokens</p></li>
+<li><p>Decode tokens to text response</p></li>
+</ol>
 </section>
-<section id="run-llama2-model-with-transformers">
-<h2>Run Llama2 model with transformers<a class="headerlink" href="#run-llama2-model-with-transformers" title="Permalink to this heading">#</a></h2>
-<p>Model on the Hugging Face site: <a class="reference external" href="https://huggingface.co/meta-llama/Llama-2-13b-chat-hf">https://huggingface.co/meta-llama/Llama-2-13b-chat-hf</a></p>
+<section id="font-color-purple-run-llama2-model-with-transformers-font">
+<h2><font color='purple'>Run Llama2 model with transformers</font><a class="headerlink" href="#font-color-purple-run-llama2-model-with-transformers-font" title="Permalink to this heading">#</a></h2>
+<p>Llama2 model on the Hugging Face site: <a class="reference external" href="https://huggingface.co/meta-llama/Llama-2-13b-chat-hf">https://huggingface.co/meta-llama/Llama-2-13b-chat-hf</a></p>
 <section id="python-script">
 <h3>Python script<a class="headerlink" href="#python-script" title="Permalink to this heading">#</a></h3>
-<p><strong># test_llama2.py</strong></p>
-<p>from transformers import AutoTokenizer, AutoModelForCausalLM<br />
-from transformers import BitsAndBytesConfig<br />
-import time<br />
-import pandas as pd<br />
-from pathlib import Path</p>
-<p>start_time = time.time()</p>
-<p><em># Set up model and directory info</em><br />
-llm_dir = “/kellogg/data/llm_models_opensource/llama2_meta_huggingface”<br />
-llm_model = “meta-llama/Llama-2-7b-chat-hf”<br />
-<em># llm_model = “meta-llama/Llama-2-13b-chat-hf”</em><br />
-<em># llm_model = “meta-llama/Llama-2-70b-chat-hf”</em></p>
-<p><font color='red'>quantization_config = BitsAndBytesConfig(load_in_8bit=True)</font><br />
-<font color='red'>model = AutoModelForCausalLM.from_pretrained(llm_model,cache_dir=llm_dir, device_map=”auto”, quantization_config=quantization_config)</font><br />
-<font color='red'>tokenizer = AutoTokenizer.from_pretrained(llm_model, cache_dir=llm_dir)</font></p>
-<p>print(f”=== Loading time: {time.time() - start_time} seconds”)</p>
-<p><em># For Llama2 chat, need to enclosed your prompt by [INST] and [/INST]</em><br />
-query = “[INST] Tell a fun fact about Kellogg Business School. [/INST]”</p>
-<p><font color='orange'>device = “cuda”</font><br />
-<font color='orange'>model_input = tokenizer(query, return_tensors=”pt”).to(device)</font></p>
-<p><em># Settings for LLM model</em><br />
-customize_setting = {<br />
-“max_new_tokens”: 400,<br />
-“do_sample”: True,<br />
-“temperature”: 0.8,<br />
-}<br />
-print(f”=== Customized setting:”)<br />
-for key, value in customize_setting.items():<br />
-print(f”    {key}: {value}”)</p>
-<p><font color='darkblue'>outputs = model.generate(**model_input, **customize_setting)</font><br />
-<font color='green'>decoded = tokenizer.decode(outputs[0], skip_special_tokens=True)</font></p>
-<p>print(“====================”)<br />
-print(f”LLM model: {llm_model}”)<br />
-print(f”Query: {query}”)<br />
-print(“Response: “)<br />
-print(decoded)<br />
-print(“====================”)</p>
-<p>end_time = time.time()<br />
-execution_time = end_time - start_time<br />
-print(f”Execution time: {execution_time} seconds”)<br />
-finished_time = time.strftime(‘%Y-%m-%d %H:%M:%S’, time.localtime())<br />
-print(f”Finished at: {finished_time}”)<br />
-print(“====================”)</p>
-<p><em># Logging</em><br />
-columns = [“llm_model”, “query”, “response”, “finished_time”]<br />
-row = [llm_model, query, decoded, finished_time]<br />
-for key, value in customize_setting.items():<br />
-columns.append(key)<br />
-row.append(value)<br />
-df = pd.DataFrame([row], columns=columns)<br />
-llm_name = llm_model.split(“/”)[-1]<br />
-log_file = Path(f”./log_{llm_name}.csv”)<br />
-df.to_csv(log_file, index=False, mode=’a’, header=not log_file.exists())</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1">##################################</span>
+<span class="c1"># transformers using Llama2 model</span>
+<span class="c1">##################################</span>
+
+<span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">AutoTokenizer</span><span class="p">,</span> <span class="n">AutoModelForCausalLM</span>
+<span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">BitsAndBytesConfig</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+
+<span class="c1"># Set up model and directory info_  </span>
+<span class="n">llm_dir</span> <span class="o">=</span> <span class="s2">&quot;/kellogg/data/llm_models_opensource/llama2_meta_huggingface&quot;</span>
+<span class="n">llm_model</span> <span class="o">=</span> <span class="s2">&quot;meta-llama/Llama-2-7b-chat-hf&quot;</span>
+<span class="c1"># llm_model = &quot;meta-llama/Llama-2-13b-chat-hf&quot;</span>
+<span class="c1"># llm_model = &quot;meta-llama/Llama-2-70b-chat-hf&quot;</span>
+
+<span class="c1"># 1. Load the model parameters</span>
+<span class="n">quantization_config</span> <span class="o">=</span> <span class="n">BitsAndBytesConfig</span><span class="p">(</span><span class="n">load_in_8bit</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">AutoModelForCausalLM</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="n">llm_model</span><span class="p">,</span><span class="n">cache_dir</span><span class="o">=</span><span class="n">llm_dir</span><span class="p">,</span> <span class="n">device_map</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span><span class="p">,</span> <span class="n">quantization_config</span><span class="o">=</span><span class="n">quantization_config</span><span class="p">)</span>
+<span class="n">tokenizer</span> <span class="o">=</span> <span class="n">AutoTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="n">llm_model</span><span class="p">,</span> <span class="n">cache_dir</span><span class="o">=</span><span class="n">llm_dir</span><span class="p">)</span>
+
+<span class="c1"># For Llama2 chat, need to enclosed your prompt by [INST] and [/INST]</span>
+<span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;[INST] Tell a fun fact about Kellogg Business School. [/INST]&quot;</span>
+
+<span class="c1"># 2. Convert prompt query to tokens</span>
+<span class="n">device</span> <span class="o">=</span> <span class="s2">&quot;cuda&quot;</span>
+<span class="n">model_input</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">return_tensors</span><span class="o">=</span><span class="s2">&quot;pt&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+
+<span class="c1"># Settings for LLM model  </span>
+<span class="n">customize_setting</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;max_new_tokens&quot;</span><span class="p">:</span> <span class="mi">400</span><span class="p">,</span>
+    <span class="s2">&quot;do_sample&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="s2">&quot;temperature&quot;</span><span class="p">:</span> <span class="mf">0.8</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;=== Customized setting:&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">customize_setting</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># 3. Call model to process tokens and generate response tokens</span>
+<span class="n">outputs</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="o">**</span><span class="n">model_input</span><span class="p">,</span> <span class="o">**</span><span class="n">customize_setting</span><span class="p">)</span>
+
+<span class="c1"># 4. Decode tokens to text response</span>
+<span class="n">decoded</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">outputs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">skip_special_tokens</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;====================&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;LLM model: </span><span class="si">{</span><span class="n">llm_model</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Query: </span><span class="si">{</span><span class="n">query</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Response: &quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">decoded</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;====================&quot;</span><span class="p">)</span>
+
+<span class="c1"># Logging</span>
+<span class="n">finished_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">localtime</span><span class="p">())</span>
+<span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;llm_model&quot;</span><span class="p">,</span> <span class="s2">&quot;query&quot;</span><span class="p">,</span> <span class="s2">&quot;response&quot;</span><span class="p">,</span> <span class="s2">&quot;finished_time&quot;</span><span class="p">]</span>
+<span class="n">row</span> <span class="o">=</span> <span class="p">[</span><span class="n">llm_model</span><span class="p">,</span> <span class="n">query</span><span class="p">,</span> <span class="n">decoded</span><span class="p">,</span> <span class="n">finished_time</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">customize_setting</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">columns</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+    <span class="n">row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="n">row</span><span class="p">],</span> <span class="n">columns</span><span class="o">=</span><span class="n">columns</span><span class="p">)</span>
+<span class="n">llm_name</span> <span class="o">=</span> <span class="n">llm_model</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">log_file</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;./log_</span><span class="si">{</span><span class="n">llm_name</span><span class="si">}</span><span class="s2">.csv&quot;</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">log_file</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="ow">not</span> <span class="n">log_file</span><span class="o">.</span><span class="n">exists</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
 </section>
 <section id="slurm-script">
-<h3>Slurm script<a class="headerlink" href="#slurm-script" title="Permalink to this heading">#</a></h3>
+<h2>Slurm script<a class="headerlink" href="#slurm-script" title="Permalink to this heading">#</a></h2>
 <p>The following script is for running the GPU job on Quest. To run with Kellogg GPU, change the “#SBATCH -A” and “#SBATCH -p” lines to</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#SBATCH -A kellogg</span>
 <span class="c1">#SBATCH -p kellogg</span>
@@ -494,14 +512,13 @@ df.to_csv(log_file, index=False, mode=’a’, header=not log_file.exists())</p>
 </pre></div>
 </div>
 </section>
+<section id="font-color-purple-run-mistral-model-with-transformers-font">
+<h2><font color='purple'>Run Mistral model with transformers</font><a class="headerlink" href="#font-color-purple-run-mistral-model-with-transformers-font" title="Permalink to this heading">#</a></h2>
+<p>Check out scripts/transformers/test_mistral.py.</p>
 </section>
-<section id="run-mistral-model-with-transformers">
-<h2>Run Mistral model with transformers<a class="headerlink" href="#run-mistral-model-with-transformers" title="Permalink to this heading">#</a></h2>
-<p>Check out scripts/test_mistral.py.</p>
-</section>
-<section id="run-gemma-model-with-transformers">
-<h2>Run Gemma model with transformers<a class="headerlink" href="#run-gemma-model-with-transformers" title="Permalink to this heading">#</a></h2>
-<p>Check out scripts/tset_gemma.py.</p>
+<section id="font-color-purple-run-gemma-model-with-transformers-font">
+<h2><font color='purple'>Run Gemma model with transformers</font><a class="headerlink" href="#font-color-purple-run-gemma-model-with-transformers-font" title="Permalink to this heading">#</a></h2>
+<p>Check out scripts/transformers/test_gemma.py.</p>
 </section>
 </section>
 
@@ -549,7 +566,7 @@ df.to_csv(log_file, index=False, mode=’a’, header=not log_file.exists())</p>
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Retrieval Augmented Generation</p>
+        <p class="prev-next-title"><font color='purple'><strong>Retrieval Augmented Generation</strong></font></p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -568,14 +585,14 @@ df.to_csv(log_file, index=False, mode=’a’, header=not log_file.exists())</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-workflow-for-using-transformers">Basic workflow for using transformers</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#run-llama2-model-with-transformers">Run Llama2 model with transformers</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-basic-workflow-for-using-transformers-font"><font color="purple">Basic workflow for using transformers</font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-run-llama2-model-with-transformers-font"><font color="purple">Run Llama2 model with transformers</font></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#python-script">Python script</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#slurm-script">Slurm script</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#run-mistral-model-with-transformers">Run Mistral model with transformers</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#run-gemma-model-with-transformers">Run Gemma model with transformers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#slurm-script">Slurm script</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-run-mistral-model-with-transformers-font"><font color="purple">Run Mistral model with transformers</font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-run-gemma-model-with-transformers-font"><font color="purple">Run Gemma model with transformers</font></a></li>
 </ul>
   </nav></div>
 
