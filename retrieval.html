@@ -175,11 +175,11 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="slurm_gpu_usage.html"><font color="purple">SLURM Jobs and GPU Usage</font></a></li>
 <li class="toctree-l1"><a class="reference internal" href="llama-cpp.html"><font color="purple"><strong>Using llama_cpp_Python to run LLMs</strong></font></a></li>
-<li class="toctree-l1"><a class="reference internal" href="transformers.html">Using Transformers to run LLMs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="transformers.html"><font color="purple"><strong>Using Transformers to run LLMs</strong></font></a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Use Cases</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Retrieval Augmented Generation</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#"><font color="purple"><strong>Retrieval Augmented Generation</strong></font></a></li>
 <li class="toctree-l1"><a class="reference internal" href="fine-tuning.html">Fine-tuning</a></li>
 <li class="toctree-l1"><a class="reference internal" href="vision.html"><font color="purple"><strong>Process Images with bakllava</strong></font></a></li>
 </ul>
@@ -369,7 +369,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Retrieval Augmented Generation</h1>
+    <h1><font color='purple'>Retrieval Augmented Generation</font></h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -379,9 +379,9 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-it-works"><em>How it Works</em></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-uses-cases"><em>Sample Uses Cases</em></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-retrieving-information-non-existent-in-training"><em>Example: Retrieving Information Non-existent in Training</em></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-how-it-works-font"><font color="purple"><em>How it Works</em></font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-sample-uses-cases-font"><font color="purple"><em>Sample Uses Cases</em></font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-example-retrieving-information-non-existent-in-training-font"><font color="purple"><em>Example: Retrieving Information Non-existent in Training</em></font></a></li>
 </ul>
             </nav>
         </div>
@@ -393,12 +393,12 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="retrieval-augmented-generation">
-<h1>Retrieval Augmented Generation<a class="headerlink" href="#retrieval-augmented-generation" title="Permalink to this heading">#</a></h1>
+  <section id="font-color-purple-retrieval-augmented-generation-font">
+<h1><font color='purple'><strong>Retrieval Augmented Generation</strong></font><a class="headerlink" href="#font-color-purple-retrieval-augmented-generation-font" title="Permalink to this heading">#</a></h1>
 <p><font color='purple'>Retrieval Augmented Generation (RAG)</font> is a powerful paradigm in natural language processing that combines the strengths of information retrieval and language generation. This approach involves retrieving relevant information from a large dataset and using that information to enhance the generation of accurate text. It can be used as another method to fine-tune your models.</p>
 <p>The phrase <font color='purple'>Retrieval Augmented Generation</font> comes from a recent <a class="reference external" href="https://research.facebook.com/publications/retrieval-augmented-generation-for-knowledge-intensive-nlp-tasks/">paper by Lewis et al. from Facebook AI</a>. The idea is to use a pre-trained language model (LM) to generate text, but to use a separate retrieval system to find relevant documents to condition the LM on.</p>
-<section id="how-it-works">
-<h2><em>How it Works</em><a class="headerlink" href="#how-it-works" title="Permalink to this heading">#</a></h2>
+<section id="font-color-purple-how-it-works-font">
+<h2><font color='purple'><em>How it Works</em></font><a class="headerlink" href="#font-color-purple-how-it-works-font" title="Permalink to this heading">#</a></h2>
 <p>From start to finish, the RAG relies on 5 steps:
 <img alt="RAG steps" src="_images/rag.png" /></p>
 <p><strong>1. Load</strong><br />
@@ -415,18 +415,23 @@ One the data is organized, the relevant information is retrieved to produce more
 <img alt="RAG runtime" src="_images/basic_rag.png" /></p>
 <p><em>Taken from: <span class="xref myst">https://docs.llamaindex.ai/en/stable/_static/getting_started/basic_rag.png</span></em></p>
 </section>
-<section id="sample-uses-cases">
-<h2><em>Sample Uses Cases</em><a class="headerlink" href="#sample-uses-cases" title="Permalink to this heading">#</a></h2>
+<section id="font-color-purple-sample-uses-cases-font">
+<h2><font color='purple'><em>Sample Uses Cases</em></font><a class="headerlink" href="#font-color-purple-sample-uses-cases-font" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
-<li><p><strong>Question Answering Systems</strong>: Question answering systems retrieve information from vast knowledge bases, such as multiple pdfs or csv files.</p></li>
-<li><p><strong>Content Creation</strong>: In content creation applications, RAG can enhance the generation of creative and informative text by pulling in relevant details from a wide range of sources.</p></li>
-<li><p><strong>Conversational Agents</strong>: Chatbots and conversational agents benefit from RAG by incorporating external knowledge into responses</p></li>
-<li><p><strong>Code Generation</strong>: RAG can assist in generating code snippets by retrieving information from programming knowledge bases. (example today)</p></li>
-<li><p><strong>Prevent Hallucinations</strong>: RAG can be used to bring in external knowledge to check whether a GPT response is a hallucination. (example provided)</p></li>
+<li><p><strong>Question Answering Systems</strong>:<br />
+Retrieve information from vast knowledge bases, such as multiple pdfs or csv files. (example today)</p></li>
+<li><p><strong>Content Creation</strong>:<br />
+Enhance the generation of creative and informative text by pulling in relevant details from a wide range of sources.</p></li>
+<li><p><strong>Conversational Agents</strong>:<br />
+Incorporate external knowledge into responses</p></li>
+<li><p><strong>Code Generation</strong>:<br />
+Assist in generating code snippets by retrieving information from programming knowledge bases.</p></li>
+<li><p><strong>Prevent Hallucinations</strong>:<br />
+Bring in external knowledge to check whether a GPT response is a hallucination.</p></li>
 </ul>
 </section>
-<section id="example-retrieving-information-non-existent-in-training">
-<h2><em>Example: Retrieving Information Non-existent in Training</em><a class="headerlink" href="#example-retrieving-information-non-existent-in-training" title="Permalink to this heading">#</a></h2>
+<section id="font-color-purple-example-retrieving-information-non-existent-in-training-font">
+<h2><font color='purple'><em>Example: Retrieving Information Non-existent in Training</em></font><a class="headerlink" href="#font-color-purple-example-retrieving-information-non-existent-in-training-font" title="Permalink to this heading">#</a></h2>
 <p>One way to use RAG is to feed the LLM with up-to-date information.<br />
 The Llama 2 was trained between January 2023 and July 2023. The Mistral 7B model was released in September, 2023. Let’s ask LLama2 a question about the Mistral 7B model.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Run the query throught Llama2 13B chat model with test_llama2.py  </span>
@@ -585,7 +590,7 @@ Mistral 7B is a 7.3B parameter model that is a powerful language model for its s
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Using Transformers to run LLMs</p>
+        <p class="prev-next-title"><font color='purple'><strong>Using Transformers to run LLMs</strong></font></p>
       </div>
     </a>
     <a class="right-next"
@@ -612,9 +617,9 @@ Mistral 7B is a 7.3B parameter model that is a powerful language model for its s
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-it-works"><em>How it Works</em></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-uses-cases"><em>Sample Uses Cases</em></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-retrieving-information-non-existent-in-training"><em>Example: Retrieving Information Non-existent in Training</em></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-how-it-works-font"><font color="purple"><em>How it Works</em></font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-sample-uses-cases-font"><font color="purple"><em>Sample Uses Cases</em></font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-example-retrieving-information-non-existent-in-training-font"><font color="purple"><em>Example: Retrieving Information Non-existent in Training</em></font></a></li>
 </ul>
   </nav></div>
 
