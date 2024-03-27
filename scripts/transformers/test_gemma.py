@@ -5,7 +5,9 @@ from pathlib import Path
 
 start_time = time.time()
 
+# Set up model directory info; set to your own project space if using new model 
 llm_dir = "/kellogg/data/llm_models_opensource/gemma_google"
+# Model name from Huggingface site
 llm_model = "google/gemma-7b-it"
 model = AutoModelForCausalLM.from_pretrained(llm_model,cache_dir=llm_dir, device_map="auto")
 tokenizer = AutoTokenizer.from_pretrained(llm_model, cache_dir=llm_dir)

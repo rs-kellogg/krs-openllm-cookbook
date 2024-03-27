@@ -5,7 +5,9 @@ from pathlib import Path
 
 start_time = time.time()
 
+# Set up model directory info; set to your own project space if using new model 
 llm_dir = "/kellogg/data/llm_models_opensource/mistral_mistralAI"
+# Model name from Huggingface site
 llm_model = "mistralai/Mistral-7B-Instruct-v0.2"
 model = AutoModelForCausalLM.from_pretrained(llm_model, cache_dir=llm_dir, device_map="auto")
 tokenizer = AutoTokenizer.from_pretrained(llm_model, cache_dir=llm_dir)

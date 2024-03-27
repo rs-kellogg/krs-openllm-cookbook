@@ -6,11 +6,14 @@ from pathlib import Path
 
 start_time = time.time()
 
+# Set up model directory info; set to your own project space if using new model 
 llm_dir = "/kellogg/data/llm_models_opensource/llama2_meta_huggingface"
+# Model name from Huggingface site
 llm_model = "meta-llama/Llama-2-7b-chat-hf"
 # llm_model = "meta-llama/Llama-2-13b-chat-hf"
 # llm_model = "meta-llama/Llama-2-70b-chat-hf"
 
+# The quantization_config is optional; use it for very large model; it reduces memory and computational costs by representing weights and activations with lower-precision data types
 quantization_config = BitsAndBytesConfig(load_in_8bit=True)
 model = AutoModelForCausalLM.from_pretrained(llm_model,cache_dir=llm_dir, device_map="auto", quantization_config=quantization_config)
 tokenizer = AutoTokenizer.from_pretrained(llm_model, cache_dir=llm_dir)
