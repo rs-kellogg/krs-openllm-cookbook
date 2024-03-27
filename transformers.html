@@ -426,13 +426,15 @@ document.write(`
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 
-<span class="c1"># Set up model and directory info_  </span>
+<span class="c1"># Set up model directory info; set to your own project space if using new model </span>
 <span class="n">llm_dir</span> <span class="o">=</span> <span class="s2">&quot;/kellogg/data/llm_models_opensource/llama2_meta_huggingface&quot;</span>
+<span class="c1"># Model name from Huggingface site</span>
 <span class="n">llm_model</span> <span class="o">=</span> <span class="s2">&quot;meta-llama/Llama-2-7b-chat-hf&quot;</span>
 <span class="c1"># llm_model = &quot;meta-llama/Llama-2-13b-chat-hf&quot;</span>
 <span class="c1"># llm_model = &quot;meta-llama/Llama-2-70b-chat-hf&quot;</span>
 
 <span class="c1"># 1. Load the model parameters</span>
+<span class="c1"># The quantization_config is optional; use it for very large model; it reduces memory and computational costs by representing weights and activations with lower-precision data types</span>
 <span class="n">quantization_config</span> <span class="o">=</span> <span class="n">BitsAndBytesConfig</span><span class="p">(</span><span class="n">load_in_8bit</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">AutoModelForCausalLM</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="n">llm_model</span><span class="p">,</span><span class="n">cache_dir</span><span class="o">=</span><span class="n">llm_dir</span><span class="p">,</span> <span class="n">device_map</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span><span class="p">,</span> <span class="n">quantization_config</span><span class="o">=</span><span class="n">quantization_config</span><span class="p">)</span>
 <span class="n">tokenizer</span> <span class="o">=</span> <span class="n">AutoTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="n">llm_model</span><span class="p">,</span> <span class="n">cache_dir</span><span class="o">=</span><span class="n">llm_dir</span><span class="p">)</span>
