@@ -11,9 +11,10 @@ parts:
   numbered: false
   chapters:
   - file: slurm_gpu_usage
-  - file: llama-cpp
   - file: transformers
-- caption: Use Cases
+  - file: llama-cpp
+  - file: use_cases
+- caption: Advanced Techniques
   numbered: false
   chapters:
   - file: retrieval
