@@ -13,7 +13,7 @@ parts:
   - file: slurm_gpu_usage
   - file: transformers
   - file: llama-cpp
-  - file: use_cases
+  - file: use_case
 - caption: Advanced Techniques
   numbered: false
   chapters:
