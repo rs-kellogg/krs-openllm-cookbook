@@ -452,27 +452,25 @@ The Llama 2 was trained between January 2023 and July 2023. The Mistral 7B model
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># === Load libraries</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
-<span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">from</span> <span class="nn">llama_index.core</span> <span class="kn">import</span> <span class="n">VectorStoreIndex</span><span class="p">,</span> <span class="n">SimpleDirectoryReader</span>
 <span class="kn">from</span> <span class="nn">llama_index.core</span> <span class="kn">import</span> <span class="n">StorageContext</span><span class="p">,</span> <span class="n">load_index_from_storage</span>
-<span class="kn">from</span> <span class="nn">llama_index.core</span> <span class="kn">import</span> <span class="n">ChatPromptTemplate</span>
-<span class="kn">from</span> <span class="nn">llama_index.core.response_synthesizers</span> <span class="kn">import</span> <span class="n">TreeSummarize</span>
-<span class="kn">from</span> <span class="nn">llama_index.embeddings.openai</span> <span class="kn">import</span> <span class="n">OpenAIEmbedding</span>
 <span class="kn">from</span> <span class="nn">llama_index.core.node_parser</span> <span class="kn">import</span> <span class="n">SentenceSplitter</span>
 <span class="kn">from</span> <span class="nn">llama_index.llms.huggingface</span> <span class="kn">import</span> <span class="n">HuggingFaceLLM</span>
-<span class="kn">from</span> <span class="nn">llama_index.core.llms</span> <span class="kn">import</span> <span class="n">ChatMessage</span><span class="p">,</span> <span class="n">MessageRole</span>
-<span class="kn">import</span> <span class="nn">faiss</span>
+<span class="kn">from</span> <span class="nn">llama_index.embeddings.huggingface</span> <span class="kn">import</span> <span class="n">HuggingFaceEmbedding</span>
 <span class="kn">from</span> <span class="nn">llama_index.vector_stores.faiss</span> <span class="kn">import</span> <span class="n">FaissVectorStore</span>
-<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">faiss</span>
 <span class="kn">import</span> <span class="nn">requests</span>
 <span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
 
 <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">stream</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
 <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">()</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">StreamHandler</span><span class="p">(</span><span class="n">stream</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">))</span>
 
-<span class="c1"># Download web content</span>
+<span class="c1"># === Download web content</span>
 <span class="n">url_link</span> <span class="o">=</span> <span class="s2">&quot;https://mistral.ai/news/announcing-mistral-7b/&quot;</span>
 <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url_link</span><span class="p">)</span>
 <span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">content</span><span class="p">,</span> <span class="s1">&#39;html.parser&#39;</span><span class="p">)</span>
@@ -484,34 +482,11 @@ The Llama 2 was trained between January 2023 and July 2023. The Mistral 7B model
 <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">txt_file</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
     <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">webpage_content</span><span class="p">)</span>
 
-<span class="c1"># openAI api key for using their embedding model</span>
-<span class="n">api_file</span> <span class="o">=</span> <span class="s2">&quot;.env&quot;</span>
-<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">api_file</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-    <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;OPENAI_API_KEY&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-
 <span class="c1"># Settings for embedding model</span>
-<span class="n">embedding_model</span> <span class="o">=</span> <span class="s2">&quot;text-embedding-3-small&quot;</span>
-<span class="n">embed_model</span> <span class="o">=</span> <span class="n">OpenAIEmbedding</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">embedding_model</span><span class="p">)</span>
+<span class="c1"># embedding_name = &quot;BAAI/bge-large-en-v1.5&quot;</span>
+<span class="n">embedding_name</span> <span class="o">=</span> <span class="s2">&quot;intfloat/multilingual-e5-large-instruct&quot;</span>
 <span class="n">embedding_chunk_size</span> <span class="o">=</span> <span class="mi">512</span>
-
-<span class="c1"># 1. Load</span>
-<span class="n">documents</span> <span class="o">=</span> <span class="n">SimpleDirectoryReader</span><span class="p">(</span><span class="n">data_folder</span><span class="p">)</span><span class="o">.</span><span class="n">load_data</span><span class="p">()</span>
-
-<span class="c1"># Set up FAISS vector store</span>
-<span class="n">d</span> <span class="o">=</span> <span class="mi">1536</span> <span class="c1"># embedding dimension</span>
-<span class="n">faiss_index</span> <span class="o">=</span> <span class="n">faiss</span><span class="o">.</span><span class="n">IndexFlatL2</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
-<span class="n">vector_store</span> <span class="o">=</span> <span class="n">FaissVectorStore</span><span class="p">(</span><span class="n">faiss_index</span><span class="o">=</span><span class="n">faiss_index</span><span class="p">)</span>
-
-<span class="n">storage_context</span> <span class="o">=</span> <span class="n">StorageContext</span><span class="o">.</span><span class="n">from_defaults</span><span class="p">(</span><span class="n">vector_store</span><span class="o">=</span><span class="n">vector_store</span><span class="p">)</span>
-<span class="c1"># 4. Store</span>
-<span class="n">index</span> <span class="o">=</span> <span class="n">VectorStoreIndex</span><span class="o">.</span><span class="n">from_documents</span><span class="p">(</span>
-    <span class="n">documents</span><span class="p">,</span> 
-    <span class="c1"># 2. Transform</span>
-    <span class="n">transformations</span><span class="o">=</span><span class="p">[</span><span class="n">SentenceSplitter</span><span class="p">(</span><span class="n">chunk_size</span><span class="o">=</span><span class="n">embedding_chunk_size</span><span class="p">)],</span>
-    <span class="c1"># 3. Embed</span>
-    <span class="n">embed_model</span><span class="o">=</span><span class="n">embed_model</span><span class="p">,</span> 
-    <span class="n">storage_context</span><span class="o">=</span><span class="n">storage_context</span>
-<span class="p">)</span>
+<span class="n">embed_model</span> <span class="o">=</span> <span class="n">HuggingFaceEmbedding</span><span class="p">(</span><span class="n">model_name</span><span class="o">=</span><span class="n">embedding_name</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">512</span><span class="p">)</span>
 
 <span class="c1"># Settings for LLM</span>
 <span class="n">LLAMA2_13B_CHAT</span> <span class="o">=</span> <span class="s2">&quot;/kellogg/data/llm_models_opensource/llama2_meta_huggingface/models--meta-llama--Llama-2-13b-chat-hf/snapshots/29655417e51232f4f2b9b5d3e1418e5a9b04e80e&quot;</span>
@@ -522,36 +497,58 @@ The Llama 2 was trained between January 2023 and July 2023. The Mistral 7B model
     <span class="n">tokenizer_name</span><span class="o">=</span><span class="n">selected_model</span><span class="p">,</span>
     <span class="n">model_name</span><span class="o">=</span><span class="n">selected_model</span><span class="p">,</span>
     <span class="n">device_map</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span><span class="p">,</span>
+    <span class="c1"># generate_kwargs={&quot;temperature&quot;: 0.5, &quot;top_p&quot;: 0.9, &quot;top_k&quot;: 2, &quot;do_sample&quot;: True},</span>
 <span class="p">)</span>
 
-<span class="c1"># 5. Retrieve</span>
-<span class="n">query_engine</span> <span class="o">=</span> <span class="n">index</span><span class="o">.</span><span class="n">as_query_engine</span><span class="p">(</span>
-    <span class="n">llm</span> <span class="o">=</span> <span class="n">llm</span><span class="p">,</span>
+<span class="c1"># === 1. Load</span>
+<span class="n">documents</span> <span class="o">=</span> <span class="n">SimpleDirectoryReader</span><span class="p">(</span><span class="n">data_folder</span><span class="p">)</span><span class="o">.</span><span class="n">load_data</span><span class="p">()</span>
+
+<span class="c1"># Set up FAISS vector store</span>
+<span class="n">d</span> <span class="o">=</span> <span class="mi">1024</span> <span class="c1"># embedding dimension</span>
+<span class="n">faiss_index</span> <span class="o">=</span> <span class="n">faiss</span><span class="o">.</span><span class="n">IndexFlatL2</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+<span class="n">vector_store</span> <span class="o">=</span> <span class="n">FaissVectorStore</span><span class="p">(</span><span class="n">faiss_index</span><span class="o">=</span><span class="n">faiss_index</span><span class="p">)</span>
+<span class="n">storage_context</span> <span class="o">=</span> <span class="n">StorageContext</span><span class="o">.</span><span class="n">from_defaults</span><span class="p">(</span><span class="n">vector_store</span><span class="o">=</span><span class="n">vector_store</span><span class="p">)</span>
+
+<span class="n">index</span> <span class="o">=</span> <span class="n">VectorStoreIndex</span><span class="o">.</span><span class="n">from_documents</span><span class="p">(</span>
+    <span class="n">documents</span><span class="p">,</span> 
+    <span class="c1"># === 2. Transform</span>
+    <span class="n">transformations</span><span class="o">=</span><span class="p">[</span><span class="n">SentenceSplitter</span><span class="p">(</span><span class="n">chunk_size</span><span class="o">=</span><span class="n">embedding_chunk_size</span><span class="p">)],</span>
+    <span class="c1"># === 3. Embed</span>
+    <span class="n">embed_model</span><span class="o">=</span><span class="n">embed_model</span><span class="p">,</span>
+    <span class="c1"># === 4. Store</span>
+    <span class="n">storage_context</span><span class="o">=</span><span class="n">storage_context</span>
 <span class="p">)</span>
+
+<span class="c1"># === 5. Retrieve</span>
+<span class="n">query_engine</span> <span class="o">=</span> <span class="n">index</span><span class="o">.</span><span class="n">as_query_engine</span><span class="p">(</span><span class="n">llm</span><span class="o">=</span><span class="n">llm</span><span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;====================================&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Selected LLM: </span><span class="si">{</span><span class="n">selected_model</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;What is a Mistral 7B language model?&quot;</span>
+<span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;[INST]What is a Mistral 7B language model?[/INST]&quot;</span>
 <span class="n">response</span> <span class="o">=</span> <span class="n">query_engine</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;====================================&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Query: </span><span class="si">{</span><span class="n">query</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Response: &quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;====================================&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Execution time: </span><span class="si">{</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start_time</span><span class="si">}</span><span class="s2"> seconds&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 <p><strong>Output:</strong></p>
-<blockquote>
-<div><p>Selected LLM: /kellogg/data/llm_models_opensource/llama2_meta_huggingface/models–meta-llama–Llama-2-13b-chat-hf/snapshots/29655417e51232f4f2b9b5d3e1418e5a9b04e80e</p>
-<p>INFO:httpx:HTTP Request: POST <a class="reference external" href="https://api.openai.com/v1/embeddings">https://api.openai.com/v1/embeddings</a> “HTTP/1.1 200 OK”</p>
-<p>HTTP Request: POST <a class="reference external" href="https://api.openai.com/v1/embeddings">https://api.openai.com/v1/embeddings</a> “HTTP/1.1 200 OK”</p>
-<p>====================================<br />
-Query: What is a Mistral 7B language model?<br />
-Response:<br />
-Mistral 7B is a 7.3B parameter model that is a powerful language model for its size, outperforming Llama 2 13B on all benchmarks and approaching CodeLlama 7B performance on code. It uses Grouped-query attention (GQA) for faster inference and Sliding Window Attention (SWA) to handle longer sequences at smaller cost. It is released under the Apache 2.0 license and can be used without restrictions.</p>
-</div></blockquote>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Selected LLM: /kellogg/data/llm_models_opensource/llama2_meta_huggingface/models--meta-llama--Llama-2-13b-chat-hf/snapshots/29655417e51232f4f2b9b5d3e1418e5a9b04e80e
+
+Batches:   0%|          | 0/1 [00:00&lt;?, ?it/s]
+Batches: 100%|██████████| 1/1 [00:00&lt;00:00, 66.66it/s]
+====================================
+Query: [INST]What is a Mistral 7B language model?[/INST]
+Response: 
+Based on the provided context information, a Mistral 7B language model is a powerful language model developed by Mistral AI. It is a 7.3 billion parameter model that outperforms other 7B models on various benchmarks and approaches the performance of CodeLlama 7B on code tasks while remaining good at English tasks. The model is released under the Apache 2.0 license and can be used without restrictions. It is easy to fine-tune for any task and has been demonstrated to outperform Llama 2 13B chat.
+====================================
+</pre></div>
+</div>
 </section>
 </section>
 
