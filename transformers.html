@@ -436,8 +436,9 @@ document.write(`
 
 <span class="c1"># 1. Load the model parameters</span>
 <span class="c1"># The quantization_config is optional; use it for very large model; it reduces memory and computational costs by representing weights and activations with lower-precision data types</span>
-<span class="n">quantization_config</span> <span class="o">=</span> <span class="n">BitsAndBytesConfig</span><span class="p">(</span><span class="n">load_in_8bit</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">AutoModelForCausalLM</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="n">llm_model</span><span class="p">,</span><span class="n">cache_dir</span><span class="o">=</span><span class="n">llm_dir</span><span class="p">,</span> <span class="n">device_map</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span><span class="p">,</span> <span class="n">quantization_config</span><span class="o">=</span><span class="n">quantization_config</span><span class="p">)</span>
+<span class="c1"># quantization_config = BitsAndBytesConfig(load_in_8bit=True)</span>
+<span class="c1"># model = AutoModelForCausalLM.from_pretrained(llm_model,cache_dir=llm_dir, device_map=&quot;auto&quot;, quantization_config=quantization_config)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">AutoModelForCausalLM</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="n">llm_model</span><span class="p">,</span><span class="n">cache_dir</span><span class="o">=</span><span class="n">llm_dir</span><span class="p">,</span> <span class="n">device_map</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span><span class="p">)</span>
 <span class="n">tokenizer</span> <span class="o">=</span> <span class="n">AutoTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="n">llm_model</span><span class="p">,</span> <span class="n">cache_dir</span><span class="o">=</span><span class="n">llm_dir</span><span class="p">)</span>
 
 <span class="c1"># For Llama2 chat, need to enclosed your prompt by [INST] and [/INST]</span>
