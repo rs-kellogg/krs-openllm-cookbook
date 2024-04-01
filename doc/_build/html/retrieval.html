@@ -396,18 +396,18 @@ document.write(`
                   
   <section id="font-color-purple-retrieval-augmented-generation-font">
 <h1><font color='purple'><strong>Retrieval Augmented Generation</strong></font><a class="headerlink" href="#font-color-purple-retrieval-augmented-generation-font" title="Permalink to this heading">#</a></h1>
-<p><font color='purple'>Retrieval Augmented Generation (RAG)</font> is a powerful paradigm in natural language processing that combines the strengths of information retrieval and language generation. This approach involves retrieving relevant information from a large dataset and using that information to enhance the generation of accurate text. It can be used as another method to fine-tune your models.</p>
+<p><font color='purple'>Retrieval Augmented Generation (RAG)</font> is a powerful paradigm in natural language processing that combines the strengths of information retrieval and language generation. This approach involves retrieving relevant information from a large dataset and using that information to enhance the generation of accurate text.</p>
 <p>The phrase <font color='purple'>Retrieval Augmented Generation</font> comes from a recent <a class="reference external" href="https://research.facebook.com/publications/retrieval-augmented-generation-for-knowledge-intensive-nlp-tasks/">paper by Lewis et al. from Facebook AI</a>. The idea is to use a pre-trained language model (LM) to generate text, but to use a separate retrieval system to find relevant documents to condition the LM on.</p>
 <section id="font-color-purple-how-it-works-font">
 <h2><font color='purple'><em>How it Works</em></font><a class="headerlink" href="#font-color-purple-how-it-works-font" title="Permalink to this heading">#</a></h2>
 <p>From start to finish, the RAG relies on 5 steps:
 <img alt="RAG steps" src="_images/rag.png" /></p>
 <p><strong>1. Load</strong><br />
-Load documents from different source files (urls, csvs, pdfs, text) in diverse locations (s3 storage, public sites, etc.)</p>
+Load documents from different source files (<em>url, csv, pdf, txt</em>) in diverse locations (s3 storage, public sites, etc.)</p>
 <p><strong>2. Transform</strong><br />
-Retrieval also involves determining the relevant parts of documents. To prepare larger document for retrieval it is often necessary to split or chunk the data.</p>
+Prepare larger documents for retrieval by creating splits or chunks the data.</p>
 <p><strong>3. Embed</strong><br />
-Next embeddings must be created for documents to capture the semantic meaning of the text. This later enables mdoels to efficiently find other pieces of text that are similar.</p>
+Create embeddings for documents to capture the semantic meaning of the text. This later enables models to efficiently find other pieces of text that are similar.</p>
 <p><strong>4. Store</strong><br />
 Vector stores support efficient storage and search of document embeddings.</p>
 <p><strong>5. Retrive</strong><br />
@@ -419,12 +419,10 @@ One the data is organized, the relevant information is retrieved to produce more
 <section id="font-color-purple-sample-uses-cases-font">
 <h2><font color='purple'><em>Sample Uses Cases</em></font><a class="headerlink" href="#font-color-purple-sample-uses-cases-font" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
-<li><p><strong>Question Answering Systems</strong>:<br />
-Retrieve information from vast knowledge bases, such as multiple pdfs or csv files. (example today)</p></li>
-<li><p><strong>Content Creation</strong>:<br />
-Enhance the generation of creative and informative text by pulling in relevant details from a wide range of sources.</p></li>
-<li><p><strong>Conversational Agents</strong>:<br />
-Incorporate external knowledge into responses</p></li>
+<li><p><strong>Question Answering Systems or Conversational Agents</strong>:<br />
+Retrieve information from vast knowledge bases, such as multiple pdf or csv files, and incorporate into response (example today).</p></li>
+<li><p><strong>Context Creation</strong>:<br />
+Enhance the generation of informative text by pulling in relevant details from a wide range of sources.</p></li>
 <li><p><strong>Code Generation</strong>:<br />
 Assist in generating code snippets by retrieving information from programming knowledge bases.</p></li>
 <li><p><strong>Prevent Hallucinations</strong>:<br />
@@ -483,7 +481,6 @@ The Llama 2 was trained between January 2023 and July 2023. The Mistral 7B model
     <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">webpage_content</span><span class="p">)</span>
 
 <span class="c1"># Settings for embedding model</span>
-<span class="c1"># embedding_name = &quot;BAAI/bge-large-en-v1.5&quot;</span>
 <span class="n">embedding_name</span> <span class="o">=</span> <span class="s2">&quot;intfloat/multilingual-e5-large-instruct&quot;</span>
 <span class="n">embedding_chunk_size</span> <span class="o">=</span> <span class="mi">512</span>
 <span class="n">embed_model</span> <span class="o">=</span> <span class="n">HuggingFaceEmbedding</span><span class="p">(</span><span class="n">model_name</span><span class="o">=</span><span class="n">embedding_name</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">512</span><span class="p">)</span>
