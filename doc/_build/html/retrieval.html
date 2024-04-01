@@ -411,8 +411,8 @@ Prepare larger documents for retrieval by creating splits or chunks the data.</p
 Create embeddings for documents to capture the semantic meaning of the text. This later enables models to efficiently find other pieces of text that are similar.</p>
 <p><strong>4. Store</strong><br />
 Vector stores support efficient storage and search of document embeddings.</p>
-<p><strong>5. Retrive</strong><br />
-One the data is organized, the relevant information is retrieved to produce more informed and context-aware responses.</p>
+<p><strong>5. Retrieve</strong><br />
+Relevant information is retrieved to produce more informed and context-aware responses.</p>
 <p>During runtime, this blending of retrieval and generation enhances the richness and relevance of the generated content.
 <img alt="RAG runtime" src="_images/basic_rag.png" /></p>
 <p><em>Taken from: <span class="xref myst">https://docs.llamaindex.ai/en/stable/_static/getting_started/basic_rag.png</span></em></p>
@@ -433,8 +433,8 @@ Bring in external knowledge to check whether a GPT response is a hallucination.<
 <section id="font-color-purple-example-retrieving-information-non-existent-in-training-font">
 <h2><font color='purple'><em>Example: Retrieving Information Non-existent in Training</em></font><a class="headerlink" href="#font-color-purple-example-retrieving-information-non-existent-in-training-font" title="Permalink to this heading">#</a></h2>
 <p>One way to use RAG is to feed the LLM with up-to-date information.<br />
-The Llama 2 was trained between January 2023 and July 2023. The Mistral 7B model was released in September, 2023. Let’s ask LLama2 a question about the Mistral 7B model.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Run the query throught Llama2 13B chat model with test_llama2.py  </span>
+The Llama 2 was trained between January 2023 and July 2023. The Mistral 7B model was released in September 2023. Let’s ask LLama2 a question about the Mistral 7B model.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Run the query through Llama2 13B chat model with test_llama2.py  </span>
 <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;[INST]What is a Mistral 7B language model?[/INST]&quot;</span>
 </pre></div>
 </div>
