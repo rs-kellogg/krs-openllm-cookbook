@@ -173,9 +173,9 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Running Open Source LLMs on KLC</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#"><font color="purple"><strong>SLURM Jobs and GPU Usage</strong></font></a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">SLURM Jobs and GPU Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="transformers.html"><font color="purple"><strong>Using Transformers to run LLMs</strong></font></a></li>
-<li class="toctree-l1"><a class="reference internal" href="llama-cpp.html"><font color="purple"><strong>Using llama_cpp_Python to run LLMs</strong></font></a></li>
+<li class="toctree-l1"><a class="reference internal" href="llama-cpp.html">Using llama_cpp_python to run LLMs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="use_case.html"><font color="purple"><strong>Example Use Case</strong></font></a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Advanced Techniques</span></p>
@@ -370,7 +370,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1><font color='purple'>SLURM Jobs and GPU Usage</font></h1>
+    <h1>SLURM Jobs and GPU Usage</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -380,6 +380,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-1-understanding-parallel-computing-font"><font color="purple">1.) Understanding Parallel Computing</font></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-1-sample-python-code-font"><font color="purple">1.) Sample Python Code</font></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-2-slurm-script-font"><font color="purple">2.) SLURM Script</font></a></li>
 </ul>
@@ -393,10 +394,22 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section id="font-color-purple-slurm-jobs-and-gpu-usage-font">
-<h1><font color='purple'><strong>SLURM Jobs and GPU Usage</strong></font><a class="headerlink" href="#font-color-purple-slurm-jobs-and-gpu-usage-font" title="Permalink to this heading">#</a></h1>
-<p>The open-source LLMs can consist of model and model weights with billions of parameters.  In order to speed up the processing, we will be running these models on Quest GPU nodes. To access these nodes, you will need a Quest allocation. You can request a Quest allocation here: <a class="reference external" href="https://www.it.northwestern.edu/departments/it-services-support/research/computing/quest/general-access-allocation-types.html">https://www.it.northwestern.edu/departments/it-services-support/research/computing/quest/general-access-allocation-types.html</a>.</p>
-<p>Today, we’ll submit jobs to the Quest GPU nodes through a <font color='purple'>SLURM</font> (scheduler) script.</p>
+  <section id="slurm-jobs-and-gpu-usage">
+<h1>SLURM Jobs and GPU Usage<a class="headerlink" href="#slurm-jobs-and-gpu-usage" title="Permalink to this heading">#</a></h1>
+<!-- <font color='purple'>SLURM Jobs and GPU Usage</font> -->
+<p>In this workshop, we’ll leverage the power of Quest GPU nodes to run our open-source LLMs. To do so, please use the temporary Quest allocation: <font color='purple'><strong>pXXXXXX</strong></font>.</p>
+<p>Afterwards, you can request your own Quest allocation here: <a class="reference external" href="https://www.it.northwestern.edu/departments/it-services-support/research/computing/quest/general-access-allocation-types.html">https://www.it.northwestern.edu/departments/it-services-support/research/computing/quest/general-access-allocation-types.html</a>.</p>
+<section id="font-color-purple-1-understanding-parallel-computing-font">
+<h2><font color='purple'>1.) Understanding Parallel Computing</font><a class="headerlink" href="#font-color-purple-1-understanding-parallel-computing-font" title="Permalink to this heading">#</a></h2>
+<p>The purpose of running our LLMs on GPU nodes is primarily to speed up calculations and processing.  In order to understand this, you’ll often hear us talk about <font color='purple'>CPUs</font>, <font color='purple'>GPUs</font>, and <font color='purple'>CUDA</font>.  This section breaks down these terms.</p>
+<p>Much like your own computer, some of our KLC and Quest nodes are equipped with both processors and graphics cards. A processor or <font color='purple'>central processing unit (CPU)</font> is responsible for all the mathematical and logical calculations on a node. In a nutshell it runs code. While CPUs are extremely powerful and complete most tasks in an infinitesimally short amount of time, it is important to note that a CPU core can only handle one task a a time and runs things sequentially.</p>
+<img src="cpu.png" width="500" height="200" style="display: block; margin-left: auto; margin-right: auto;">
+<p>One way to speed up processing is through parallel computing. Parallel computing is a method of solving a single problem by breaking it down into smaller chunks that can run simultaneously.  This is essentially taking a task and distributing it over multiple CPUs.</p>
+<p>Conversely, a graphics card or <font color='purple'>graphics processing unit (GPU)</font> is a specialized hardware component that can efficiently handle parallel mathematical operations. In comparison to the 24 cores you are entitled to use on KLC, a A100 GPU contains 6,912 <font color='purple'>CUDA</font> cores.  Whiel a CUDA core is less powerful than an individual CPU core, the sheer volume of them make them ideal for handling large amounts of computations in parallel. If GPUs are so much better at parallelization than CPUs, why aren’t all tasks given to GPUs?</p>
+<p>While parallelizing tasks often makes them run more quickly, it is important to note that some tasks actually take longer if parallelized.  For instance, searching a sorted list for a specific value.  If you take a list and divide it among multiple CPUs, each CPU will search a portion of that list for the given value. Once each individual CPU search is complete, the different cores then have to communicate and coordinate with one another to determine the final answer.  If the list is relatively small, the coordination across cores might actually take longer than having a single CPU core compelte the task alone.</p>
+<p>The potentially inefficiency of parallelization raises the question of how your system know when to send a task to CPUs or to GPUs? This is where CUDA comes in.  <font color='purple'>CUDA (compute unified device architecture)</font> is a powerful platform that helps computer programs run faster. We use it to solve performance intensitve problems. cuda is software but also embedded in hardware. CUDA allows you to switch between cpu processing and gpu processing for certain tasks.</p>
+<img src="cuda.png" width="500" height="250" style="display: block; margin-left: auto; margin-right: auto;">
+</section>
 <section id="font-color-purple-1-sample-python-code-font">
 <h2><font color='purple'>1.) Sample Python Code</font><a class="headerlink" href="#font-color-purple-1-sample-python-code-font" title="Permalink to this heading">#</a></h2>
 <p>To get started with the GPU nodes, here is some sample Python script. The code below allows you to test whether GPUs are available and runs tensors. This file is located in <font color='purple'><strong>/kellogg/admin/gpu_test_files/pytorch_gpu_test.py</strong></font>.</p>
@@ -438,7 +451,7 @@ document.write(`
 </section>
 <section id="font-color-purple-2-slurm-script-font">
 <h2><font color='purple'>2.) SLURM Script</font><a class="headerlink" href="#font-color-purple-2-slurm-script-font" title="Permalink to this heading">#</a></h2>
-<p>So long as you have a Quest allocation, you can launch the sample python code using this SLURM script.</p>
+<p>Today, we’ll submit jobs to the Quest GPU nodes through a <font color='purple'>SLURM</font> (scheduler) script. So long as you have a Quest allocation, you can launch the sample python code using this SLURM script.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
@@ -540,6 +553,7 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-1-understanding-parallel-computing-font"><font color="purple">1.) Understanding Parallel Computing</font></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-1-sample-python-code-font"><font color="purple">1.) Sample Python Code</font></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-2-slurm-script-font"><font color="purple">2.) SLURM Script</font></a></li>
 </ul>

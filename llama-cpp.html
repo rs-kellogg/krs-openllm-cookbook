@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Using llama_cpp_Python to run LLMs &#8212; Kellogg Research Support Open Source LLM Cookbook</title>
+    <title>Using llama_cpp_python to run LLMs &#8212; Kellogg Research Support Open Source LLM Cookbook</title>
   
   
   
@@ -173,9 +173,9 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Running Open Source LLMs on KLC</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="slurm_gpu_usage.html"><font color="purple"><strong>SLURM Jobs and GPU Usage</strong></font></a></li>
+<li class="toctree-l1"><a class="reference internal" href="slurm_gpu_usage.html">SLURM Jobs and GPU Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="transformers.html"><font color="purple"><strong>Using Transformers to run LLMs</strong></font></a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#"><font color="purple"><strong>Using llama_cpp_Python to run LLMs</strong></font></a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Using llama_cpp_python to run LLMs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="use_case.html"><font color="purple"><strong>Example Use Case</strong></font></a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Advanced Techniques</span></p>
@@ -370,7 +370,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1><font color='purple'>Using llama_cpp_Python to run LLMs</font></h1>
+    <h1>Using llama_cpp_python to run LLMs</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -392,8 +392,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section id="font-color-purple-using-llama-cpp-python-to-run-llms-font">
-<h1><font color='purple'><strong>Using llama_cpp_Python to run LLMs</strong></font><a class="headerlink" href="#font-color-purple-using-llama-cpp-python-to-run-llms-font" title="Permalink to this heading">#</a></h1>
+  <section id="using-llama-cpp-python-to-run-llms">
+<h1>Using llama_cpp_python to run LLMs<a class="headerlink" href="#using-llama-cpp-python-to-run-llms" title="Permalink to this heading">#</a></h1>
 <p><code class="docutils literal notranslate"><span class="pre">llama_cpp_python</span></code> is a Python wrapper for the C/C++ implementation of Meta’s LLaMa architecture. It provides access to powerful open-source large language models (LLMs) built with the Llama-cpp framework, enabling tasks like text generation and translation.  For more information see this repo on llama.cpp (<a class="github reference external" href="https://github.com/ggerganov/llama.cpp">ggerganov/llama.cpp</a>), this for the python wrapper (<a class="github reference external" href="https://github.com/abetlen/llama-cpp-python">abetlen/llama-cpp-python</a>), or this overview (<a class="reference external" href="https://www.datacamp.com/tutorial/llama-cpp-tutorial">https://www.datacamp.com/tutorial/llama-cpp-tutorial</a>)_</p>
 <p>To run llama_cpp_python, you can download any compatible model and model weights.  We provive sample code for 3 different models</p>
 <ul class="simple">
@@ -404,9 +404,9 @@ document.write(`
 <p>Here is some sample code for the a gemma 7B instruct model:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1">#############################</span>
-<span class="c1"># Llama_cpp using Gemma model</span>
-<span class="c1">#############################</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1">#################################</span>
+<span class="c1"># Gemma test code with llama_cpp</span>
+<span class="c1">#################################</span>
 <span class="c1"># libraries</span>
 <span class="kn">from</span> <span class="nn">llama_cpp</span> <span class="kn">import</span> <span class="n">Llama</span>
 
@@ -467,11 +467,12 @@ document.write(`
 <span class="n">module</span> <span class="n">purge</span>
 <span class="n">module</span> <span class="n">use</span> <span class="n">modulefiles</span>
 <span class="n">module</span> <span class="n">load</span> <span class="n">llama_cpp</span><span class="o">/</span><span class="mf">2.38</span>
-<span class="n">python3</span> <span class="o">/</span><span class="n">code</span><span class="o">/</span><span class="n">llama_cpp_test</span><span class="o">.</span><span class="n">py</span>
+<span class="n">python3</span> <span class="o">/</span><span class="n">code</span><span class="o">/</span><span class="n">gemma_test</span><span class="o">.</span><span class="n">py</span>
 </pre></div>
 </div>
 </div>
 </div>
+<p>Likewise, you can launch similar code for the mistral and llama2 models using the sample mistral_test.py and llama2_test.py files, respectively.  Each of these files are also found in the code subfolder.</p>
 </section>
 </section>
 
