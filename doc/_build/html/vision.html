@@ -357,7 +357,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -373,6 +375,15 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-run-bakllava-model-with-transformers-font"><font color="purple">Run bakllava model with transformers</font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-run-bakllava-model-with-llama-cpp-python-font"><font color="purple">Run bakllava model with llama_cpp_python</font></a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -384,6 +395,79 @@ document.write(`
                   
   <section id="font-color-purple-process-images-with-bakllava-font">
 <h1><font color='purple'><strong>Process Images with bakllava</strong></font><a class="headerlink" href="#font-color-purple-process-images-with-bakllava-font" title="Permalink to this heading">#</a></h1>
+<section id="font-color-purple-run-bakllava-model-with-transformers-font">
+<h2><font color='purple'>Run bakllava model with transformers</font><a class="headerlink" href="#font-color-purple-run-bakllava-model-with-transformers-font" title="Permalink to this heading">#</a></h2>
+<p>Here is some sample code that uses the bakllava model:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
+
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">AutoProcessor</span><span class="p">,</span> <span class="n">LlavaForConditionalGeneration</span>
+
+<span class="c1"># https://huggingface.co/llava-hf/bakLlava-v1-hf</span>
+<span class="n">llm_model</span> <span class="o">=</span> <span class="s2">&quot;llava-hf/bakLlava-v1-hf&quot;</span>
+<span class="n">llm_dir</span> <span class="o">=</span> <span class="s2">&quot;/kellogg/data/llm_models_opensource/bakLlava&quot;</span>
+
+<span class="n">prompt</span> <span class="o">=</span> <span class="s2">&quot;USER: &lt;image&gt;</span><span class="se">\n</span><span class="s2">You are a new mom aged between 25 and 30 taking a marketing survey. Can you describe in details how the diaper packaging appeal to you?</span><span class="se">\n</span><span class="s2">ASSISTANT:&quot;</span>
+<span class="n">image_file</span> <span class="o">=</span> <span class="s2">&quot;https://i5.walmartimages.com/seo/Baby-Diapers-Newborn-Size-0-10-lb-120-Count-Pampers-Swaddlers-ONEMONTH-SUPPLY-Packaging-May-Vary_95ea2d1c-769a-4ec2-8da8-7e6ea4829e55.3c890f8095b5b30ae263c996151f9575.jpeg&quot;</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">LlavaForConditionalGeneration</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span>
+    <span class="n">llm_model</span><span class="p">,</span> 
+    <span class="n">torch_dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float16</span><span class="p">,</span> 
+    <span class="n">low_cpu_mem_usage</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> 
+    <span class="n">cache_dir</span><span class="o">=</span><span class="n">llm_dir</span><span class="p">,</span>
+<span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">processor</span> <span class="o">=</span> <span class="n">AutoProcessor</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="n">llm_model</span><span class="p">)</span>
+
+<span class="n">raw_image</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">image_file</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">raw</span><span class="p">)</span>
+<span class="n">inputs</span> <span class="o">=</span> <span class="n">processor</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="n">raw_image</span><span class="p">,</span> <span class="n">return_tensors</span><span class="o">=</span><span class="s1">&#39;pt&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">float16</span><span class="p">)</span>
+
+<span class="n">output</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="o">**</span><span class="n">inputs</span><span class="p">,</span> <span class="n">max_new_tokens</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span> <span class="n">do_sample</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">processor</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">output</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">2</span><span class="p">:],</span> <span class="n">skip_special_tokens</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Output:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Loading checkpoint shards:   0%|          | 0/4 [00:00&lt;?, ?it/s]
+Loading checkpoint shards:  25%|██▌       | 1/4 [00:00&lt;00:01,  1.61it/s]
+Loading checkpoint shards:  75%|███████▌  | 3/4 [00:00&lt;00:00,  4.81it/s]
+Loading checkpoint shards: 100%|██████████| 4/4 [00:00&lt;00:00,  5.02it/s]
+Special tokens have been added in the vocabulary, make sure the associated word embeddings are fine-tuned or trained.
+ER:  
+You are a new mom aged between 25 and 30 taking a marketing survey. Can you describe in details how the diaper packaging appeal to you?
+ASSISTANT: The diaper packaging appeals to me as it features a heartwarming image of a parent holding a newborn baby, which evokes feelings of love, care, and the joy of parenthood. The baby is shown resting comfortably in a padded swaddler, which provides a sense of security and warmth for the infant. The swaddler also helps soothe colicky babies, ensuring better sleep for both the baby and the parents. The image on the packaging connects with new parents like me, as it represents the tender moments we experience with our newborns, and it makes me feel that the diaper brand understands the importance of bonding and comfort during this special time in our lives.
+</pre></div>
+</div>
+<p>Here is a sample slurm script for runnning the above python code.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+
+<span class="c1">#SBATCH -A your_quest_allocation_account</span>
+<span class="c1">#SBATCH -p gengpu</span>
+<span class="c1">#SBATCH --gres=gpu:a100:1</span>
+<span class="c1">#SBATCH -N 1</span>
+<span class="c1">#SBATCH -n 1</span>
+<span class="c1">#SBATCH -t 0:30:00</span>
+<span class="c1">#SBATCH --mem=40G</span>
+
+<span class="n">module</span> <span class="n">purge</span>
+<span class="n">module</span> <span class="n">load</span> <span class="n">mamba</span><span class="o">/</span><span class="mf">23.1.0</span>
+<span class="n">source</span> <span class="o">/</span><span class="n">hpc</span><span class="o">/</span><span class="n">software</span><span class="o">/</span><span class="n">mamba</span><span class="o">/</span><span class="mf">23.1.0</span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">profile</span><span class="o">.</span><span class="n">d</span><span class="o">/</span><span class="n">conda</span><span class="o">.</span><span class="n">sh</span>
+<span class="n">source</span> <span class="n">activate</span> <span class="o">/</span><span class="n">kellogg</span><span class="o">/</span><span class="n">software</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">gpu</span><span class="o">-</span><span class="n">llama2</span>
+
+<span class="n">python</span> <span class="n">test_bakllava</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="font-color-purple-run-bakllava-model-with-llama-cpp-python-font">
+<h2><font color='purple'>Run bakllava model with llama_cpp_python</font><a class="headerlink" href="#font-color-purple-run-bakllava-model-with-llama-cpp-python-font" title="Permalink to this heading">#</a></h2>
 <p>Here is some sample code that uses the bakllava model:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -443,6 +527,7 @@ document.write(`
 </div>
 </div>
 </section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -498,6 +583,21 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-run-bakllava-model-with-transformers-font"><font color="purple">Run bakllava model with transformers</font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-run-bakllava-model-with-llama-cpp-python-font"><font color="purple">Run bakllava model with llama_cpp_python</font></a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
