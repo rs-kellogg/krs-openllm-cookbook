@@ -450,12 +450,8 @@ document.write(`
 </section>
 <section id="font-color-purple-sample-gpu-python-code-font">
 <h2><font color='purple'><em>Sample GPU Python Code</em></font><a class="headerlink" href="#font-color-purple-sample-gpu-python-code-font" title="Permalink to this heading">#</a></h2>
-<p>To get started with the GPU nodes, here is a sample Python script. The code below allows you to test whether GPUs are available on a node and runs tensors. This file is located in <font color='purple'><strong>/kellogg/software/gpu_test_files/pytorch_gpu_test.py</strong></font>.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># pytorch_gpu_test.py</span>
-
-<span class="kn">import</span> <span class="nn">torch</span>
+<p>To get started with the GPU nodes, here is a sample Python script. The code below allows you to test whether GPUs are available on a node and runs tensors. This file is located in the course <a class="reference external" href="https://github.com/rs-kellogg/krs-openllm-cookbook/blob/main/scripts/slurm_basics">github repository</a></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
 
 <span class="c1"># Check if CUDA is available</span>
 <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">():</span>
@@ -484,11 +480,9 @@ document.write(`
 <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-</div>
 <div class="admonition-northwestern-gpu-resources admonition">
 <p class="admonition-title">Northwestern GPU Resources:</p>
-<p><a class="reference external" href="https://services.northwestern.edu/TDClient/30/Portal/KB/ArticleDet?ID=1112">Quest</a> has dozens of Nvidia-based GPU nodes available for use. We will show you how to access them via <a class="reference external" href="https://services.northwestern.edu/TDClient/30/Portal/KB/ArticleDet?ID=2234">Quest on Demand</a> and using the <a class="reference external" href="https://services.northwestern.edu/TDClient/30/Portal/KB/ArticleDet?ID=1964">Slurm scheduler</a>. Both of these methods require that you are part of a Quest allocation.</p>
+<p><a class="reference external" href="https://services.northwestern.edu/TDClient/30/Portal/KB/ArticleDet?ID=1112">Quest</a> has dozens of Nvidia-based GPU nodes available for use. We will show you how to access them via a Jupyter notebook using <a class="reference external" href="https://services.northwestern.edu/TDClient/30/Portal/KB/ArticleDet?ID=2234">Quest on Demand</a> and using the <a class="reference external" href="https://services.northwestern.edu/TDClient/30/Portal/KB/ArticleDet?ID=1964">Slurm scheduler</a>. Both of these methods require that you are part of a Quest allocation.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -498,25 +492,26 @@ document.write(`
 <section id="font-color-purple-slurm-script-to-access-gpu-nodes-font">
 <h2><font color='purple'><em>SLURM Script to Access GPU Nodes</em></font><a class="headerlink" href="#font-color-purple-slurm-script-to-access-gpu-nodes-font" title="Permalink to this heading">#</a></h2>
 <p>For this workshop, we’ll submit jobs to the Quest GPU nodes through a <font color='purple'>SLURM</font> (scheduler) script. You can launch the sample python code using this script.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
 <span class="c1">#SBATCH --account=e32337</span>
 <span class="c1">#SBATCH --partition gengpu</span>
 <span class="c1">#SBATCH --nodes=1</span>
 <span class="c1">#SBATCH --ntasks-per-node=1</span>
 <span class="c1">#SBATCH --gres=gpu:a100:1</span>
+<span class="c1">#SBATCH --constraint=pcie</span>
 <span class="c1">#SBATCH --time 0:30:00</span>
 <span class="c1">#SBATCH --mem=40G</span>
+<span class="c1">#SBATCH --output=/projects/e32337/slurm-output/slurm-%j.out</span>
 
-<span class="n">module</span> <span class="n">purge</span>
-<span class="n">module</span> <span class="n">load</span> <span class="n">python</span>
-<span class="n">source</span> <span class="n">activate</span> <span class="o">/</span><span class="n">kellogg</span><span class="o">/</span><span class="n">software</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">gpu</span><span class="o">-</span><span class="n">pytorch</span>
+
+<span class="n">module</span> <span class="n">purge</span> <span class="nb">all</span>
+<span class="n">module</span> <span class="n">use</span> <span class="o">--</span><span class="n">append</span> <span class="o">/</span><span class="n">kellogg</span><span class="o">/</span><span class="n">software</span><span class="o">/</span><span class="n">Modules</span><span class="o">/</span><span class="n">modulefiles</span>
+<span class="n">module</span> <span class="n">load</span> <span class="n">micromamba</span><span class="o">/</span><span class="n">latest</span>
+<span class="n">source</span> <span class="o">/</span><span class="n">kellogg</span><span class="o">/</span><span class="n">software</span><span class="o">/</span><span class="n">Modules</span><span class="o">/</span><span class="n">modulefiles</span><span class="o">/</span><span class="n">micromamba</span><span class="o">/</span><span class="n">load_hook</span><span class="o">.</span><span class="n">sh</span>
+<span class="n">micromamba</span> <span class="n">activate</span> <span class="o">/</span><span class="n">kellogg</span><span class="o">/</span><span class="n">software</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">llm</span><span class="o">-</span><span class="n">test</span><span class="o">-</span><span class="n">env</span>
 <span class="n">python</span> <span class="n">pytorch_gpu_test</span><span class="o">.</span><span class="n">py</span>
 </pre></div>
-</div>
-</div>
 </div>
 <p>Breaking down this script:</p>
 <ul class="simple">
@@ -524,7 +519,8 @@ document.write(`
 <li><p><code class="docutils literal notranslate"><span class="pre">--partition=gengpu</span></code> directs you to GPU nodes on the Quest Genomics Cluster</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--nodes=1</span></code> specifies that the job will be run on 1 node of the cluster.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--ntasks-per-node=1</span></code> this line specifies how many cores of the node you will use. Setting <code class="docutils literal notranslate"><span class="pre">--ntasks-per-node=2</span></code> will run your script on two cores of the node. Only adjust this parameter if your code is parallelizable, otherwise it will slow down the processing speed.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">--gres=gpu:a100:1</span></code> GRES stand for `Generic Resources’. This line specifies that the job requires 1 GPU of type “a100”.  By excluding this line, your job will be restricted to CPU resources.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--gres=gpu:a100:1</span></code> This line specifies that the job requires 1 GPU of type “a100”.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--constraint=pcie</span></code> Specifies the type of A100 preferred, <a class="reference external" href="https://services.northwestern.edu/TDClient/30/Portal/KB/ArticleDet?ID=1112">choices</a> are “sxm” (80GB of GPU memory) or “pcie” (40GB of GPU memory)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--time==00:30:00</span></code> indicates that this job will be allowed to run for up to 30 minutes.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--mem</span></code> specifies how much memory you are requesting.</p></li>
 </ul>
