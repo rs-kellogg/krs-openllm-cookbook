@@ -518,6 +518,29 @@ document.write(`
 <span class="n">python</span> <span class="n">test_llama2</span><span class="o">.</span><span class="n">py</span>
 </pre></div>
 </div>
+<p>Output:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Loading checkpoint shards:   0%|          | 0/2 [00:00&lt;?, ?it/s]
+Loading checkpoint shards:  50%|█████     | 1/2 [00:08&lt;00:08,  8.81s/it]
+Loading checkpoint shards: 100%|██████████| 2/2 [00:11&lt;00:00,  5.48s/it]
+Loading checkpoint shards: 100%|██████████| 2/2 [00:11&lt;00:00,  5.98s/it]
+=== Loading time: 16.65569519996643 seconds
+=== Customized setting:
+    max_new_tokens: 400
+    do_sample: True
+    temperature: 0.8
+====================
+LLM model: meta-llama/Llama-2-7b-chat-hf
+Query: [INST] Tell a fun fact about Kellogg Business School. [/INST]
+Response: 
+[INST] Tell a fun fact about Kellogg Business School. [/INST]  Here&#39;s a fun fact about the Kellogg School of Management at Northwestern University:
+
+Did you know that the Kellogg School of Management has its own on-campus ice cream shop? Yes, you read that right! The Kellogg Ice Cream Shop is a popular spot on campus where students can indulge in their sweet tooth and enjoy a variety of ice cream flavors, including some unique and creative flavors like &quot;Chocolate Chip Cookie Dough&quot; and &quot;Cinnamon Swirl.&quot; The shop is run by students in the Kellogg School of Management&#39;s Food, Self, and Society course, which focuses on the business of food and the social and cultural impact of food systems. So, next time you&#39;re at Northwestern University, be sure to stop by the Kellogg Ice Cream Shop and enjoy a sweet treat while learning about the business of ice cream!
+====================
+Execution time: 23.751539945602417 seconds
+Finished at: 2024-04-03 11:05:05
+====================
+</pre></div>
+</div>
 </section>
 <section id="font-color-purple-run-mistral-model-with-transformers-font">
 <h2><font color='purple'>Run Mistral model with transformers</font><a class="headerlink" href="#font-color-purple-run-mistral-model-with-transformers-font" title="Permalink to this heading">#</a></h2>
