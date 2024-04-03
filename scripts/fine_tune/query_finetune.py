@@ -1,6 +1,6 @@
-#############################
-# Fine Tune - Initial Query
-#############################
+################################
+# Fine Tune - Query Merged Model
+################################
 
 # import libraries
 import torch
