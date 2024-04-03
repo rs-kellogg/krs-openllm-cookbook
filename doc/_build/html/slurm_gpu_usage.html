@@ -169,11 +169,11 @@ const thebe_selector_output = ".output, .cell_output"
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction to Open Source Large Language Models (LLMs)</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html"><font color="purple">Introduction</font></a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Running Open Source LLMs on KLC</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">SLURM Jobs and GPU Usage</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#"><font color="purple">SLURM Jobs and GPU Usage</font></a></li>
 <li class="toctree-l1"><a class="reference internal" href="transformers.html"><font color="purple"><strong>Using Transformers to run LLMs</strong></font></a></li>
 <li class="toctree-l1"><a class="reference internal" href="llama-cpp.html">Using llama_cpp_python to run LLMs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="use_case.html"><font color="purple"><strong>Example Use Case</strong></font></a></li>
@@ -370,7 +370,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>SLURM Jobs and GPU Usage</h1>
+    <h1><font color='purple'>SLURM Jobs and GPU Usage</font></h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -380,16 +380,17 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-understanding-parallel-computing-font"><font color="purple"><em>Understanding Parallel Computing</em></font></a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-parallel-computing-for-llms-font"><font color="purple"><em>Parallel Computing for LLMs</em></font></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-cpus-font"><font color="purple"><strong>CPUs</strong></font></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-gpus-font"><font color="purple"><strong>GPUs</strong></font></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-limitations-of-parallel-computing-font"><font color="purple"><strong>Limitations of Parallel Computing</strong></font></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-cuda-font"><font color="purple"><strong>CUDA</strong></font></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-sample-gpu-python-code-font"><font color="purple"><em>Sample GPU Python Code</em></font></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-slurm-script-to-access-gpu-nodes-font"><font color="purple"><em>SLURM Script to Access GPU Nodes</em></font></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-reference-sources-font"><font color="purple"><em>Reference Sources</em></font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-slurm-script-to-access-gpu-nodes-font"><font color="purple"><em>SLURM Script to Access GPU Nodes</em></font></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-reference-sources-font"><font color="purple"><em>Reference Sources</em></font></a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -401,13 +402,15 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section id="slurm-jobs-and-gpu-usage">
-<h1>SLURM Jobs and GPU Usage<a class="headerlink" href="#slurm-jobs-and-gpu-usage" title="Permalink to this heading">#</a></h1>
-<!-- <font color='purple'>SLURM Jobs and GPU Usage</font> -->
+  <section class="tex2jax_ignore mathjax_ignore" id="font-color-purple-slurm-jobs-and-gpu-usage-font">
+<h1><font color='purple'>SLURM Jobs and GPU Usage</font><a class="headerlink" href="#font-color-purple-slurm-jobs-and-gpu-usage-font" title="Permalink to this heading">#</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <p>In this workshop, we’ll leverage the power of Quest GPU nodes to run our open-source LLMs. To do so, please use the temporary Quest allocation: <font color='purple'><strong>e32337</strong></font>.</p>
-<p>Afterwards, you can request your own Quest allocation here: <a class="reference external" href="https://www.it.northwestern.edu/departments/it-services-support/research/computing/quest/general-access-allocation-types.html">https://www.it.northwestern.edu/departments/it-services-support/research/computing/quest/general-access-allocation-types.html</a>.</p>
-<section id="font-color-purple-understanding-parallel-computing-font">
-<h2><font color='purple'><em>Understanding Parallel Computing</em></font><a class="headerlink" href="#font-color-purple-understanding-parallel-computing-font" title="Permalink to this heading">#</a></h2>
+<p>Afterwards, you can request your own Quest allocation <a class="reference external" href="https://www.it.northwestern.edu/departments/it-services-support/research/computing/quest/general-access-allocation-types.html">here</a></p>
+</div>
+<section id="font-color-purple-parallel-computing-for-llms-font">
+<h2><font color='purple'><em>Parallel Computing for LLMs</em></font><a class="headerlink" href="#font-color-purple-parallel-computing-for-llms-font" title="Permalink to this heading">#</a></h2>
 <p>The purpose of running our LLMs on GPU nodes is largely to speed up processing.  In order to understand this, you’ll often hear us talk about <font color='purple'><strong>CPUs</strong></font>, <font color='purple'><strong>GPUs</strong></font>, and <font color='purple'><strong>CUDA</strong></font>.  This section breaks down these terms.</p>
 <section id="font-color-purple-cpus-font">
 <h3><font color='purple'><strong>CPUs</strong></font><a class="headerlink" href="#font-color-purple-cpus-font" title="Permalink to this heading">#</a></h3>
@@ -432,18 +435,22 @@ document.write(`
 </section>
 <section id="font-color-purple-limitations-of-parallel-computing-font">
 <h3><font color='purple'><strong>Limitations of Parallel Computing</strong></font><a class="headerlink" href="#font-color-purple-limitations-of-parallel-computing-font" title="Permalink to this heading">#</a></h3>
-<p>If GPUs are so much better at parallelization than CPUs, why aren’t all tasks given to GPUs?  While parallelizing tasks often makes them run more quickly, it is important to note that some tasks actually take longer if parallelized.  For instance, searching a sorted list for a specific value might run faster without parallelization.  If you take a list and divide it among multiple CPUs, each CPU will search a portion of that list for the given value. Once each individual CPU search is complete, the different cores then have to communicate and coordinate with one another to determine the final answer.  If the list is relatively small, the coordination across cores might actually take longer than having a single CPU core complete the task alone.</p>
-</section>
-<section id="font-color-purple-cuda-font">
-<h3><font color='purple'><strong>CUDA</strong></font><a class="headerlink" href="#font-color-purple-cuda-font" title="Permalink to this heading">#</a></h3>
-<p>The potential inefficiency of parallelization raises the question of how your system knows when to send a task to CPUs or to GPUs? This is where <font color='purple'><strong>CUDA</strong></font> comes in.  <font color='purple'><strong>CUDA (compute unified device architecture)</strong></font> is a powerful platform that helps computer programs run faster. On the GPU nodes, we use it to solve performance intensive problems by optimizing when to allocate certains tasks to CPU processing or GPU processing.</p>
+<p>If GPUs are so much better at parallelization than CPUs, why aren’t all tasks given to GPUs?</p>
+<ul class="simple">
+<li><p>Some tasks simply can’t be parallelized, if the input to one depends on the output from another. In this case, they must be run in serial for logical reasons.</p></li>
+<li><p>Even when parallelization is possible, some tasks actually take longer if parallelized.  For instance, searching a sorted list for a specific value might run faster without parallelization.  If you take a list and divide it among multiple CPUs, each CPU will search a portion of that list for the given value. Once each individual CPU search is complete, the different cores then have to communicate and coordinate with one another to determine the final answer.  If the list is relatively small, the coordination across cores might actually take longer than having a single CPU core complete the task alone.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The potential inefficiency of parallelization raises the question of how your system knows when to send a task to CPUs or to GPUs? For Nvidia-based GPU’s, this is where <font color='purple'><strong>CUDA</strong></font> comes in.  <font color='purple'><strong>CUDA (Compute Unified Device Architecture)</strong></font> is a powerful platform that helps computer programs run faster. On the GPU nodes, we use it to solve performance intensive problems by optimizing when to allocate certains tasks to CPU processing or GPU processing.</p>
 <p>In the image below, CUDA determines which tasks to delegate to GPUs or to CPUs.</p>
+</div>
 <!-- <img src="images/giffy_gif.gif" style="display: block; margin-left: auto; margin-right: auto;"> -->
 </section>
 </section>
 <section id="font-color-purple-sample-gpu-python-code-font">
 <h2><font color='purple'><em>Sample GPU Python Code</em></font><a class="headerlink" href="#font-color-purple-sample-gpu-python-code-font" title="Permalink to this heading">#</a></h2>
-<p>To get started with the GPU nodes, here is a sample Python script. The code below allows you to test whether GPUs are available on a node and runs tensors. This file is located in <font color='purple'><strong>/kellogg/admin/gpu_test_files/pytorch_gpu_test.py</strong></font>.</p>
+<p>To get started with the GPU nodes, here is a sample Python script. The code below allows you to test whether GPUs are available on a node and runs tensors. This file is located in <font color='purple'><strong>/kellogg/software/gpu_test_files/pytorch_gpu_test.py</strong></font>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># pytorch_gpu_test.py</span>
@@ -478,6 +485,14 @@ document.write(`
 </pre></div>
 </div>
 </div>
+</div>
+<div class="admonition-northwestern-gpu-resources admonition">
+<p class="admonition-title">Northwestern GPU Resources:</p>
+<p><a class="reference external" href="https://services.northwestern.edu/TDClient/30/Portal/KB/ArticleDet?ID=1112">Quest</a> has dozens of Nvidia-based GPU nodes available for use. We will show you how to access them via <a class="reference external" href="https://services.northwestern.edu/TDClient/30/Portal/KB/ArticleDet?ID=2234">Quest on Demand</a> and using the <a class="reference external" href="https://services.northwestern.edu/TDClient/30/Portal/KB/ArticleDet?ID=1964">Slurm scheduler</a>. Both of these methods require that you are part of a Quest allocation.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>We are in the process of setting up GPU nodes for exclusive use by the Kellogg research community as part of the <a class="reference external" href="https://www.kellogg.northwestern.edu/academics-research/research-support/computing/kellogg-linux-cluster.aspx">Kellogg Linux Cluster</a>. Accessing these nodes will be identical to accessing GPU nodes on Quest, but will require only a KLC account and not a separate Quest allocation.</p>
 </div>
 </section>
 <section id="font-color-purple-slurm-script-to-access-gpu-nodes-font">
@@ -524,13 +539,13 @@ document.write(`
 <p>After submitting your job, you will receive a job ID, like:</p>
 <p><font color='purple'><strong>Submitted batch job 9428806</strong></font></p>
 <p>Once the script runs to completion, the results will be saved to a <strong>slurm-[job_iD].out</strong> file, (like <strong>slurm-9428806.out</strong>) in your current directory.</p>
-</section>
 <section id="font-color-purple-reference-sources-font">
-<h2><font color='purple'><em>Reference Sources</em></font><a class="headerlink" href="#font-color-purple-reference-sources-font" title="Permalink to this heading">#</a></h2>
+<h3><font color='purple'><em>Reference Sources</em></font><a class="headerlink" href="#font-color-purple-reference-sources-font" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
-<li><p><span class="xref myst">Cuda Simply Explained</span></p></li>
+<li><p><a class="reference external" href="https://youtube.com/watch?v=r9IqwpMR9TE">Cuda Simply Explained</a></p></li>
 <li><p><a class="reference external" href="https://blog.paperspace.com/demystifying-parallel-computing-gpu-vs-cpu-explained-simply-with-cuda/">Understanding Parallel Computing</a></p></li>
 </ul>
+</section>
 </section>
 </section>
 
@@ -570,7 +585,7 @@ document.write(`
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Introduction</p>
+        <p class="prev-next-title"><font color='purple'>Introduction</font></p>
       </div>
     </a>
     <a class="right-next"
@@ -597,16 +612,17 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-understanding-parallel-computing-font"><font color="purple"><em>Understanding Parallel Computing</em></font></a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-parallel-computing-for-llms-font"><font color="purple"><em>Parallel Computing for LLMs</em></font></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-cpus-font"><font color="purple"><strong>CPUs</strong></font></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-gpus-font"><font color="purple"><strong>GPUs</strong></font></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-limitations-of-parallel-computing-font"><font color="purple"><strong>Limitations of Parallel Computing</strong></font></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-cuda-font"><font color="purple"><strong>CUDA</strong></font></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-sample-gpu-python-code-font"><font color="purple"><em>Sample GPU Python Code</em></font></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-slurm-script-to-access-gpu-nodes-font"><font color="purple"><em>SLURM Script to Access GPU Nodes</em></font></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-reference-sources-font"><font color="purple"><em>Reference Sources</em></font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-slurm-script-to-access-gpu-nodes-font"><font color="purple"><em>SLURM Script to Access GPU Nodes</em></font></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-reference-sources-font"><font color="purple"><em>Reference Sources</em></font></a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 
