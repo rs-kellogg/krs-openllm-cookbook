@@ -14,8 +14,10 @@ llm_model = "meta-llama/Llama-2-7b-chat-hf"
 # llm_model = "meta-llama/Llama-2-70b-chat-hf"
 
 # The quantization_config is optional; use it for very large model; it reduces memory and computational costs by representing weights and activations with lower-precision data types
-quantization_config = BitsAndBytesConfig(load_in_8bit=True)
-model = AutoModelForCausalLM.from_pretrained(llm_model,cache_dir=llm_dir, device_map="auto", quantization_config=quantization_config)
+# To use quantization, uncomment the following two lines and comment out the current "model = " line
+# quantization_config = BitsAndBytesConfig(load_in_8bit=True)
+# model = AutoModelForCausalLM.from_pretrained(llm_model,cache_dir=llm_dir, device_map="auto", quantization_config=quantization_config)
+model = AutoModelForCausalLM.from_pretrained(llm_model,cache_dir=llm_dir, device_map="auto")
 tokenizer = AutoTokenizer.from_pretrained(llm_model, cache_dir=llm_dir)
 
 print(f"=== Loading time: {time.time() - start_time} seconds")
