@@ -29,8 +29,6 @@ llm = Llama(
   n_gpu_layers=-1  # Set to 0 if you want to use CPU only and -1 if you want to use all available GPUs
 )
 
-
-
 ##############
 # send prompt
 response = llm(
