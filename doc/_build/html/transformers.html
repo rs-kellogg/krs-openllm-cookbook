@@ -436,9 +436,11 @@ document.write(`
 <span class="c1"># llm_model = &quot;meta-llama/Llama-2-13b-chat-hf&quot;</span>
 <span class="c1"># llm_model = &quot;meta-llama/Llama-2-70b-chat-hf&quot;</span>
 
+<span class="c1">#######################################</span>
 <span class="c1"># 1. Load the model parameters</span>
+<span class="c1">#######################################</span>
 <span class="c1"># The quantization_config is optional; use it for very large model; it reduces memory and computational costs by representing weights and activations with lower-precision data types</span>
-<span class="c1"># To use quantization, uncomment the following line and comment out the current &quot;model = &quot; line</span>
+<span class="c1"># To use quantization, uncomment the following two lines and comment out the current &quot;model = &quot; line</span>
 <span class="c1"># quantization_config = BitsAndBytesConfig(load_in_8bit=True)</span>
 <span class="c1"># model = AutoModelForCausalLM.from_pretrained(llm_model,cache_dir=llm_dir, device_map=&quot;auto&quot;, quantization_config=quantization_config)</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">AutoModelForCausalLM</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="n">llm_model</span><span class="p">,</span><span class="n">cache_dir</span><span class="o">=</span><span class="n">llm_dir</span><span class="p">,</span> <span class="n">device_map</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span><span class="p">)</span>
@@ -447,7 +449,9 @@ document.write(`
 <span class="c1"># For Llama2 chat, need to enclosed your prompt by [INST] and [/INST]</span>
 <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;[INST] Tell a fun fact about Kellogg Business School. [/INST]&quot;</span>
 
+<span class="c1">#######################################</span>
 <span class="c1"># 2. Convert prompt query to tokens</span>
+<span class="c1">#######################################</span>
 <span class="n">device</span> <span class="o">=</span> <span class="s2">&quot;cuda&quot;</span>
 <span class="n">model_input</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">return_tensors</span><span class="o">=</span><span class="s2">&quot;pt&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
 
@@ -461,10 +465,14 @@ document.write(`
 <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">customize_setting</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
+<span class="c1">#######################################</span>
 <span class="c1"># 3. Call model to process tokens and generate response tokens</span>
+<span class="c1">#######################################</span>
 <span class="n">outputs</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="o">**</span><span class="n">model_input</span><span class="p">,</span> <span class="o">**</span><span class="n">customize_setting</span><span class="p">)</span>
 
+<span class="c1">#######################################</span>
 <span class="c1"># 4. Decode tokens to text response</span>
+<span class="c1">#######################################</span>
 <span class="n">decoded</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">outputs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">skip_special_tokens</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;====================&quot;</span><span class="p">)</span>
@@ -474,7 +482,9 @@ document.write(`
 <span class="nb">print</span><span class="p">(</span><span class="n">decoded</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;====================&quot;</span><span class="p">)</span>
 
+<span class="c1">#######################################</span>
 <span class="c1"># Logging</span>
+<span class="c1">#######################################</span>
 <span class="n">finished_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">localtime</span><span class="p">())</span>
 <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;llm_model&quot;</span><span class="p">,</span> <span class="s2">&quot;query&quot;</span><span class="p">,</span> <span class="s2">&quot;response&quot;</span><span class="p">,</span> <span class="s2">&quot;finished_time&quot;</span><span class="p">]</span>
 <span class="n">row</span> <span class="o">=</span> <span class="p">[</span><span class="n">llm_model</span><span class="p">,</span> <span class="n">query</span><span class="p">,</span> <span class="n">decoded</span><span class="p">,</span> <span class="n">finished_time</span><span class="p">]</span>
