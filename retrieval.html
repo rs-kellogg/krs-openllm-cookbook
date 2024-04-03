@@ -380,10 +380,10 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-how-it-works-font"><font color="purple"><em>How it Works</em></font></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-sample-uses-cases-font"><font color="purple"><em>Sample Uses Cases</em></font></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-example-retrieving-information-non-existent-in-training-font"><font color="purple"><em>Example: Retrieving Information Non-existent in Training</em></font></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-more-sample-scripts-font"><font color="purple"><em>More sample scripts</em></font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-how-it-works-font"><font color="purple">How it Works</font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-sample-uses-cases-font"><font color="purple">Sample Uses Cases</font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-example-retrieving-information-non-existent-in-training-font"><font color="purple">Example: Retrieving Information Non-existent in Training</font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-more-sample-scripts-font"><font color="purple">More sample scripts</font></a></li>
 </ul>
             </nav>
         </div>
@@ -400,7 +400,7 @@ document.write(`
 <p><font color='purple'>Retrieval Augmented Generation (RAG)</font> is a powerful paradigm in natural language processing that combines the strengths of information retrieval and language generation. This approach involves retrieving relevant information from a large dataset and using that information to enhance the generation of accurate text.</p>
 <p>The phrase <font color='purple'>Retrieval Augmented Generation</font> comes from a recent <a class="reference external" href="https://research.facebook.com/publications/retrieval-augmented-generation-for-knowledge-intensive-nlp-tasks/">paper by Lewis et al. from Facebook AI</a>. The idea is to use a pre-trained language model (LM) to generate text, but to use a separate retrieval system to find relevant documents to condition the LM on.</p>
 <section id="font-color-purple-how-it-works-font">
-<h2><font color='purple'><em>How it Works</em></font><a class="headerlink" href="#font-color-purple-how-it-works-font" title="Permalink to this heading">#</a></h2>
+<h2><font color='purple'>How it Works</font><a class="headerlink" href="#font-color-purple-how-it-works-font" title="Permalink to this heading">#</a></h2>
 <p>From start to finish, the RAG relies on 5 steps:
 <img alt="RAG steps" src="_images/rag.png" /></p>
 <p><strong>1. Load</strong><br />
@@ -418,7 +418,7 @@ Relevant information is retrieved to produce more informed and context-aware res
 <p><em>Taken from: <span class="xref myst">https://docs.llamaindex.ai/en/stable/_static/getting_started/basic_rag.png</span></em></p>
 </section>
 <section id="font-color-purple-sample-uses-cases-font">
-<h2><font color='purple'><em>Sample Uses Cases</em></font><a class="headerlink" href="#font-color-purple-sample-uses-cases-font" title="Permalink to this heading">#</a></h2>
+<h2><font color='purple'>Sample Uses Cases</font><a class="headerlink" href="#font-color-purple-sample-uses-cases-font" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p><strong>Question Answering Systems or Conversational Agents</strong>:<br />
 Retrieve information from vast knowledge bases, such as multiple pdf or csv files, and incorporate into response (example today).</p></li>
@@ -431,7 +431,7 @@ Bring in external knowledge to check whether a GPT response is a hallucination.<
 </ul>
 </section>
 <section id="font-color-purple-example-retrieving-information-non-existent-in-training-font">
-<h2><font color='purple'><em>Example: Retrieving Information Non-existent in Training</em></font><a class="headerlink" href="#font-color-purple-example-retrieving-information-non-existent-in-training-font" title="Permalink to this heading">#</a></h2>
+<h2><font color='purple'>Example: Retrieving Information Non-existent in Training</font><a class="headerlink" href="#font-color-purple-example-retrieving-information-non-existent-in-training-font" title="Permalink to this heading">#</a></h2>
 <p>One way to use RAG is to feed the LLM with up-to-date information.<br />
 The Llama 2 was trained between January 2023 and July 2023. The Mistral 7B model was released in September 2023. Let’s ask LLama2 a question about the Mistral 7B model.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Run the query through Llama2 13B chat model with test_llama2.py  </span>
@@ -549,7 +549,7 @@ Based on the provided context information, a Mistral 7B language model is a powe
 </div>
 </section>
 <section id="font-color-purple-more-sample-scripts-font">
-<h2><font color='purple'><em>More sample scripts</em></font><a class="headerlink" href="#font-color-purple-more-sample-scripts-font" title="Permalink to this heading">#</a></h2>
+<h2><font color='purple'>More sample scripts</font><a class="headerlink" href="#font-color-purple-more-sample-scripts-font" title="Permalink to this heading">#</a></h2>
 <p>More sample scripts can be found at the <a class="reference external" href="https://github.com/rs-kellogg/krs-openllm-cookbook/tree/main/scripts/rag">scripts/rag</a> folder of our github repo.</p>
 </section>
 </section>
@@ -617,10 +617,10 @@ Based on the provided context information, a Mistral 7B language model is a powe
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-how-it-works-font"><font color="purple"><em>How it Works</em></font></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-sample-uses-cases-font"><font color="purple"><em>Sample Uses Cases</em></font></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-example-retrieving-information-non-existent-in-training-font"><font color="purple"><em>Example: Retrieving Information Non-existent in Training</em></font></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-more-sample-scripts-font"><font color="purple"><em>More sample scripts</em></font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-how-it-works-font"><font color="purple">How it Works</font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-sample-uses-cases-font"><font color="purple">Sample Uses Cases</font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-example-retrieving-information-non-existent-in-training-font"><font color="purple">Example: Retrieving Information Non-existent in Training</font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-more-sample-scripts-font"><font color="purple">More sample scripts</font></a></li>
 </ul>
   </nav></div>
 
