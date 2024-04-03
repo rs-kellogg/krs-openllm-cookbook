@@ -409,6 +409,8 @@ document.write(`
 <li><p>Call model to process tokens and generate response tokens</p></li>
 <li><p>Decode tokens to text response</p></li>
 </ol>
+<p><img alt="transformers" src="_images/transformers.png" /></p>
+<p><em>Adapted from teaching materials created by <a class="reference external" href="http://DeepLearning.AI">DeepLearning.AI</a>.</em></p>
 </section>
 <section id="font-color-purple-run-llama2-model-with-transformers-font">
 <h2><font color='purple'>Run Llama2 model with transformers</font><a class="headerlink" href="#font-color-purple-run-llama2-model-with-transformers-font" title="Permalink to this heading">#</a></h2>
@@ -436,6 +438,7 @@ document.write(`
 
 <span class="c1"># 1. Load the model parameters</span>
 <span class="c1"># The quantization_config is optional; use it for very large model; it reduces memory and computational costs by representing weights and activations with lower-precision data types</span>
+<span class="c1"># To use quantization, uncomment the following line and comment out the current &quot;model = &quot; line</span>
 <span class="c1"># quantization_config = BitsAndBytesConfig(load_in_8bit=True)</span>
 <span class="c1"># model = AutoModelForCausalLM.from_pretrained(llm_model,cache_dir=llm_dir, device_map=&quot;auto&quot;, quantization_config=quantization_config)</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">AutoModelForCausalLM</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="n">llm_model</span><span class="p">,</span><span class="n">cache_dir</span><span class="o">=</span><span class="n">llm_dir</span><span class="p">,</span> <span class="n">device_map</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span><span class="p">)</span>
