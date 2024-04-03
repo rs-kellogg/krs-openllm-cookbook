@@ -65,7 +65,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'retrieval';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Fine-tuning" href="fine-tuning.html" />
+    <link rel="next" title="Fine-Tuning" href="fine-tuning.html" />
     <link rel="prev" title="Example Use Case" href="use_case.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -181,7 +181,7 @@ const thebe_selector_output = ".output, .cell_output"
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Advanced Techniques</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#"><font color="purple"><strong>Retrieval Augmented Generation</strong></font></a></li>
-<li class="toctree-l1"><a class="reference internal" href="fine-tuning.html">Fine-tuning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fine-tuning.html">Fine-Tuning</a></li>
 <li class="toctree-l1"><a class="reference internal" href="vision.html"><font color="purple"><strong>Process Images with bakllava</strong></font></a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Summary</span></p>
@@ -380,8 +380,8 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-how-it-works-font"><font color="purple">How it Works</font></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-sample-uses-cases-font"><font color="purple">Sample Uses Cases</font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-how-it-works-font"><font color="purple">How it Works</font></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-example-retrieving-information-non-existent-in-training-font"><font color="purple">Example: Retrieving Information Non-existent in Training</font></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-more-sample-scripts-font"><font color="purple">More sample scripts</font></a></li>
 </ul>
@@ -399,6 +399,19 @@ document.write(`
 <h1><font color='purple'><strong>Retrieval Augmented Generation</strong></font><a class="headerlink" href="#font-color-purple-retrieval-augmented-generation-font" title="Permalink to this heading">#</a></h1>
 <p><font color='purple'>Retrieval Augmented Generation (RAG)</font> is a powerful paradigm in natural language processing that combines the strengths of information retrieval and language generation. This approach involves retrieving relevant information from a large dataset and using that information to enhance the generation of accurate text.</p>
 <p>The phrase <font color='purple'>Retrieval Augmented Generation</font> comes from a recent <a class="reference external" href="https://research.facebook.com/publications/retrieval-augmented-generation-for-knowledge-intensive-nlp-tasks/">paper by Lewis et al. from Facebook AI</a>. The idea is to use a pre-trained language model (LM) to generate text, but to use a separate retrieval system to find relevant documents to condition the LM on.</p>
+<section id="font-color-purple-sample-uses-cases-font">
+<h2><font color='purple'>Sample Uses Cases</font><a class="headerlink" href="#font-color-purple-sample-uses-cases-font" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Question Answering Systems or Conversational Agents</strong>:<br />
+Retrieve information from vast knowledge bases, such as multiple pdf or csv files, and incorporate into response (example today).</p></li>
+<li><p><strong>Context Creation</strong>:<br />
+Enhance the generation of informative text by pulling in relevant details from a wide range of sources.</p></li>
+<li><p><strong>Code Generation</strong>:<br />
+Assist in generating code snippets by retrieving information from programming knowledge bases.</p></li>
+<li><p><strong>Prevent Hallucinations</strong>:<br />
+Bring in external knowledge to check whether a GPT response is a hallucination.</p></li>
+</ul>
+</section>
 <section id="font-color-purple-how-it-works-font">
 <h2><font color='purple'>How it Works</font><a class="headerlink" href="#font-color-purple-how-it-works-font" title="Permalink to this heading">#</a></h2>
 <p>From start to finish, the RAG relies on 5 steps:
@@ -416,19 +429,6 @@ Relevant information is retrieved to produce more informed and context-aware res
 <p>During runtime, this blending of retrieval and generation enhances the richness and relevance of the generated content.
 <img alt="RAG runtime" src="_images/basic_rag.png" /></p>
 <p><em>Taken from: <span class="xref myst">https://docs.llamaindex.ai/en/stable/_static/getting_started/basic_rag.png</span></em></p>
-</section>
-<section id="font-color-purple-sample-uses-cases-font">
-<h2><font color='purple'>Sample Uses Cases</font><a class="headerlink" href="#font-color-purple-sample-uses-cases-font" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p><strong>Question Answering Systems or Conversational Agents</strong>:<br />
-Retrieve information from vast knowledge bases, such as multiple pdf or csv files, and incorporate into response (example today).</p></li>
-<li><p><strong>Context Creation</strong>:<br />
-Enhance the generation of informative text by pulling in relevant details from a wide range of sources.</p></li>
-<li><p><strong>Code Generation</strong>:<br />
-Assist in generating code snippets by retrieving information from programming knowledge bases.</p></li>
-<li><p><strong>Prevent Hallucinations</strong>:<br />
-Bring in external knowledge to check whether a GPT response is a hallucination.</p></li>
-</ul>
 </section>
 <section id="font-color-purple-example-retrieving-information-non-existent-in-training-font">
 <h2><font color='purple'>Example: Retrieving Information Non-existent in Training</font><a class="headerlink" href="#font-color-purple-example-retrieving-information-non-existent-in-training-font" title="Permalink to this heading">#</a></h2>
@@ -598,7 +598,7 @@ Based on the provided context information, a Mistral 7B language model is a powe
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Fine-tuning</p>
+        <p class="prev-next-title">Fine-Tuning</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -617,8 +617,8 @@ Based on the provided context information, a Mistral 7B language model is a powe
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-how-it-works-font"><font color="purple">How it Works</font></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-sample-uses-cases-font"><font color="purple">Sample Uses Cases</font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-how-it-works-font"><font color="purple">How it Works</font></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-example-retrieving-information-non-existent-in-training-font"><font color="purple">Example: Retrieving Information Non-existent in Training</font></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-more-sample-scripts-font"><font color="purple">More sample scripts</font></a></li>
 </ul>
