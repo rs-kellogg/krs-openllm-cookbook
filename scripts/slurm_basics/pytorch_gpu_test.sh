@@ -8,7 +8,7 @@
 #SBATCH --time 0:30:00
 #SBATCH --mem=40G
 #SBATCH --constraint=pcie
-#SBATCH --output=/projects/e32337/slurm-output/slurm-%j.out
+#SBATCH --output=/projects/kellogg/slurm-output/slurm-%j.out
 
 
 module purge all
