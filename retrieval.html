@@ -481,12 +481,16 @@ The Llama 2 was trained between January 2023 and July 2023. The Mistral 7B model
 <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">txt_file</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
     <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">webpage_content</span><span class="p">)</span>
 
+<span class="c1">#######################################</span>
 <span class="c1"># Settings for embedding model</span>
+<span class="c1">#######################################</span>
 <span class="n">embedding_name</span> <span class="o">=</span> <span class="s2">&quot;intfloat/multilingual-e5-large-instruct&quot;</span>
 <span class="n">embedding_chunk_size</span> <span class="o">=</span> <span class="mi">512</span>
 <span class="n">embed_model</span> <span class="o">=</span> <span class="n">HuggingFaceEmbedding</span><span class="p">(</span><span class="n">model_name</span><span class="o">=</span><span class="n">embedding_name</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">512</span><span class="p">)</span>
 
+<span class="c1">#######################################</span>
 <span class="c1"># Settings for LLM</span>
+<span class="c1">#######################################</span>
 <span class="n">LLAMA2_13B_CHAT</span> <span class="o">=</span> <span class="s2">&quot;/kellogg/data/llm_models_opensource/llama2_meta_huggingface/models--meta-llama--Llama-2-13b-chat-hf/snapshots/29655417e51232f4f2b9b5d3e1418e5a9b04e80e&quot;</span>
 <span class="n">selected_model</span> <span class="o">=</span> <span class="n">LLAMA2_13B_CHAT</span>
 <span class="n">llm</span> <span class="o">=</span> <span class="n">HuggingFaceLLM</span><span class="p">(</span>
@@ -498,7 +502,9 @@ The Llama 2 was trained between January 2023 and July 2023. The Mistral 7B model
     <span class="c1"># generate_kwargs={&quot;temperature&quot;: 0.5, &quot;top_p&quot;: 0.9, &quot;top_k&quot;: 2, &quot;do_sample&quot;: True},</span>
 <span class="p">)</span>
 
+<span class="c1">#######################################</span>
 <span class="c1"># === 1. Load</span>
+<span class="c1">#######################################</span>
 <span class="n">documents</span> <span class="o">=</span> <span class="n">SimpleDirectoryReader</span><span class="p">(</span><span class="n">data_folder</span><span class="p">)</span><span class="o">.</span><span class="n">load_data</span><span class="p">()</span>
 
 <span class="c1"># Set up FAISS vector store</span>
@@ -517,7 +523,9 @@ The Llama 2 was trained between January 2023 and July 2023. The Mistral 7B model
     <span class="n">storage_context</span><span class="o">=</span><span class="n">storage_context</span>
 <span class="p">)</span>
 
+<span class="c1">#######################################</span>
 <span class="c1"># === 5. Retrieve</span>
+<span class="c1">#######################################</span>
 <span class="n">query_engine</span> <span class="o">=</span> <span class="n">index</span><span class="o">.</span><span class="n">as_query_engine</span><span class="p">(</span><span class="n">llm</span><span class="o">=</span><span class="n">llm</span><span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;====================================&quot;</span><span class="p">)</span>
