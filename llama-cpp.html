@@ -380,15 +380,15 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-how-does-llama-cpp-python-differ-from-transformers-font"><font color="purple"><em>How does llama_cpp_python differ from Transformers?</em></font></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-basic-workflow-for-using-llama-cpp-python-font"><font color="purple"><em>Basic Workflow for Using <strong>llama_cpp_python</strong></em></font></a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-llama-cpp-python-vs-transformers-font"><font color="purple"><em>Llama_cpp_python vs. Transformers</em></font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-basic-workflow-for-llama-cpp-python-font"><font color="purple"><em>Basic Workflow for <strong>llama_cpp_python</strong></em></font></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-quantized-models-what-is-gguf-font"><font color="purple"><strong>Quantized Models - What is GGUF?</strong></font></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-tradeoffs-between-transformers-and-llama-cpp-python-font"><font color="purple"><em>Tradeoffs between <strong>Transformers</strong> and <strong>llama_cpp_python</strong></em></font></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-run-gemma-model-with-llama-cpp-python-font"><font color="purple"><em>Run Gemma model with <strong>llama_cpp_python</strong></em></font></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-run-mistral-model-with-llama-cpp-python-font"><font color="purple"><em>Run Mistral model with <strong>llama_cpp_python</strong></em></font></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-run-llama2-model-with-llama-cpp-python-font"><font color="purple"><em>Run llama2 model with <strong>llama_cpp_python</strong></em></font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-tradeoffs-between-tools-font"><font color="purple"><em>Tradeoffs between Tools</em></font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-run-gemma-model-font"><font color="purple"><em>Run Gemma model</em></font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-run-mistral-model-font"><font color="purple"><em>Run Mistral model</em></font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-run-llama2-model-font"><font color="purple"><em>Run llama2 model</em></font></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-reference-sources-font"><font color="purple"><em>Reference Sources</em></font></a></li>
 </ul>
             </nav>
@@ -404,10 +404,13 @@ document.write(`
   <section id="using-llama-cpp-python-to-run-llms">
 <h1>Using llama_cpp_python to run LLMs<a class="headerlink" href="#using-llama-cpp-python-to-run-llms" title="Permalink to this heading">#</a></h1>
 <p>Much like Tranformers, <code class="docutils literal notranslate"><span class="pre">LLaMa.cpp</span> <span class="pre">(or</span> <span class="pre">LLaMa</span> <span class="pre">C++)</span></code> is a tool or framework to run an open-source LLM. We’ll demonstrate how to use the Python wrapper for it: <font color='purple'><strong>llama_cpp_python</strong></font>.</p>
-<section id="font-color-purple-how-does-llama-cpp-python-differ-from-transformers-font">
-<h2><font color='purple'><em>How does llama_cpp_python differ from Transformers?</em></font><a class="headerlink" href="#font-color-purple-how-does-llama-cpp-python-differ-from-transformers-font" title="Permalink to this heading">#</a></h2>
+<section id="font-color-purple-llama-cpp-python-vs-transformers-font">
+<h2><font color='purple'><em>Llama_cpp_python vs. Transformers</em></font><a class="headerlink" href="#font-color-purple-llama-cpp-python-vs-transformers-font" title="Permalink to this heading">#</a></h2>
 <p>Both <font color='purple'><strong>Transformers</strong></font> and <font color='purple'><strong>llama_cpp_python</strong></font> are tools you can apply to run open-source LLMs. Since <code class="docutils literal notranslate"><span class="pre">llama.cpp</span></code> is also derived from the Transformer architecture, they follow similar processing steps.  However, <code class="docutils literal notranslate"><span class="pre">llama.cpp</span></code> applies some improvements that make it slightly more efficient and easier to run.  The diagram below details the difference between the Llama and Transformer architecture.</p>
-<img src="images/architectures.png" width="600" height="500" style="display: block; margin-left: auto; margin-right: auto;"><p>The upshot of these tweaks are:</p>
+<div style="text-align:center">
+    <img src="./images/architectures.png" width="700">
+</div>
+<p>The upshot of these tweaks are:</p>
 <ul class="simple">
 <li><p><strong>Better training</strong>: LLaMA uses a technique called <strong>pre-normalization</strong> to improves training stability by adjusting the data before processing it. Consider this akin to tuning up your guitar before each song to ensure the strings are at the right tension for consistent sound.</p></li>
 </ul>
@@ -420,8 +423,8 @@ document.write(`
 <li><p><strong>Simpler positioning</strong>: LLaMA incorporates <strong>rotary embeddings</strong> which track word order in a more efficient way compared to absolute positional embeddings. Imagine that the frets at different positions of your guitar neck were color-coded instead of just metal bars. This makes it quicker to find the right notes on the fretboard.</p></li>
 </ul>
  <!-- Imagine using color-coded ingredients (rotary) instead of labels (absolute) to keep track in a recipe--></section>
-<section id="font-color-purple-basic-workflow-for-using-llama-cpp-python-font">
-<h2><font color='purple'><em>Basic Workflow for Using <strong>llama_cpp_python</strong></em></font><a class="headerlink" href="#font-color-purple-basic-workflow-for-using-llama-cpp-python-font" title="Permalink to this heading">#</a></h2>
+<section id="font-color-purple-basic-workflow-for-llama-cpp-python-font">
+<h2><font color='purple'><em>Basic Workflow for <strong>llama_cpp_python</strong></em></font><a class="headerlink" href="#font-color-purple-basic-workflow-for-llama-cpp-python-font" title="Permalink to this heading">#</a></h2>
 <p>In addition to the architectural improvements, <font color='purple'><strong>llma_cpp_python</strong></font> is simpler to use than Transformers. Unlike transformers, you don’t need to be familiar with libraries like PyTorch or the intricacies of token conversion and decoding. <font color='purple'><strong>llma_cpp_python</strong></font> takes care of these technical details under the hood, allowing you to focus on feeding it text and getting results directly.</p>
 <p><strong>1. Load the model parameters and weights:</strong>
 Load the pre-trained LLaMA model in a <font color='purple'><strong>GGUF</strong></font> format.</p>
@@ -437,12 +440,16 @@ Retrieve the text response with no decoding necessary.</p>
 <li><p><strong>Lower precision data types (e.g., Float16)</strong>: Reduce memory requirements and potentially speed up computations, but might introduce slight accuracy trade-offs.</p></li>
 </ul>
 <p>Llama_cpp_python simplifies how to store model inputs by using a single, compressed format called <font color='purple'><strong>GGUF (GPT-Generated Unified Format)</strong></font>. <font color='purple'><strong>GGUF</strong></font> can leverage a technique called <font color='purple'><strong>quantization</strong></font> to further optimize storage. <font color='purple'><strong>Quantization</strong></font> essentially “compresses” the data by representing the model weights using less precise data types. The image below demonstrates how <font color='purple'><strong>quantization</strong></font> works:</p>
-<img src="images/quantize.gif" style="display: block; margin-left: auto; margin-right: auto;"><p>By using <font color='purple'><strong>quantization</strong></font>, <font color='purple'><strong>llama_cpp_python</strong></font> makes it easier to work with LLMs on devices with limited memory or processing power. Here you see how quantizaton reduces the size of the llama2 models you can call; making it feasible to run these models on a single GPU or even CPUs.</p>
-<img src="images/llama_size.png" width="800" height="300" style="display: block; margin-left: auto; margin-right: auto;"><p>While you can create your own <font color='purple'><strong>GGUF</strong></font> files for most model parameters and weights, it’s also possible to download these files from Hugging Face. The <font color='purple'><strong>GGUF</strong></font> files for llama2 can be found here: <a class="reference external" href="https://huggingface.co/TheBloke/Llama-2-7B-GGUF">https://huggingface.co/TheBloke/Llama-2-7B-GGUF</a>.</p>
+<div style="text-align:center">
+    <img src="./images/quantize.gif" width="800">
+</div><p>By using <font color='purple'><strong>quantization</strong></font>, <font color='purple'><strong>llama_cpp_python</strong></font> makes it easier to work with LLMs on devices with limited memory or processing power. Here you see how quantizaton reduces the size of the llama2 models you can call; making it feasible to run these models on a single GPU or even CPUs.</p>
+<div style="text-align:center">
+    <img src="./images/llama_size.png" width="800">
+</div><p>While you can create your own <font color='purple'><strong>GGUF</strong></font> files for most model parameters and weights, it’s also possible to download these files from Hugging Face. The <font color='purple'><strong>GGUF</strong></font> files for llama2 can be found here: <a class="reference external" href="https://huggingface.co/TheBloke/Llama-2-7B-GGUF">https://huggingface.co/TheBloke/Llama-2-7B-GGUF</a>.</p>
 </section>
 </section>
-<section id="font-color-purple-tradeoffs-between-transformers-and-llama-cpp-python-font">
-<h2><font color='purple'><em>Tradeoffs between <strong>Transformers</strong> and <strong>llama_cpp_python</strong></em></font><a class="headerlink" href="#font-color-purple-tradeoffs-between-transformers-and-llama-cpp-python-font" title="Permalink to this heading">#</a></h2>
+<section id="font-color-purple-tradeoffs-between-tools-font">
+<h2><font color='purple'><em>Tradeoffs between Tools</em></font><a class="headerlink" href="#font-color-purple-tradeoffs-between-tools-font" title="Permalink to this heading">#</a></h2>
 <p>Even though the architecture and basic steps suggest that <font color='purple'><strong>llama_cpp_python</strong></font> might be easier to run and more efficient than Transformers, the improvements come with some tradeoffs.</p>
 <ul class="simple">
 <li><p><strong>Inference only</strong>: llama_cpp_python is primarily for running inference (using the model to generate text). You can’t fine-tune the model (further train it on a specific task) or use techniques like RAG (using a retrieval model to improve factual accuracy) through llama_cpp_python. Transformers offer more comprehensive functionality for model development and experimentation.</p></li>
@@ -462,8 +469,8 @@ Retrieve the text response with no decoding necessary.</p>
 <li><p>Deploying models on CPUs</p></li>
 </ul>
 </section>
-<section id="font-color-purple-run-gemma-model-with-llama-cpp-python-font">
-<h2><font color='purple'><em>Run Gemma model with <strong>llama_cpp_python</strong></em></font><a class="headerlink" href="#font-color-purple-run-gemma-model-with-llama-cpp-python-font" title="Permalink to this heading">#</a></h2>
+<section id="font-color-purple-run-gemma-model-font">
+<h2><font color='purple'><em>Run Gemma model</em></font><a class="headerlink" href="#font-color-purple-run-gemma-model-font" title="Permalink to this heading">#</a></h2>
 <p>Here is some sample code for the a gemma 7B instruct model:</p>
 <p><font color='purple'><strong>Python script</strong></font></p>
 <div class="cell docutils container">
@@ -662,12 +669,12 @@ Retrieve the text response with no decoding necessary.</p>
 </pre></div>
 </div>
 </section>
-<section id="font-color-purple-run-mistral-model-with-llama-cpp-python-font">
-<h2><font color='purple'><em>Run Mistral model with <strong>llama_cpp_python</strong></em></font><a class="headerlink" href="#font-color-purple-run-mistral-model-with-llama-cpp-python-font" title="Permalink to this heading">#</a></h2>
+<section id="font-color-purple-run-mistral-model-font">
+<h2><font color='purple'><em>Run Mistral model</em></font><a class="headerlink" href="#font-color-purple-run-mistral-model-font" title="Permalink to this heading">#</a></h2>
 <p>Check out <a class="reference external" href="https://github.com/rs-kellogg/krs-openllm-cookbook/blob/main/scripts/llama_cpp_python/mistral_test.py">scripts/llama_cpp_python/misral_test.py</a>.</p>
 </section>
-<section id="font-color-purple-run-llama2-model-with-llama-cpp-python-font">
-<h2><font color='purple'><em>Run llama2 model with <strong>llama_cpp_python</strong></em></font><a class="headerlink" href="#font-color-purple-run-llama2-model-with-llama-cpp-python-font" title="Permalink to this heading">#</a></h2>
+<section id="font-color-purple-run-llama2-model-font">
+<h2><font color='purple'><em>Run llama2 model</em></font><a class="headerlink" href="#font-color-purple-run-llama2-model-font" title="Permalink to this heading">#</a></h2>
 <p>Check out <a class="reference external" href="https://github.com/rs-kellogg/krs-openllm-cookbook/blob/main/scripts/llama_cpp_python/llama2_test.py">scripts/llama_cpp_python/llama2_test.py</a>.</p>
 </section>
 <section id="font-color-purple-reference-sources-font">
@@ -748,15 +755,15 @@ Retrieve the text response with no decoding necessary.</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-how-does-llama-cpp-python-differ-from-transformers-font"><font color="purple"><em>How does llama_cpp_python differ from Transformers?</em></font></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-basic-workflow-for-using-llama-cpp-python-font"><font color="purple"><em>Basic Workflow for Using <strong>llama_cpp_python</strong></em></font></a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-llama-cpp-python-vs-transformers-font"><font color="purple"><em>Llama_cpp_python vs. Transformers</em></font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-basic-workflow-for-llama-cpp-python-font"><font color="purple"><em>Basic Workflow for <strong>llama_cpp_python</strong></em></font></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-quantized-models-what-is-gguf-font"><font color="purple"><strong>Quantized Models - What is GGUF?</strong></font></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-tradeoffs-between-transformers-and-llama-cpp-python-font"><font color="purple"><em>Tradeoffs between <strong>Transformers</strong> and <strong>llama_cpp_python</strong></em></font></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-run-gemma-model-with-llama-cpp-python-font"><font color="purple"><em>Run Gemma model with <strong>llama_cpp_python</strong></em></font></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-run-mistral-model-with-llama-cpp-python-font"><font color="purple"><em>Run Mistral model with <strong>llama_cpp_python</strong></em></font></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-run-llama2-model-with-llama-cpp-python-font"><font color="purple"><em>Run llama2 model with <strong>llama_cpp_python</strong></em></font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-tradeoffs-between-tools-font"><font color="purple"><em>Tradeoffs between Tools</em></font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-run-gemma-model-font"><font color="purple"><em>Run Gemma model</em></font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-run-mistral-model-font"><font color="purple"><em>Run Mistral model</em></font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-run-llama2-model-font"><font color="purple"><em>Run llama2 model</em></font></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-reference-sources-font"><font color="purple"><em>Reference Sources</em></font></a></li>
 </ul>
   </nav></div>
