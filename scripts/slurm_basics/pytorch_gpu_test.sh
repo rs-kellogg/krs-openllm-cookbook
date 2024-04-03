@@ -7,6 +7,7 @@
 #SBATCH --gres=gpu:a100:1
 #SBATCH --time 0:30:00
 #SBATCH --mem=40G
+#SBATCH --constraint=pcie
 #SBATCH --output=/projects/e32337/slurm-output/slurm-%j.out
 
 
