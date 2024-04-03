@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Using llama_cpp_python to run LLMs &#8212; Kellogg Research Support Open Source LLM Cookbook</title>
+    <title>Using Llama_cpp_python to run LLMs &#8212; Kellogg Research Support Open Source LLM Cookbook</title>
   
   
   
@@ -175,7 +175,7 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="slurm_gpu_usage.html"><font color="purple">SLURM Jobs and GPU Usage</font></a></li>
 <li class="toctree-l1"><a class="reference internal" href="transformers.html"><font color="purple"><strong>Using Transformers to run LLMs</strong></font></a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Using llama_cpp_python to run LLMs</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Using Llama_cpp_python to run LLMs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="use_case.html"><font color="purple"><strong>Example Use Case</strong></font></a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Advanced Techniques</span></p>
@@ -370,7 +370,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Using llama_cpp_python to run LLMs</h1>
+    <h1>Using Llama_cpp_python to run LLMs</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -402,14 +402,15 @@ document.write(`
                 <article class="bd-article" role="main">
                   
   <section id="using-llama-cpp-python-to-run-llms">
-<h1>Using llama_cpp_python to run LLMs<a class="headerlink" href="#using-llama-cpp-python-to-run-llms" title="Permalink to this heading">#</a></h1>
+<h1>Using Llama_cpp_python to run LLMs<a class="headerlink" href="#using-llama-cpp-python-to-run-llms" title="Permalink to this heading">#</a></h1>
 <p>Much like Tranformers, <code class="docutils literal notranslate"><span class="pre">LLaMa.cpp</span> <span class="pre">(or</span> <span class="pre">LLaMa</span> <span class="pre">C++)</span></code> is a tool or framework to run an open-source LLM. We’ll demonstrate how to use the Python wrapper for it: <font color='purple'><strong>llama_cpp_python</strong></font>.</p>
 <section id="font-color-purple-llama-cpp-python-vs-transformers-font">
 <h2><font color='purple'><em>Llama_cpp_python vs. Transformers</em></font><a class="headerlink" href="#font-color-purple-llama-cpp-python-vs-transformers-font" title="Permalink to this heading">#</a></h2>
-<p>Both <font color='purple'><strong>Transformers</strong></font> and <font color='purple'><strong>llama_cpp_python</strong></font> are tools you can apply to run open-source LLMs. Since <code class="docutils literal notranslate"><span class="pre">llama.cpp</span></code> is also derived from the Transformer architecture, they follow similar processing steps.  However, <code class="docutils literal notranslate"><span class="pre">llama.cpp</span></code> applies some improvements that make it slightly more efficient and easier to run.  The diagram below details the difference between the Llama and Transformer architecture.</p>
-<div style="text-align:center">
+<p>Both <font color='purple'><strong>Transformers</strong></font> and <font color='purple'><strong>llama_cpp_python</strong></font> are tools you can apply to run open-source LLMs. Since <code class="docutils literal notranslate"><span class="pre">LLaMa.cpp</span></code> is also derived from the Transformer architecture, they follow similar processing steps.  However, <code class="docutils literal notranslate"><span class="pre">LLaMa.cpp</span></code> applies some improvements that make it slightly more efficient and easier to run.  The diagram below details the difference between the Llama and Transformer architecture.</p>
+<!-- <div style="text-align:center">
     <img src="./images/architectures.png" width="700">
-</div>
+</div> -->
+<p><img alt="architects" src="_images/architectures.png" /></p>
 <p>The upshot of these tweaks are:</p>
 <ul class="simple">
 <li><p><strong>Better training</strong>: LLaMA uses a technique called <strong>pre-normalization</strong> to improves training stability by adjusting the data before processing it. Consider this akin to tuning up your guitar before each song to ensure the strings are at the right tension for consistent sound.</p></li>
@@ -440,12 +441,16 @@ Retrieve the text response with no decoding necessary.</p>
 <li><p><strong>Lower precision data types (e.g., Float16)</strong>: Reduce memory requirements and potentially speed up computations, but might introduce slight accuracy trade-offs.</p></li>
 </ul>
 <p>Llama_cpp_python simplifies how to store model inputs by using a single, compressed format called <font color='purple'><strong>GGUF (GPT-Generated Unified Format)</strong></font>. <font color='purple'><strong>GGUF</strong></font> can leverage a technique called <font color='purple'><strong>quantization</strong></font> to further optimize storage. <font color='purple'><strong>Quantization</strong></font> essentially “compresses” the data by representing the model weights using less precise data types. The image below demonstrates how <font color='purple'><strong>quantization</strong></font> works:</p>
-<div style="text-align:center">
+<!--<div style="text-align:center">
     <img src="./images/quantize.gif" width="800">
-</div><p>By using <font color='purple'><strong>quantization</strong></font>, <font color='purple'><strong>llama_cpp_python</strong></font> makes it easier to work with LLMs on devices with limited memory or processing power. Here you see how quantizaton reduces the size of the llama2 models you can call; making it feasible to run these models on a single GPU or even CPUs.</p>
-<div style="text-align:center">
+</div> -->
+<p><img alt="quantize" src="_images/quantize.gif" /></p>
+<p>By using <font color='purple'><strong>quantization</strong></font>, <font color='purple'><strong>llama_cpp_python</strong></font> makes it easier to work with LLMs on devices with limited memory or processing power. Here you see how quantizaton reduces the size of the llama2 models you can call; making it feasible to run these models on a single GPU or even CPUs.</p>
+<!--<div style="text-align:center">
     <img src="./images/llama_size.png" width="800">
-</div><p>While you can create your own <font color='purple'><strong>GGUF</strong></font> files for most model parameters and weights, it’s also possible to download these files from Hugging Face. The <font color='purple'><strong>GGUF</strong></font> files for llama2 can be found here: <a class="reference external" href="https://huggingface.co/TheBloke/Llama-2-7B-GGUF">https://huggingface.co/TheBloke/Llama-2-7B-GGUF</a>.</p>
+</div>-->
+<p><img alt="llama" src="_images/llama_size.png" /></p>
+<p>While you can create your own <font color='purple'><strong>GGUF</strong></font> files for most model parameters and weights, it’s also possible to download these files from Hugging Face. The <font color='purple'><strong>GGUF</strong></font> files for llama2 can be found here: <a class="reference external" href="https://huggingface.co/TheBloke/Llama-2-7B-GGUF">https://huggingface.co/TheBloke/Llama-2-7B-GGUF</a>.</p>
 </section>
 </section>
 <section id="font-color-purple-tradeoffs-between-tools-font">
