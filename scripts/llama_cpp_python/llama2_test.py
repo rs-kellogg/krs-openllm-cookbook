@@ -15,11 +15,7 @@ top_k_select: int=0
 
 ########
 # Prompt
-#prompt = "Can you provide a summary of Guy Debord's Societe du Spectacle?"
-prompt = "What kind of pickups are on an ESP LTD Alexi Ripped?"
-
-# prompt written in gemma prompt syntax
-prompt_sytnax = "<start_of_turn>user" + prompt + "<end_of_turn>" + "<start_of_turn>model"
+prompt = "Can you provide a summary of Guy Debord's Societe du Spectacle?"
 
 ############
 # load model
