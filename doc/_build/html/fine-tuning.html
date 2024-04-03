@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Fine-tuning &#8212; Kellogg Research Support Open Source LLM Cookbook</title>
+    <title>Fine-Tuning &#8212; Kellogg Research Support Open Source LLM Cookbook</title>
   
   
   
@@ -181,7 +181,7 @@ const thebe_selector_output = ".output, .cell_output"
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Advanced Techniques</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="retrieval.html"><font color="purple"><strong>Retrieval Augmented Generation</strong></font></a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Fine-tuning</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Fine-Tuning</a></li>
 <li class="toctree-l1"><a class="reference internal" href="vision.html"><font color="purple"><strong>Process Images with bakllava</strong></font></a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Summary</span></p>
@@ -357,7 +357,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -368,11 +370,28 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Fine-tuning</h1>
+    <h1>Fine-Tuning</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-tradeoffs-between-techniques-font"><font color="purple"><em>Tradeoffs between Techniques</em></font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-load-and-test-original-model-font"><font color="purple"><em>Load and Test Original Model</em></font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-prepare-dataset-font"><font color="purple"><em>Prepare Dataset</em></font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-fine-tuning-steps-font"><font color="purple"><em>Fine Tuning Steps</em></font></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-techniques-font"><font color="purple"><strong>Techniques</strong></font></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1"><font color="purple"><strong>Fine-Tuning Steps</strong></font></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-test-fine-tuned-model-font"><font color="purple"><em>Test Fine-Tuned Model</em></font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-reference-sources-font"><font color="purple"><em>Reference Sources</em></font></a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -382,8 +401,450 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="fine-tuning">
-<h1>Fine-tuning<a class="headerlink" href="#fine-tuning" title="Permalink to this heading">#</a></h1>
+  <section id="fine-tuning">
+<h1>Fine-Tuning<a class="headerlink" href="#fine-tuning" title="Permalink to this heading">#</a></h1>
+<p><font color='purple'><strong>Fine-tuning</strong></font> takes large language models beyond basic prompting. It allows you to train the model on a larger dataset specifically tailored to your desired task, leading to several advantages:</p>
+<ul class="simple">
+<li><p><em><strong>Superior Results</strong></em>: Compared to prompting, fine-tuning delivers higher quality outputs because the model learns directly from a wider range of examples.</p></li>
+<li><p><em><strong>Efficiency</strong></em>: You can train on more data than can fit in a single prompt, saving on token usage and reducing latency for requests.</p></li>
+<li><p><em><strong>Specificity</strong></em>: Fine-tuning excels at tasks requiring specific styles, tones, formats, or consistent outputs. It enhances reliability in achieving your desired results, handles complex instructions better, and tackles edge cases effectively.</p></li>
+<li><p><em><strong>New Skills</strong></em>: Fine-tuning empowers the model to master new skills or complete tasks that are difficult to articulate through simple prompts.</p></li>
+</ul>
+<section id="font-color-purple-tradeoffs-between-techniques-font">
+<h2><font color='purple'><em>Tradeoffs between Techniques</em></font><a class="headerlink" href="#font-color-purple-tradeoffs-between-techniques-font" title="Permalink to this heading">#</a></h2>
+<p>Before delving into the mechanics of fine-tuning; note that it might not always be the best solution.  Here’s a breakdown of when to apply prompt-engineering, RAG, or fine-tuning:</p>
+<ul class="simple">
+<li><p><font color='purple'><em>Use Prompt Engineering for</em></font>:</p>
+<ul>
+<li><p>Achieving good results for simpler tasks without extensive training data.</p></li>
+<li><p>Breaking down complex tasks into smaller, sequential prompts for the model to follow (prompt chaining).</p></li>
+</ul>
+</li>
+<li><p><font color='purple'><em>Use Retrieval-Augmented Generation (RAG) for</em></font>:</p>
+<ul>
+<li><p>Situations with a large, relevant document database.</p></li>
+<li><p>Tasks requiring factual accuracy where context retrieval is beneficial.</p></li>
+</ul>
+</li>
+<li><p><font color='purple'><em>Use Fine-Tuning for</em></font>:</p>
+<ul>
+<li><p>Tasks requiring consistent outputs in a particular style, tone, or format.</p></li>
+<li><p>Achieving specific behaviors from the model.</p></li>
+<li><p>Mastering complex tasks that are difficult to express through simple prompts.</p></li>
+</ul>
+</li>
+</ul>
+<p>Our advice is to experiment with crafting effective instructions and prompts for the model before attempting fine-tuning.</p>
+</section>
+<section id="font-color-purple-load-and-test-original-model-font">
+<h2><font color='purple'><em>Load and Test Original Model</em></font><a class="headerlink" href="#font-color-purple-load-and-test-original-model-font" title="Permalink to this heading">#</a></h2>
+<p>In this workshop, we’ll demonstrate how to fine-tune a Mistral model. Mistral is especially apt for performing classification tasks.</p>
+<p>The first step in fine-tuning should always be to properly load and test the out-of-the-box model. The code below loads a quantized Mistral model using Transformers.  It uses the first text example from the <em>AG News</em> dataset on Hugging Face here: <a class="reference external" href="https://huggingface.co/datasets/ag_news">https://huggingface.co/datasets/ag_news</a>.  It asks the model to classify this text into 1 of 4 categories:</p>
+<ul class="simple">
+<li><p>0 - World News</p></li>
+<li><p>1 - Sports</p></li>
+<li><p>2 - Business</p></li>
+<li><p>3 - Science and Technology.</p></li>
+</ul>
+<p>It places this prompt in the Mistral <strong>prompt syntax</strong>.  You can find <code class="docutils literal notranslate"><span class="pre">query_initial.py</span></code> script in the <a class="reference external" href="https://github.com/rs-kellogg/krs-openllm-cookbook/tree/main/scripts/fine_tune">scripts/fine_tune</a> folder of our github repo.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#############################</span>
+<span class="c1"># Fine Tune - Initial Query</span>
+<span class="c1">#############################</span>
+
+<span class="c1"># import libraries</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">AutoTokenizer</span><span class="p">,</span> <span class="n">AutoModelForCausalLM</span><span class="p">,</span> <span class="n">BitsAndBytesConfig</span>
+<span class="kn">import</span> <span class="nn">bitsandbytes</span> <span class="k">as</span> <span class="nn">bnb</span>
+
+<span class="c1"># model paths</span>
+<span class="n">llm_dir</span> <span class="o">=</span> <span class="s2">&quot;/kellogg/data/llm_models_opensource/mistral_mistralAI&quot;</span>
+<span class="n">model_id</span> <span class="o">=</span> <span class="s2">&quot;mistralai/Mistral-7B-Instruct-v0.2&quot;</span>
+
+<span class="c1"># quantized model loading</span>
+<span class="n">bnb_config</span> <span class="o">=</span> <span class="n">BitsAndBytesConfig</span><span class="p">(</span>
+    <span class="n">load_in_4bit</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">bnb_4bit_use_double_quant</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">bnb_4bit_quant_type</span><span class="o">=</span><span class="s2">&quot;nf4&quot;</span><span class="p">,</span>
+    <span class="n">bnb_4bit_compute_dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">bfloat16</span>
+<span class="p">)</span>
+
+<span class="c1"># model loading</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">AutoModelForCausalLM</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="n">model_id</span><span class="p">,</span> <span class="n">quantization_config</span><span class="o">=</span><span class="n">bnb_config</span><span class="p">,</span> <span class="n">device_map</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">},</span> <span class="n">cache_dir</span><span class="o">=</span><span class="n">llm_dir</span><span class="p">)</span>
+<span class="n">tokenizer</span> <span class="o">=</span> <span class="n">AutoTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="n">model_id</span><span class="p">,</span> <span class="n">add_eos_token</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cache_dir</span><span class="o">=</span><span class="n">llm_dir</span><span class="p">)</span>
+
+<span class="c1"># query function</span>
+<span class="k">def</span> <span class="nf">get_completion</span><span class="p">(</span><span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+  <span class="n">device</span> <span class="o">=</span> <span class="s2">&quot;cuda:0&quot;</span>
+
+  <span class="n">prompt_template</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">  &lt;s&gt;</span>
+<span class="s2">  [INST]</span>
+<span class="s2">  Classify the following text into one of the four classes: 0 - World, 1 - Sports, 2 - Business, 3 - Sci/Tech.</span>
+<span class="s2">  </span><span class="si">{query}</span>
+<span class="s2">  [/INST]</span>
+<span class="s2">  &lt;/s&gt;</span>
+<span class="s2">  &lt;s&gt;</span>
+
+<span class="s2">  &quot;&quot;&quot;</span>
+  <span class="n">prompt</span> <span class="o">=</span> <span class="n">prompt_template</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="n">query</span><span class="p">)</span>
+  <span class="n">encodeds</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="n">return_tensors</span><span class="o">=</span><span class="s2">&quot;pt&quot;</span><span class="p">,</span> <span class="n">add_special_tokens</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+  <span class="n">model_inputs</span> <span class="o">=</span> <span class="n">encodeds</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+  <span class="n">generated_ids</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="o">**</span><span class="n">model_inputs</span><span class="p">,</span> <span class="n">max_new_tokens</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">do_sample</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">pad_token_id</span><span class="o">=</span><span class="n">tokenizer</span><span class="o">.</span><span class="n">eos_token_id</span><span class="p">)</span>
+  <span class="n">decoded</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">batch_decode</span><span class="p">(</span><span class="n">generated_ids</span><span class="p">)</span>
+  <span class="k">return</span> <span class="p">(</span><span class="n">decoded</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="c1"># query</span>
+<span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">Wall St. Bears Claw Back Into the Black (Reuters) Reuters - Short-sellers, Wall Street&#39;s dwindling band </span>
+<span class="s2">of ultra-cynics, are seeing green again.</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+<span class="c1"># submit query</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">get_completion</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="n">query</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span> <span class="n">tokenizer</span><span class="o">=</span><span class="n">tokenizer</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Output:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>/kellogg/software/envs/gpu-llama2/lib/python3.10/site-packages/diffusers/utils/outputs.py:63: UserWarning: torch.utils._pytree._register_pytree_node is deprecated. Please use torch.utils._pytree.register_pytree_node instead.
+  torch.utils._pytree._register_pytree_node(
+/kellogg/software/envs/gpu-llama2/lib/python3.10/site-packages/diffusers/utils/outputs.py:63: UserWarning: torch.utils._pytree._register_pytree_node is deprecated. Please use torch.utils._pytree.register_pytree_node instead.
+  torch.utils._pytree._register_pytree_node(
+Loading checkpoint shards: 100%|██████████████████████████████████████████████████████████████████████████| 3/3 [00:12&lt;00:00,  4.30s/it]
+Loading checkpoint shards: 100%|██████████████████████████████████████████████████████████████████████████| 3/3 [00:12&lt;00:00,  4.32s/it]
+A decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side=&#39;left&#39;` when initializing the tokenizer.
+&lt;s&gt; 
+  &lt;s&gt; 
+  [INST]
+  Below is a text from AG News dataset. Classify it into one of the four classes: World, Sports, Business, Sci/Tech.
+  
+Wall St. Bears Claw Back Into the Black (Reuters) Reuters - Short-sellers, Wall Street&#39;s dwindling band 
+of ultra-cynics, are seeing green again.
+
+  [/INST]
+  &lt;/s&gt; 
+  &lt;s&gt; 
+
+  &lt;/s&gt; This text can be classified as: Business.
+
+  The reason for this classification is that the text discusses &quot;Wall Street&#39;s dwindling band of ultra-cynics&quot; and &quot;short-sellers&quot; who are &quot;seeing green again.&quot; These terms are typically associated with finance and investing, which falls within the Business category. The mention of Wall Street is also a strong indicator of a Business article.
+
+  Please note that even though the text mentions &quot;greent&quot; or money, it doesn&#39;t necessarily have to be classified as a Sports article, as the term &quot;green&quot; in this context is indicative of profit or capital gained in financial markets.
+
+  Additionally, Sci/Tech and World classifications are unlikely, as the text doesn&#39;t contain specific information related to those domains.&lt;/s&gt;
+
+</pre></div>
+</div>
+<p>You’ll notice that while it provides the correct answer, the response is very verbose.  This a prime example of where fine-tuning can help!</p>
+</section>
+<section id="font-color-purple-prepare-dataset-font">
+<h2><font color='purple'><em>Prepare Dataset</em></font><a class="headerlink" href="#font-color-purple-prepare-dataset-font" title="Permalink to this heading">#</a></h2>
+<p>As described earlier, we can use the <em>AG News</em> dataset on Hugging Face to fine-tune Mistral 7B.  To apply a training dataset, you need to make sure it is in <strong>json</strong> format with a text column that provides the prompt and response (preferably in the model syntax). You can find <code class="docutils literal notranslate"><span class="pre">prepare_data.py</span></code> script in the <a class="reference external" href="https://github.com/rs-kellogg/krs-openllm-cookbook/tree/main/scripts/fine_tune">scripts/fine_tune</a> folder of our github repo.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#############################</span>
+<span class="c1"># Fine Tune - Prepare Dataset</span>
+<span class="c1">#############################</span>
+
+<span class="c1"># import libraries</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">from</span> <span class="nn">datasets</span> <span class="kn">import</span> <span class="n">load_dataset</span>
+
+<span class="c1"># create a prompt/response row</span>
+<span class="k">def</span> <span class="nf">create_text_row</span><span class="p">(</span><span class="n">row</span><span class="p">):</span>
+    <span class="n">text_row</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&lt;s&gt;[INST] Classify the following text into one of the four classes: 0 - World, 1 - Sports, 2 - Business, 3 - Sci/Tech. </span><span class="si">{</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> [/INST] </span><span class="se">\\</span><span class="s2">n </span><span class="si">{</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> &lt;/s&gt;&quot;</span>
+    <span class="k">return</span> <span class="n">text_row</span>
+
+<span class="c1"># process the dataframe to jsonl</span>
+<span class="k">def</span> <span class="nf">process_dataframe_to_jsonl</span><span class="p">(</span><span class="n">output_file_path</span><span class="p">,</span> <span class="n">df</span><span class="p">):</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">output_file_path</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">output_jsonl_file</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+            <span class="n">json_object</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="n">create_text_row</span><span class="p">(</span><span class="n">row</span><span class="p">),</span>
+                <span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="s2">&quot;label&quot;</span><span class="p">]</span>
+            <span class="p">}</span>
+            <span class="n">output_jsonl_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">json_object</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># load the dataset</span>
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;ag_news&quot;</span><span class="p">,</span> <span class="n">split</span><span class="o">=</span><span class="s2">&quot;train&quot;</span><span class="p">)</span>
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">train_test_split</span><span class="p">(</span><span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="n">train_data</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">[</span><span class="s2">&quot;train&quot;</span><span class="p">]</span>
+<span class="n">test_data</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">[</span><span class="s2">&quot;test&quot;</span><span class="p">]</span>
+
+<span class="c1"># jsonl file paths</span>
+<span class="n">train_json_file</span> <span class="o">=</span> <span class="s2">&quot;/kellogg/proj/awc6034/fine_tune/ag_news/data/train_data.jsonl&quot;</span>
+<span class="n">test_json_file</span> <span class="o">=</span> <span class="s2">&quot;/kellogg/proj/awc6034/fine_tune/ag_news/data/test_data.jsonl&quot;</span>
+
+<span class="c1"># convert data to pandas</span>
+<span class="n">train_df</span> <span class="o">=</span> <span class="n">train_data</span><span class="o">.</span><span class="n">to_pandas</span><span class="p">()</span>
+<span class="n">test_df</span> <span class="o">=</span> <span class="n">test_data</span><span class="o">.</span><span class="n">to_pandas</span><span class="p">()</span>
+
+<span class="c1"># process and save json files</span>
+<span class="n">process_dataframe_to_jsonl</span><span class="p">(</span><span class="n">train_json_file</span><span class="p">,</span> <span class="n">train_df</span><span class="p">)</span>
+<span class="n">process_dataframe_to_jsonl</span><span class="p">(</span><span class="n">test_json_file</span><span class="p">,</span> <span class="n">test_df</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;===========================&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Data processing complete.&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Here is a sample of the training data:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">test_df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;===========================&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Output:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">===========================</span>
+<span class="n">Data</span> <span class="n">processing</span> <span class="n">complete</span><span class="o">.</span>
+<span class="n">Here</span> <span class="ow">is</span> <span class="n">a</span> <span class="n">sample</span> <span class="n">of</span> <span class="n">the</span> <span class="n">training</span> <span class="n">data</span><span class="p">:</span>
+                                                <span class="n">text</span>  <span class="n">label</span>
+<span class="mi">0</span>  <span class="n">Christopher</span> <span class="n">Lee</span> <span class="n">Becoming</span> <span class="n">a</span> <span class="n">Video</span> <span class="n">Game</span> <span class="n">Wizard</span> <span class="p">(</span><span class="o">...</span>      <span class="mi">3</span>
+<span class="mi">1</span>  <span class="n">Law</span> <span class="n">Must</span> <span class="n">Respond</span> <span class="n">to</span> <span class="n">Internet</span> <span class="n">Revolution</span> <span class="n">CURREN</span><span class="o">...</span>      <span class="mi">3</span>
+<span class="mi">2</span>  <span class="n">Woods</span> <span class="n">give</span> <span class="n">up</span> <span class="n">number</span> <span class="n">one</span> <span class="n">to</span> <span class="n">Vijay</span> <span class="n">Fame</span> <span class="ow">is</span> <span class="n">nice</span><span class="o">...</span>      <span class="mi">1</span>
+<span class="mi">3</span>  <span class="n">Alcoa</span> <span class="n">announces</span> <span class="n">a</span> <span class="n">profits</span> <span class="n">warning</span> <span class="n">US</span> <span class="n">aluminium</span><span class="o">...</span>      <span class="mi">2</span>
+<span class="mi">4</span>  <span class="n">India</span> <span class="n">lauds</span> <span class="n">Arafat</span><span class="s1">&#39;s lifetime devotion to Pale...      0</span>
+<span class="o">===========================</span>
+</pre></div>
+</div>
+</section>
+<section id="font-color-purple-fine-tuning-steps-font">
+<h2><font color='purple'><em>Fine Tuning Steps</em></font><a class="headerlink" href="#font-color-purple-fine-tuning-steps-font" title="Permalink to this heading">#</a></h2>
+<p>Once the data is prepared, we can fine-tune the pre-trained Mistral model using a combination of techniques for efficiency and effectiveness.</p>
+<section id="font-color-purple-techniques-font">
+<h3><font color='purple'><strong>Techniques</strong></font><a class="headerlink" href="#font-color-purple-techniques-font" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p><font color='purple'><strong>PEFT (Parameter-Efficient Fine-Tuning)</strong></font>: Imagine a large toolbox filled with tools. Standard fine-tuning would pull out every tool and try to adjust them all. PEFT, however, uses “adapter modules” like smaller, specialized toolkits. These focus updates on the most relevant parts of the model, saving time and resources by not retraining everything.</p></li>
+<li><p><font color='purple'><strong>LoRA (Low-Rank Adaptation)</strong></font>: When fine-tuning, it’s crucial to identify the areas of the model most important for the new task. LoRA acts like a spotlight, shining on these key areas within the vast network. PEFT then utilizes this information to target those specific parts with the adapter modules for focused updates.</p></li>
+<li><p><font color='purple'><strong>SFT (Supervised Fine-Tuning)</strong></font>: Fine-tuning involves adjusting the model’s internal parameters. Standard training might make large, abrupt changes. SFT takes a gentler approach, making smaller, more nuanced adjustments. This allows the model to refine its understanding of the data without drastically altering its existing knowledge, potentially leading to better overall performance.</p></li>
+</ul>
+</section>
+<section id="id1">
+<h3><font color='purple'><strong>Fine-Tuning Steps</strong></font><a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
+<p>Today we’ll load a pre-trained Mistral model and prepare it for training. We then identify the most important parts in the model using LoRA. These modules are targeted in the PEFT process. The model is then fine-tuned using the SFTTrainer, which uses the SFT method to update the model parameters.</p>
+<p>After the fine-tuning process, we save the fine-tuned model. Then, we loads the base model and the fine-tuned model, and merge them together. The merged model is then saved for future use. This merging process allows the fine-tuned model to benefit from the knowledge in the base model, while also incorporating the updates made during the fine-tuning process.</p>
+<p>You can find <code class="docutils literal notranslate"><span class="pre">fine_tune.py</span></code> script in the <a class="reference external" href="https://github.com/rs-kellogg/krs-openllm-cookbook/tree/main/scripts/fine_tune">scripts/fine_tune</a> folder of our github repo.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#######################################</span>
+<span class="c1"># Fine Tuning using PEFT, LoRA, and SFT</span>
+<span class="c1">#######################################</span>
+
+<span class="c1"># import libraries</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">AutoModelForCausalLM</span><span class="p">,</span> <span class="n">TrainingArguments</span><span class="p">,</span> <span class="n">DataCollatorForLanguageModeling</span>
+<span class="kn">import</span> <span class="nn">bitsandbytes</span> <span class="k">as</span> <span class="nn">bnb</span>
+<span class="kn">from</span> <span class="nn">lora</span> <span class="kn">import</span> <span class="n">LoraConfig</span><span class="p">,</span> <span class="n">get_peft_model</span><span class="p">,</span> <span class="n">PeftModel</span>
+<span class="kn">from</span> <span class="nn">sft</span> <span class="kn">import</span> <span class="n">SFTTrainer</span>
+<span class="kn">from</span> <span class="nn">datasets</span> <span class="kn">import</span> <span class="n">load_from_disk</span>
+
+<span class="c1"># model paths</span>
+<span class="n">llm_dir</span> <span class="o">=</span> <span class="s2">&quot;/kellogg/data/llm_models_opensource/mistral_mistralAI&quot;</span>
+<span class="n">model_id</span> <span class="o">=</span> <span class="s2">&quot;mistralai/Mistral-7B-Instruct-v0.2&quot;</span>
+
+<span class="c1"># quantized model loading</span>
+<span class="n">bnb_config</span> <span class="o">=</span> <span class="n">BitsAndBytesConfig</span><span class="p">(</span>
+    <span class="n">load_in_4bit</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">bnb_4bit_use_double_quant</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">bnb_4bit_quant_type</span><span class="o">=</span><span class="s2">&quot;nf4&quot;</span><span class="p">,</span>
+    <span class="n">bnb_4bit_compute_dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">bfloat16</span>
+<span class="p">)</span>
+
+<span class="c1"># model loading</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">AutoModelForCausalLM</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="n">model_id</span><span class="p">,</span> <span class="n">quantization_config</span><span class="o">=</span><span class="n">bnb_config</span><span class="p">,</span> <span class="n">device_map</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">},</span> <span class="n">cache_dir</span><span class="o">=</span><span class="n">llm_dir</span><span class="p">)</span>
+<span class="n">tokenizer</span> <span class="o">=</span> <span class="n">AutoTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="n">model_id</span><span class="p">,</span> <span class="n">add_eos_token</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cache_dir</span><span class="o">=</span><span class="n">llm_dir</span><span class="p">)</span>
+
+<span class="c1"># load the train and test datasets</span>
+<span class="n">train_data</span> <span class="o">=</span> <span class="n">load_from_disk</span><span class="p">(</span><span class="s2">&quot;/kellogg/proj/awc6034/fine_tune/ag_news/data/train_data.jsonl&quot;</span><span class="p">)</span>
+<span class="n">test_data</span> <span class="o">=</span> <span class="n">load_from_disk</span><span class="p">(</span><span class="s2">&quot;/kellogg/proj/awc6034/fine_tune/ag_news/data/test_data.jsonl&quot;</span><span class="p">)</span>
+
+<span class="c1"># find modules in the model</span>
+<span class="k">def</span> <span class="nf">find_all_linear_names</span><span class="p">(</span><span class="n">model</span><span class="p">):</span>
+    <span class="bp">cls</span> <span class="o">=</span> <span class="n">bnb</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear4bit</span>
+    <span class="n">lora_module_names</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">module</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">named_modules</span><span class="p">():</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="bp">cls</span><span class="p">):</span>
+            <span class="n">names</span> <span class="o">=</span> <span class="n">name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
+            <span class="n">lora_module_names</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">names</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">names</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">names</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">if</span> <span class="s1">&#39;lm_head&#39;</span> <span class="ow">in</span> <span class="n">lora_module_names</span><span class="p">:</span> <span class="c1"># needed for 16-bit</span>
+            <span class="n">lora_module_names</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s1">&#39;lm_head&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">lora_module_names</span><span class="p">)</span>
+
+<span class="n">model</span><span class="o">.</span><span class="n">gradient_checkpointing_enable</span><span class="p">()</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">prepare_model_for_kbit_training</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+<span class="n">modules</span> <span class="o">=</span> <span class="n">find_all_linear_names</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+
+<span class="c1"># configure LoRA</span>
+<span class="n">lora_config</span> <span class="o">=</span> <span class="n">LoraConfig</span><span class="p">(</span>
+    <span class="n">r</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+    <span class="n">lora_alpha</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span>
+    <span class="n">target_modules</span><span class="o">=</span><span class="n">modules</span><span class="p">,</span>
+    <span class="n">lora_dropout</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span>
+    <span class="n">bias</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">,</span>
+    <span class="n">task_type</span><span class="o">=</span><span class="s2">&quot;CAUSAL_LM&quot;</span>
+<span class="p">)</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">get_peft_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">lora_config</span><span class="p">)</span>
+
+<span class="c1"># calculate the number of trainable parameters</span>
+<span class="n">trainable</span><span class="p">,</span> <span class="n">total</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">get_nb_trainable_parameters</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Trainable: </span><span class="si">{</span><span class="n">trainable</span><span class="si">}</span><span class="s2"> | total: </span><span class="si">{</span><span class="n">total</span><span class="si">}</span><span class="s2"> | Percentage: </span><span class="si">{</span><span class="n">trainable</span><span class="o">/</span><span class="n">total</span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">%&quot;</span><span class="p">)</span>
+
+<span class="c1"># set padding token</span>
+<span class="n">tokenizer</span><span class="o">.</span><span class="n">pad_token</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">eos_token</span>
+
+<span class="c1"># clear GPU memory cache</span>
+<span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">empty_cache</span><span class="p">()</span>
+
+<span class="c1"># setup and start training</span>
+<span class="n">trainer</span> <span class="o">=</span> <span class="n">SFTTrainer</span><span class="p">(</span>
+    <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
+    <span class="n">train_dataset</span><span class="o">=</span><span class="n">train_data</span><span class="p">,</span>
+    <span class="n">eval_dataset</span><span class="o">=</span><span class="n">test_data</span><span class="p">,</span>
+    <span class="n">dataset_text_field</span><span class="o">=</span><span class="s2">&quot;text&quot;</span><span class="p">,</span>
+    <span class="n">peft_config</span><span class="o">=</span><span class="n">lora_config</span><span class="p">,</span>
+    <span class="n">args</span><span class="o">=</span><span class="n">TrainingArguments</span><span class="p">(</span>
+        <span class="n">per_device_train_batch_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">gradient_accumulation_steps</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+        <span class="n">warmup_steps</span><span class="o">=</span><span class="mf">0.03</span><span class="p">,</span>
+        <span class="n">max_steps</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+        <span class="n">learning_rate</span><span class="o">=</span><span class="mf">2e-4</span><span class="p">,</span>
+        <span class="n">logging_steps</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">output_dir</span><span class="o">=</span><span class="s2">&quot;outputs&quot;</span><span class="p">,</span>
+        <span class="n">optim</span><span class="o">=</span><span class="s2">&quot;paged_adamw_8bit&quot;</span><span class="p">,</span>
+        <span class="n">save_strategy</span><span class="o">=</span><span class="s2">&quot;epoch&quot;</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="n">data_collator</span><span class="o">=</span><span class="n">DataCollatorForLanguageModeling</span><span class="p">(</span><span class="n">tokenizer</span><span class="p">,</span> <span class="n">mlm</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">trainer</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+
+<span class="c1"># save the model</span>
+<span class="n">new_model</span> <span class="o">=</span> <span class="s2">&quot;mistralai-Code-Instruct-ag_news&quot;</span> <span class="c1">#Name of the model you will be pushing to huggingface model hub</span>
+<span class="n">trainer</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">save_pretrained</span><span class="p">(</span><span class="n">new_model</span><span class="p">)</span>
+
+<span class="c1"># merge the models</span>
+<span class="n">base_model</span> <span class="o">=</span> <span class="n">AutoModelForCausalLM</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span>
+    <span class="n">model_id</span><span class="p">,</span>
+    <span class="n">low_cpu_mem_usage</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">return_dict</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">torch_dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float16</span><span class="p">,</span>
+    <span class="n">device_map</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">},</span>
+<span class="p">)</span>
+<span class="n">merged_model</span><span class="o">=</span> <span class="n">PeftModel</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="n">base_model</span><span class="p">,</span> <span class="n">new_model</span><span class="p">)</span>
+<span class="n">merged_model</span><span class="o">=</span> <span class="n">merged_model</span><span class="o">.</span><span class="n">merge_and_unload</span><span class="p">()</span>
+
+<span class="c1"># save the merged model</span>
+<span class="n">merged_model</span><span class="o">.</span><span class="n">save_pretrained</span><span class="p">(</span><span class="n">new_model</span><span class="p">,</span> <span class="n">safe_serialization</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">tokenizer</span><span class="o">.</span><span class="n">save_pretrained</span><span class="p">(</span><span class="n">new_model</span><span class="p">)</span>
+<span class="n">tokenizer</span><span class="o">.</span><span class="n">pad_token</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">eos_token</span>
+<span class="n">tokenizer</span><span class="o">.</span><span class="n">padding_side</span> <span class="o">=</span> <span class="s2">&quot;right&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="font-color-purple-test-fine-tuned-model-font">
+<h2><font color='purple'><em>Test Fine-Tuned Model</em></font><a class="headerlink" href="#font-color-purple-test-fine-tuned-model-font" title="Permalink to this heading">#</a></h2>
+<p>Finally, we can test the fine-tuned model on our test dataset. Here we’ll revisit out initial query. You can find <code class="docutils literal notranslate"><span class="pre">query_finetune.py</span></code> script in the <a class="reference external" href="https://github.com/rs-kellogg/krs-openllm-cookbook/tree/main/scripts/fine_tune">scripts/fine_tune</a> folder of our github repo.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#############################</span>
+<span class="c1"># Fine Tune - Initial Query</span>
+<span class="c1">#############################</span>
+
+<span class="c1"># import libraries</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">AutoTokenizer</span><span class="p">,</span> <span class="n">AutoModelForCausalLM</span><span class="p">,</span> <span class="n">BitsAndBytesConfig</span>
+<span class="kn">import</span> <span class="nn">bitsandbytes</span> <span class="k">as</span> <span class="nn">bnb</span>
+
+<span class="c1"># model path</span>
+<span class="n">llm_path</span> <span class="o">=</span> <span class="s2">&quot;/kellogg/proj/awc6034/fine_tune/ag_news/mistralai-Code-Instruct-ag_news&quot;</span>
+
+<span class="c1"># quantized model loading</span>
+<span class="n">bnb_config</span> <span class="o">=</span> <span class="n">BitsAndBytesConfig</span><span class="p">(</span>
+    <span class="n">load_in_4bit</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">bnb_4bit_use_double_quant</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">bnb_4bit_quant_type</span><span class="o">=</span><span class="s2">&quot;nf4&quot;</span><span class="p">,</span>
+    <span class="n">bnb_4bit_compute_dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">bfloat16</span>
+<span class="p">)</span>
+
+<span class="c1"># model loading</span>
+<span class="n">llm_path</span> <span class="o">=</span> <span class="s2">&quot;/kellogg/proj/awc6034/fine_tune/ag_news/mistralai-Code-Instruct-ag_news&quot;</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">AutoModelForCausalLM</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="n">llm_path</span><span class="p">,</span> <span class="n">quantization_config</span><span class="o">=</span><span class="n">bnb_config</span><span class="p">,</span> <span class="n">device_map</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">})</span>
+<span class="n">tokenizer</span> <span class="o">=</span> <span class="n">AutoTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="n">llm_path</span><span class="p">,</span> <span class="n">add_eos_token</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># query function</span>
+<span class="k">def</span> <span class="nf">get_completion</span><span class="p">(</span><span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">tokenizer</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+  <span class="n">device</span> <span class="o">=</span> <span class="s2">&quot;cuda:0&quot;</span>
+
+  <span class="n">prompt_template</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">  &lt;s&gt;</span>
+<span class="s2">  [INST]</span>
+<span class="s2">  Classify the following text into one of the four classes: 0 - World, 1 - Sports, 2 - Business, 3 - Sci/Tech.</span>
+<span class="s2">  </span><span class="si">{query}</span>
+<span class="s2">  [/INST]</span>
+<span class="s2">  &lt;/s&gt;</span>
+<span class="s2">  &lt;s&gt;</span>
+
+<span class="s2">  &quot;&quot;&quot;</span>
+  <span class="n">prompt</span> <span class="o">=</span> <span class="n">prompt_template</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="n">query</span><span class="p">)</span>
+  <span class="n">encodeds</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="n">return_tensors</span><span class="o">=</span><span class="s2">&quot;pt&quot;</span><span class="p">,</span> <span class="n">add_special_tokens</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+  <span class="n">model_inputs</span> <span class="o">=</span> <span class="n">encodeds</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+  <span class="n">generated_ids</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="o">**</span><span class="n">model_inputs</span><span class="p">,</span> <span class="n">max_new_tokens</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">do_sample</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">pad_token_id</span><span class="o">=</span><span class="n">tokenizer</span><span class="o">.</span><span class="n">eos_token_id</span><span class="p">)</span>
+  <span class="n">decoded</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">batch_decode</span><span class="p">(</span><span class="n">generated_ids</span><span class="p">)</span>
+  <span class="k">return</span> <span class="p">(</span><span class="n">decoded</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="c1"># query</span>
+<span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">Wall St. Bears Claw Back Into the Black (Reuters) Reuters - Short-sellers, Wall Street&#39;s dwindling band </span>
+<span class="s2">of ultra-cynics, are seeing green again.</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+<span class="c1"># submit query</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">get_completion</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="n">query</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span> <span class="n">tokenizer</span><span class="o">=</span><span class="n">tokenizer</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Output from fine tuned model
+
+/kellogg/software/envs/gpu-llama2/lib/python3.10/site-packages/diffusers/utils/outputs.py:63: UserWarning: torch.utils._pytree._register_pytree_node is deprecated. Please use torch.utils._pytree.register_pytree_node instead.
+  torch.utils._pytree._register_pytree_node(
+/kellogg/software/envs/gpu-llama2/lib/python3.10/site-packages/diffusers/utils/outputs.py:63: UserWarning: torch.utils._pytree._register_pytree_node is deprecated. Please use torch.utils._pytree.register_pytree_node instead.
+  torch.utils._pytree._register_pytree_node(
+Loading checkpoint shards: 100%|██████████████████████████████████████████████████████████████████████████| 3/3 [00:14&lt;00:00,  4.82s/it]
+A decoder-only architecture is being used, but right-padding was detected! For correct generation results, please set `padding_side=&#39;left&#39;` when initializing the tokenizer.
+&lt;s&gt; 
+  &lt;s&gt; 
+  [INST]
+  Classify the following text into one of the four classes: 0 - World, 1 - Sports, 2 - Business, 3 - Sci/Tech.
+  
+Wall St. Bears Claw Back Into the Black (Reuters) Reuters - Short-sellers, Wall Street&#39;s dwindling band 
+of ultra-cynics, are seeing green again.
+
+  [/INST]
+  &lt;/s&gt; 
+  &lt;s&gt; 
+
+  &lt;/s&gt; The text appears to fall into class 2 - Business. 
+
+</pre></div>
+</div>
+</section>
+<section id="font-color-purple-reference-sources-font">
+<h2><font color='purple'><em>Reference Sources</em></font><a class="headerlink" href="#font-color-purple-reference-sources-font" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://adithyask.medium.com/a-beginners-guide-to-fine-tuning-mistral-7b-instruct-model-0f39647b20fe">A Beginner’s Guide to Fine-Tuning Mistral-7B Instruct Model</a></p></li>
+<li><p><a class="reference external" href="https://adithyask.medium.com/a-beginners-guide-to-fine-tuning-mistral-7b-instruct-model-0f39647b20fe">Running Fine Tuning with qlora and sft</a></p></li>
+<li><p><a class="reference external" href="https://github.com/adithya-s-k/LLM-Alchemy-Chamber/blob/main/LLMs/Mistral-7b/Mistral_Colab_Finetune_ipynb_Colab_Final.ipynb?source=post_page-----0f39647b20fe--------------------------------">Mistral Colab Finetune Notebook</a></p></li>
+<li><p><a class="reference external" href="https://huggingface.co/docs/trl/main/en/sft_trainer">Explanation for SFT</a></p></li>
+<li><p><a class="reference external" href="https://blog.paperspace.com/mistral-7b-fine-tuning/">Explanation for qlora, quantization, and finetuning</a></p></li>
+</ul>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -440,6 +901,29 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-tradeoffs-between-techniques-font"><font color="purple"><em>Tradeoffs between Techniques</em></font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-load-and-test-original-model-font"><font color="purple"><em>Load and Test Original Model</em></font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-prepare-dataset-font"><font color="purple"><em>Prepare Dataset</em></font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-fine-tuning-steps-font"><font color="purple"><em>Fine Tuning Steps</em></font></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-techniques-font"><font color="purple"><strong>Techniques</strong></font></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1"><font color="purple"><strong>Fine-Tuning Steps</strong></font></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-test-fine-tuned-model-font"><font color="purple"><em>Test Fine-Tuned Model</em></font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-reference-sources-font"><font color="purple"><em>Reference Sources</em></font></a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
