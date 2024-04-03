@@ -7,6 +7,8 @@
 #SBATCH --gres=gpu:a100:1
 #SBATCH --time 0:30:00
 #SBATCH --mem=40G
+#SBATCH --output=/projects/e32337/slurm-output/slurm-%j.out
+
 
 module purge all
 module use --append /kellogg/software/Modules/modulefiles
