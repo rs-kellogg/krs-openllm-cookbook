@@ -1,14 +1,15 @@
 #!/bin/bash
 
-#SBATCH -A your_quest_allocation_account
-#SBATCH -p gengpu
+#SBATCH --account=e32337
+#SBATCH --partition gengpu
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=1
 #SBATCH --gres=gpu:a100:1
-#SBATCH -N 1
-#SBATCH -n 1
-#SBATCH -t 0:30:00
+#SBATCH --time 0:30:00
 #SBATCH --mem=40G
 
 module purge
-module use modulefiles
+module use /kellogg/software/Modules/modulefiles
 module load llama_cpp/2.38
+
 python3 /code/gemma_test.py
