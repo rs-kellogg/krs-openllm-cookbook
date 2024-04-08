@@ -36,7 +36,7 @@ def process_llamaindex(workdir, embedding_name, embed_d, llm_model, query):
     logging.basicConfig(stream=sys.stdout, level=logging.INFO)
     logging.getLogger().addHandler(logging.StreamHandler(stream=sys.stdout))
 
-    embedding_chunk_size = 512
+    embedding_chunk_size = 1024
     embed_model = HuggingFaceEmbedding(model_name=embedding_name, max_length=512)
 
     llm = HuggingFaceLLM(
