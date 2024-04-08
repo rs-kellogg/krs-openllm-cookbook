@@ -65,7 +65,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'introduction';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="SLURM Jobs and GPU Usage" href="slurm_gpu_usage.html" />
+    <link rel="next" title="Using GPUs at Northwestern" href="slurm_gpu_usage.html" />
     <link rel="prev" title="Welcome" href="welcome.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -169,19 +169,19 @@ const thebe_selector_output = ".output, .cell_output"
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction to Open Source Large Language Models (LLMs)</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#"><font color="purple">Introduction</font></a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#"><font color="purple"><strong>Introduction</strong></font></a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Running Open Source LLMs on KLC</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="slurm_gpu_usage.html"><font color="purple">SLURM Jobs and GPU Usage</font></a></li>
-<li class="toctree-l1"><a class="reference internal" href="transformers.html"><font color="purple"><strong>Using Transformers to run LLMs</strong></font></a></li>
+<li class="toctree-l1"><a class="reference internal" href="slurm_gpu_usage.html"><font color="purple"><strong>Using GPUs at Northwestern</strong></font></a></li>
+<li class="toctree-l1"><a class="reference internal" href="transformers.html"><strong>Using Transformers to run LLMs</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="llama-cpp.html">Using Llama_cpp_python to run LLMs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="use_case.html"><font color="purple"><strong>Example Use Case</strong></font></a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Advanced Techniques</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="retrieval.html"><font color="purple"><strong>Retrieval Augmented Generation</strong></font></a></li>
-<li class="toctree-l1"><a class="reference internal" href="fine-tuning.html">Fine-Tuning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="retrieval.html"><strong>Retrieval Augmented Generation</strong></a></li>
+<li class="toctree-l1"><a class="reference internal" href="fine-tuning.html"><font color="purple"><strong>Fine-Tuning</strong></font></a></li>
 <li class="toctree-l1"><a class="reference internal" href="vision.html"><font color="purple"><strong>Process Images with bakllava</strong></font></a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Summary</span></p>
@@ -383,66 +383,93 @@ document.write(`
                 <article class="bd-article" role="main">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="font-color-purple-introduction-font">
-<h1><font color='purple'>Introduction</font><a class="headerlink" href="#font-color-purple-introduction-font" title="Permalink to this heading">#</a></h1>
-<div class="admonition-objective admonition">
-<p class="admonition-title">Objective</p>
+<h1><font color='purple'><strong>Introduction</strong></font><a class="headerlink" href="#font-color-purple-introduction-font" title="Permalink to this heading">#</a></h1>
+<div class="important admonition">
+<p class="admonition-title"><font color='purple'><strong>Objective</strong></font></p>
 <p>The goals of this workshop are to look at best practices with regard to:</p>
 <ul class="simple">
-<li><p><font color='purple'><strong>Executing</strong></font> open source LLMs on Quest and the Kellogg Linux Cluster (KLC)</p></li>
-<li><p><font color='purple'><strong>Adapting</strong></font> models to improve performance by using fine-tuning</p></li>
-<li><p><font color='purple'><strong>Integrating</strong></font> models with external resources at run-time to improve performance</p></li>
+<li><p><font color='purple'><strong>Executing</strong></font> open source LLMs on Quest and on the Kellogg Linux Cluster (KLC)</p></li>
+<li><p><font color='purple'><strong>Adapting</strong></font> models by using fine-tuning to improve performance and accuracy</p></li>
+<li><p><font color='purple'><strong>Integrating</strong></font> external resources with models at run-time to update knowledge sources</p></li>
 </ul>
 </div>
-<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
-<div class="sd-card-body docutils">
-<div class="sd-card-title sd-font-weight-bold docutils">
-Project Lifecycle </div>
-<figure class="align-default" id="gpt-dev-cycle">
+<div class="admonition-font-color-purple-project-lifecycle-font admonition">
+<p class="admonition-title"><font color='purple'><strong>Project Lifecycle</strong></font></p>
+<p>Every LLM project goes through at least some version of this lifecycle:</p>
+<figure class="align-default" id="gpt-dev-cycle1">
 <a class="reference internal image-reference" href="_images/project-lifecycle-1.png"><img alt="_images/project-lifecycle-1.png" src="_images/project-lifecycle-1.png" style="width: 900px;" /></a>
 </figure>
-<p class="sd-card-text">(Diagram image from <a class="reference external" href="https://www.deeplearning.ai/">DeepLearning.AI</a> under the Creative Commons License)</p>
+<p>(Diagram taken from <a class="reference external" href="https://www.deeplearning.ai/">DeepLearning.AI</a>, provided under the Creative Commons License)</p>
 </div>
-</div>
-<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
-<div class="sd-card-body docutils">
-<div class="sd-card-title sd-font-weight-bold docutils">
-Define the Use Case</div>
-<figure class="align-default" id="id1">
+<div class="admonition-font-color-purple-define-the-use-case-font admonition">
+<p class="admonition-title"><font color='purple'><strong>Define the Use Case</strong></font></p>
+<p>One key to success is coming up with a well-defined use case that your LLM application will implement:</p>
+<figure class="align-default" id="gpt-dev-cycle2">
 <a class="reference internal image-reference" href="_images/project-lifecycle-2.png"><img alt="_images/project-lifecycle-2.png" src="_images/project-lifecycle-2.png" style="width: 900px;" /></a>
 </figure>
+<p>Your plan should specify:</p>
+<ul class="simple">
+<li><p>What data will I be using to achieve my research goal?</p></li>
+<li><p>How much data do I need?</p></li>
+<li><p>How will I evaluate LLM output?</p></li>
+<li><p>What counts as good enough?</p></li>
+</ul>
 </div>
-</div>
-<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
-<div class="sd-card-body docutils">
-<div class="sd-card-title sd-font-weight-bold docutils">
-Select a Model</div>
-<figure class="align-default" id="id2">
+<div class="admonition-font-color-purple-select-a-model-font admonition">
+<p class="admonition-title"><font color='purple'><strong>Select a Model</strong></font></p>
+<p>There are many model choices avaialble. We can use leaderboards to choose the best one for our use case, and model hubs to download and run them locally.</p>
+<ul class="simple">
+<li><p>Reproducibility</p></li>
+<li><p>Cost</p></li>
+<li><p>Data privacy</p></li>
+<li><p>Flexibility to do fine-tuning</p></li>
+</ul>
+<figure class="align-default" id="gpt-dev-cycle3">
 <a class="reference internal image-reference" href="_images/project-lifecycle-3.png"><img alt="_images/project-lifecycle-3.png" src="_images/project-lifecycle-3.png" style="width: 900px;" /></a>
 </figure>
 </div>
-</div>
-<ul class="simple">
-<li><p>Model hubs for downloading models, HF or llama.cpp (etc.) for running models</p></li>
-<li><p>Model hubs have model cards</p></li>
-<li><p>Benchmarks and leaderboards</p></li>
-</ul>
 <div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
 <div class="sd-card-body docutils">
 <div class="sd-card-title sd-font-weight-bold docutils">
-Adapt the Model</div>
-<figure class="align-default" id="id3">
+Models vs. Code</div>
+<figure class="align-default" id="model-v-code">
+<a class="reference internal image-reference" href="_images/model-v-code.drawio.png"><img alt="_images/model-v-code.drawio.png" src="_images/model-v-code.drawio.png" style="width: 900px;" /></a>
+</figure>
+</div>
+</div>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+Model Hubs</div>
+<p class="sd-card-text">One widely used model hub is from <a class="reference external" href="https://huggingface.co/docs/hub/en/models-the-hub">Hugging Face</a>:</p>
+<figure class="align-default" id="model-hub">
+<a class="reference internal image-reference" href="_images/model-hub.png"><img alt="_images/model-hub.png" src="_images/model-hub.png" style="width: 900px;" /></a>
+</figure>
+</div>
+</div>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+Benchmarks and Leaderboards</div>
+<p class="sd-card-text">This is the <a class="reference external" href="https://huggingface.co/spaces/lmsys/chatbot-arena-leaderboard">chatbot arena leaderboard</a> as of 2024-03-04:</p>
+<figure class="align-default" id="chatbot-leaderboard">
+<a class="reference internal image-reference" href="_images/chatbot-leaderboard.png"><img alt="_images/chatbot-leaderboard.png" src="_images/chatbot-leaderboard.png" style="width: 900px;" /></a>
+</figure>
+</div>
+</div>
+<div class="admonition-font-color-purple-adapt-and-improve-the-model-font admonition">
+<p class="admonition-title"><font color='purple'><strong>Adapt and Improve the Model</strong></font></p>
+<p>While we should always start with crafting good prompts in order to achieve the best performance we can, it may sometimes be advantageous to adapt a model to improve its performance. Fine-tuning is one way to achieve this goal.</p>
+<figure class="align-default" id="gpt-dev-cycle4">
 <a class="reference internal image-reference" href="_images/project-lifecycle-4.png"><img alt="_images/project-lifecycle-4.png" src="_images/project-lifecycle-4.png" style="width: 900px;" /></a>
 </figure>
 </div>
-</div>
-<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
-<div class="sd-card-body docutils">
-<div class="sd-card-title sd-font-weight-bold docutils">
-Application Integration</div>
-<figure class="align-default" id="id4">
+<div class="admonition-font-color-purple-integrate-external-resources-font admonition">
+<p class="admonition-title"><font color='purple'><strong>Integrate External Resources</strong></font></p>
+<p>No model can “know” anything about events that have occurred after its training cutoff date. One way to overcome this obstacle is to integrate external resources, using tehcniques such as Retrieval Augmented Generation (RAG). RAG can result in better prompt completions and fewer “hallucinations”.</p>
+<figure class="align-default" id="gpt-dev-cycle5">
 <a class="reference internal image-reference" href="_images/project-lifecycle-5.png"><img alt="_images/project-lifecycle-5.png" src="_images/project-lifecycle-5.png" style="width: 900px;" /></a>
 </figure>
-</div>
 </div>
 </section>
 
@@ -490,7 +517,7 @@ Application Integration</div>
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><font color='purple'>SLURM Jobs and GPU Usage</font></p>
+        <p class="prev-next-title"><font color='purple'><strong>Using GPUs at Northwestern</strong></font></p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

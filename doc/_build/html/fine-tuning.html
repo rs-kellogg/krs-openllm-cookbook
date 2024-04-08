@@ -169,19 +169,19 @@ const thebe_selector_output = ".output, .cell_output"
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction to Open Source Large Language Models (LLMs)</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="introduction.html"><font color="purple">Introduction</font></a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html"><font color="purple"><strong>Introduction</strong></font></a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Running Open Source LLMs on KLC</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="slurm_gpu_usage.html"><font color="purple">SLURM Jobs and GPU Usage</font></a></li>
-<li class="toctree-l1"><a class="reference internal" href="transformers.html"><font color="purple"><strong>Using Transformers to run LLMs</strong></font></a></li>
+<li class="toctree-l1"><a class="reference internal" href="slurm_gpu_usage.html"><font color="purple"><strong>Using GPUs at Northwestern</strong></font></a></li>
+<li class="toctree-l1"><a class="reference internal" href="transformers.html"><strong>Using Transformers to run LLMs</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="llama-cpp.html">Using Llama_cpp_python to run LLMs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="use_case.html"><font color="purple"><strong>Example Use Case</strong></font></a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Advanced Techniques</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="retrieval.html"><font color="purple"><strong>Retrieval Augmented Generation</strong></font></a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Fine-Tuning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="retrieval.html"><strong>Retrieval Augmented Generation</strong></a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#"><font color="purple"><strong>Fine-Tuning</strong></font></a></li>
 <li class="toctree-l1"><a class="reference internal" href="vision.html"><font color="purple"><strong>Process Images with bakllava</strong></font></a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Summary</span></p>
@@ -370,7 +370,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Fine-Tuning</h1>
+    <h1><font color='purple'>Fine-Tuning</font></h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -388,8 +388,10 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1"><font color="purple"><strong>Fine-Tuning Steps</strong></font></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-test-fine-tuned-model-font"><font color="purple"><em>Test Fine-Tuned Model</em></font></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-reference-sources-font"><font color="purple"><em>Reference Sources</em></font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-test-fine-tuned-model-font"><font color="purple"><em>Test Fine-Tuned Model</em></font></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-reference-sources-font"><font color="purple"><em>Reference Sources</em></font></a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -401,12 +403,12 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section id="fine-tuning">
-<h1>Fine-Tuning<a class="headerlink" href="#fine-tuning" title="Permalink to this heading">#</a></h1>
-<p><font color='purple'><strong>Fine-tuning</strong></font> takes large language models beyond basic prompting. It allows you to train the model on a larger dataset specifically tailored to your desired task, leading to several advantages:</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="font-color-purple-fine-tuning-font">
+<h1><font color='purple'><strong>Fine-Tuning</strong></font><a class="headerlink" href="#font-color-purple-fine-tuning-font" title="Permalink to this heading">#</a></h1>
+<p><font color='purple'><strong>Fine-tuning</strong></font> takes large language models beyond basic prompting. It allows you to train a model on a dataset specifically tailored to your desired task, leading to several advantages:</p>
 <ul class="simple">
-<li><p><em><strong>Superior Results</strong></em>: Compared to prompting, fine-tuning delivers higher quality outputs because the model learns directly from a wider range of examples.</p></li>
-<li><p><em><strong>Efficiency</strong></em>: You can train on more data than can fit in a single prompt, saving on token usage and reducing latency for requests.</p></li>
+<li><p><em><strong>Superior Results</strong></em>: Compared to prompting, fine-tuning can deliver higher quality outputs because the model is updating its weights based off of supervised training examples you provide it, producing a model that is specially tailored to your needs.</p></li>
+<li><p><em><strong>Efficiency</strong></em>: The resulting fine-tuned model will typically require shorter prompts to get the desired behavior, because the model weights are already tuned to your use case. This can save on token usage and reduce latency for requests.</p></li>
 <li><p><em><strong>Specificity</strong></em>: Fine-tuning excels at tasks requiring specific styles, tones, formats, or consistent outputs. It enhances reliability in achieving your desired results, handles complex instructions better, and tackles edge cases effectively.</p></li>
 <li><p><em><strong>New Skills</strong></em>: Fine-tuning empowers the model to master new skills or complete tasks that are difficult to articulate through simple prompts.</p></li>
 </ul>
@@ -424,6 +426,7 @@ document.write(`
 <ul>
 <li><p>Situations with a large, relevant document database.</p></li>
 <li><p>Tasks requiring factual accuracy where context retrieval is beneficial.</p></li>
+<li><p>Tasks requiring access to information that is newer than a model’s training cutoff date.</p></li>
 </ul>
 </li>
 <li><p><font color='purple'><em>Use Fine-Tuning for</em></font>:</p>
@@ -434,7 +437,10 @@ document.write(`
 </ul>
 </li>
 </ul>
-<p>Our advice is to experiment with crafting effective instructions and prompts for the model before attempting fine-tuning.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Our advice is to experiment with crafting effective instructions and prompts for the model before attempting fine-tuning. Prompt engineering is low-cost and does not require any programming. Different prompting techniques can be used, such as few-shot in-context learning and chain-of-thought prompts. Fine-tuning requires more effort – it requires a collection of supervised training examples, some programming work, extra GPU resources, and extra storage for a model with updated weights.</p>
+</div>
 </section>
 <section id="font-color-purple-load-and-test-original-model-font">
 <h2><font color='purple'><em>Load and Test Original Model</em></font><a class="headerlink" href="#font-color-purple-load-and-test-original-model-font" title="Permalink to this heading">#</a></h2>
@@ -835,9 +841,8 @@ of ultra-cynics, are seeing green again.
 </pre></div>
 </div>
 <p>While the output still contains slightly more text than we requested, it still provides a concise response of <code class="docutils literal notranslate"><span class="pre">class</span> <span class="pre">2</span> <span class="pre">-</span> <span class="pre">Business</span></code>.</p>
-</section>
 <section id="font-color-purple-reference-sources-font">
-<h2><font color='purple'><em>Reference Sources</em></font><a class="headerlink" href="#font-color-purple-reference-sources-font" title="Permalink to this heading">#</a></h2>
+<h3><font color='purple'><em>Reference Sources</em></font><a class="headerlink" href="#font-color-purple-reference-sources-font" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p><a class="reference external" href="https://adithyask.medium.com/a-beginners-guide-to-fine-tuning-mistral-7b-instruct-model-0f39647b20fe">A Beginner’s Guide to Fine-Tuning Mistral-7B Instruct Model</a></p></li>
 <li><p><a class="reference external" href="https://adithyask.medium.com/a-beginners-guide-to-fine-tuning-mistral-7b-instruct-model-0f39647b20fe">Running Fine Tuning with qlora and sft</a></p></li>
@@ -845,6 +850,7 @@ of ultra-cynics, are seeing green again.
 <li><p><a class="reference external" href="https://huggingface.co/docs/trl/main/en/sft_trainer">Explanation for SFT</a></p></li>
 <li><p><a class="reference external" href="https://blog.paperspace.com/mistral-7b-fine-tuning/">Explanation for qlora, quantization, and finetuning</a></p></li>
 </ul>
+</section>
 </section>
 </section>
 
@@ -884,7 +890,7 @@ of ultra-cynics, are seeing green again.
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title"><font color='purple'><strong>Retrieval Augmented Generation</strong></font></p>
+        <p class="prev-next-title"><strong>Retrieval Augmented Generation</strong></p>
       </div>
     </a>
     <a class="right-next"
@@ -919,8 +925,10 @@ of ultra-cynics, are seeing green again.
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1"><font color="purple"><strong>Fine-Tuning Steps</strong></font></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-test-fine-tuned-model-font"><font color="purple"><em>Test Fine-Tuned Model</em></font></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-reference-sources-font"><font color="purple"><em>Reference Sources</em></font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-test-fine-tuned-model-font"><font color="purple"><em>Test Fine-Tuned Model</em></font></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-reference-sources-font"><font color="purple"><em>Reference Sources</em></font></a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 
