@@ -174,13 +174,13 @@ const thebe_selector_output = ".output, .cell_output"
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Running Open Source LLMs on KLC</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="slurm_gpu_usage.html"><font color="purple"><strong>Using GPUs at Northwestern</strong></font></a></li>
-<li class="toctree-l1"><a class="reference internal" href="transformers.html"><font color="purple"><strong>Using Transformers to run LLMs</strong></font></a></li>
+<li class="toctree-l1"><a class="reference internal" href="transformers.html"><strong>Using Transformers to run LLMs</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="llama-cpp.html">Using Llama_cpp_python to run LLMs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="use_case.html"><font color="purple"><strong>Example Use Case</strong></font></a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Advanced Techniques</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#"><font color="purple"><strong>Retrieval Augmented Generation</strong></font></a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#"><strong>Retrieval Augmented Generation</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="fine-tuning.html"><font color="purple"><strong>Fine-Tuning</strong></font></a></li>
 <li class="toctree-l1"><a class="reference internal" href="vision.html"><font color="purple"><strong>Process Images with bakllava</strong></font></a></li>
 </ul>
@@ -370,7 +370,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1><font color='purple'>Retrieval Augmented Generation</font></h1>
+    <h1>Retrieval Augmented Generation</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -383,7 +383,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-sample-uses-cases-font"><font color="purple">Sample Uses Cases</font></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-how-it-works-font"><font color="purple">How it Works</font></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-example-retrieving-information-non-existent-in-training-font"><font color="purple">Example: Retrieving Information Non-existent in Training</font></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-more-sample-scripts-font"><font color="purple">More sample scripts</font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-sample-scripts-font"><font color="purple">Sample scripts</font></a></li>
 </ul>
             </nav>
         </div>
@@ -395,15 +395,15 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section id="font-color-purple-retrieval-augmented-generation-font">
-<h1><font color='purple'><strong>Retrieval Augmented Generation</strong></font><a class="headerlink" href="#font-color-purple-retrieval-augmented-generation-font" title="Permalink to this heading">#</a></h1>
+  <section id="retrieval-augmented-generation">
+<h1><strong>Retrieval Augmented Generation</strong><a class="headerlink" href="#retrieval-augmented-generation" title="Permalink to this heading">#</a></h1>
 <p><font color='purple'>Retrieval Augmented Generation (RAG)</font> is a powerful paradigm in natural language processing that combines the strengths of information retrieval and language generation. This approach involves retrieving relevant information from a large dataset and using that information to enhance the generation of accurate text.</p>
 <p>The phrase <font color='purple'>Retrieval Augmented Generation</font> comes from a recent <a class="reference external" href="https://research.facebook.com/publications/retrieval-augmented-generation-for-knowledge-intensive-nlp-tasks/">paper by Lewis et al. from Facebook AI</a>. The idea is to use a pre-trained language model (LM) to generate text, but to use a separate retrieval system to find relevant documents to condition the LM on.</p>
 <section id="font-color-purple-sample-uses-cases-font">
 <h2><font color='purple'>Sample Uses Cases</font><a class="headerlink" href="#font-color-purple-sample-uses-cases-font" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p><strong>Question Answering Systems or Conversational Agents</strong>:<br />
-Retrieve information from vast knowledge bases, such as multiple pdf or csv files, and incorporate into response (example today).</p></li>
+Retrieve information from vast knowledge bases, such as multiple pdf or csv files, and incorporate into response.</p></li>
 <li><p><strong>Context Creation</strong>:<br />
 Enhance the generation of informative text by pulling in relevant details from a wide range of sources.</p></li>
 <li><p><strong>Code Generation</strong>:<br />
@@ -434,22 +434,44 @@ Relevant information is retrieved to produce more informed and context-aware res
 <h2><font color='purple'>Example: Retrieving Information Non-existent in Training</font><a class="headerlink" href="#font-color-purple-example-retrieving-information-non-existent-in-training-font" title="Permalink to this heading">#</a></h2>
 <p>One way to use RAG is to feed the LLM with up-to-date information.<br />
 The Llama 2 was trained between January 2023 and July 2023. The Mistral 7B model was released in September 2023. Let’s ask LLama2 a question about the Mistral 7B model.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Run the query through Llama2 13B chat model with test_llama2.py  </span>
-<span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;[INST]What is a Mistral 7B language model?[/INST]&quot;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Run the query through Llama2 7B chat model with test_llama2.py  </span>
+<span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;[INST]How can I use tranformers to call the Mistral 7B instruct model?[/INST]&quot;</span>
 </pre></div>
 </div>
 <p><strong>Output:</strong></p>
 <blockquote>
-<div><p>[INST]What is a Mistral 7B language model?[/INST]  I’m not familiar with a “Mistral 7B language model.” It’s possible that this is a custom or proprietary language model developed by a specific organization or individual, and not a widely known or used model.</p>
-<p>There are many language models available, each with their own strengths and weaknesses, and it’s important to choose the right model for your specific use case. Some popular language models include BERT, RoBERTa, XLNet, and transformers. These models have been pre-trained on large datasets and can be fine-tuned for specific tasks such as sentiment analysis, question answering, and text classification.</p>
-<p>If you have any more information about the Mistral 7B language model, such as its capabilities, performance, or the organization that developed it, I may be able to provide more assistance.</p>
+<div><p>[INST]How can I use tranformers to call the Mistral 7B instruct model?[/INST]<br />
+To use Transformers to call the Mistral 7B instruct model, you can follow these general steps:</p>
+<ol class="arabic simple">
+<li><p>Install the necessary dependencies: You will need to install the <code class="docutils literal notranslate"><span class="pre">transformers</span></code> library and any other dependencies required by the model you want to use.</p></li>
+<li><p>Load the model: You can use the <code class="docutils literal notranslate"><span class="pre">transformers.BertModel</span></code> class to load the Mistral 7B model. For example:</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">BertModel</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">BertModel</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s1">&#39;mistral-7b-base-uncased&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Prepare the input: You will need to prepare the input for the model. This can involve tokenizing the text, padding it to the appropriate length, and converting it to a format that the model can understand.</p></li>
+<li><p>Call the model: You can use the <code class="docutils literal notranslate"><span class="pre">model.predict()</span></code> method to call the model on a given input. For example:</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">input_text</span> <span class="o">=</span> <span class="s1">&#39;This is a sample input text.&#39;</span>
+<span class="n">input_ids</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">input_text</span><span class="p">,</span> <span class="n">return_tensors</span><span class="o">=</span><span class="s1">&#39;pt&#39;</span><span class="p">)</span>
+<span class="n">attention_mask</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">input_text</span><span class="p">,</span> <span class="n">return_tensors</span><span class="o">=</span><span class="s1">&#39;pt&#39;</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s1">&#39;max_length&#39;</span><span class="p">,</span> <span class="n">truncation</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">output</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">input_ids</span><span class="p">,</span> <span class="n">attention_mask</span><span class="p">)</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="5">
+<li><p>Interpret the output: Once you have called the model, you can interpret the output in a way that makes sense for your use case. For example, you could use the output to generate a summary of the input text, or to perform some other task that requires understanding natural language.</p></li>
+</ol>
+<p>Note that the specific details of how to use the Mistral 7B model will depend on the implementation of the model and the library you are using. You may need to consult the documentation</p>
 </div></blockquote>
-<p>The release of Mistral 7B language model can be found here: <a class="reference external" href="https://mistral.ai/news/announcing-mistral-7b/">https://mistral.ai/news/announcing-mistral-7b/</a></p>
-<p><img alt="Selenium doc" src="_images/mistral.png" /></p>
-<p>To resolve this, we can use RAG to feed details about the release note. The code below will take the contents of a webpage and follow the 5 steps outlined above to retrieve the relevant information.</p>
+<p>The huggingface page for Mistral 7B Instruct model can be found <a class="reference external" href="https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.2">here</a>.<br />
+We can use RAG to feed up-to-date information. The code below will take the contents of a webpage and follow the 5 steps outlined above to retrieve the relevant information.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># === Load libraries</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load libraries</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">sys</span>
@@ -463,102 +485,180 @@ The Llama 2 was trained between January 2023 and July 2023. The Mistral 7B model
 <span class="kn">import</span> <span class="nn">requests</span>
 <span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
 <span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">os</span>
 
 <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
 
-<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">stream</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
-<span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">()</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">StreamHandler</span><span class="p">(</span><span class="n">stream</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">))</span>
+<span class="c1"># Save text from the url link</span>
+<span class="k">def</span> <span class="nf">prep_text</span><span class="p">(</span><span class="n">workdir</span><span class="p">,</span> <span class="n">url_link</span><span class="p">):</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url_link</span><span class="p">)</span>
+    <span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">content</span><span class="p">,</span> <span class="s1">&#39;html.parser&#39;</span><span class="p">)</span>
+    <span class="n">webpage_content</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">get_text</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="n">webpage_content</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">linesep</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">s</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">webpage_content</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()</span> <span class="k">if</span> <span class="n">s</span><span class="p">])</span>
 
-<span class="c1"># === Download web content</span>
-<span class="n">url_link</span> <span class="o">=</span> <span class="s2">&quot;https://mistral.ai/news/announcing-mistral-7b/&quot;</span>
-<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url_link</span><span class="p">)</span>
-<span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">content</span><span class="p">,</span> <span class="s1">&#39;html.parser&#39;</span><span class="p">)</span>
-<span class="n">webpage_content</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">get_text</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-<span class="n">data_folder</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;./test_data&quot;</span><span class="p">)</span>
-<span class="k">if</span> <span class="ow">not</span> <span class="n">data_folder</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
-    <span class="n">data_folder</span><span class="o">.</span><span class="n">mkdir</span><span class="p">()</span>
-<span class="n">txt_file</span> <span class="o">=</span> <span class="n">data_folder</span> <span class="o">/</span> <span class="s2">&quot;webpage_content.txt&quot;</span>
-<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">txt_file</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">webpage_content</span><span class="p">)</span>
+    <span class="n">data_path</span> <span class="o">=</span> <span class="n">workdir</span> <span class="o">/</span> <span class="s2">&quot;LlamaIndex_data&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">data_path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+        <span class="n">data_path</span><span class="o">.</span><span class="n">mkdir</span><span class="p">()</span>
 
-<span class="c1">#######################################</span>
+    <span class="n">txt_file</span> <span class="o">=</span> <span class="n">data_path</span> <span class="o">/</span> <span class="s2">&quot;webpage_content.txt&quot;</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">txt_file</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">webpage_content</span><span class="p">)</span>
+
+<span class="c1"># Perform RAG using LlamaIndex</span>
+<span class="k">def</span> <span class="nf">process_llamaindex</span><span class="p">(</span><span class="n">workdir</span><span class="p">,</span> <span class="n">embedding_name</span><span class="p">,</span> <span class="n">embed_d</span><span class="p">,</span> <span class="n">llm_model</span><span class="p">,</span> <span class="n">query</span><span class="p">):</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">stream</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">()</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">StreamHandler</span><span class="p">(</span><span class="n">stream</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">))</span>
+
+    <span class="n">embedding_chunk_size</span> <span class="o">=</span> <span class="mi">512</span>
+    <span class="n">embed_model</span> <span class="o">=</span> <span class="n">HuggingFaceEmbedding</span><span class="p">(</span><span class="n">model_name</span><span class="o">=</span><span class="n">embedding_name</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">512</span><span class="p">)</span>
+
+    <span class="n">llm</span> <span class="o">=</span> <span class="n">HuggingFaceLLM</span><span class="p">(</span>
+        <span class="n">context_window</span><span class="o">=</span><span class="mi">4096</span><span class="p">,</span>
+        <span class="n">max_new_tokens</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+        <span class="n">tokenizer_name</span><span class="o">=</span><span class="n">llm_model</span><span class="p">,</span>
+        <span class="n">model_name</span><span class="o">=</span><span class="n">llm_model</span><span class="p">,</span>
+        <span class="n">device_map</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">PERSIST_DIR</span> <span class="o">=</span> <span class="n">workdir</span> <span class="o">/</span> <span class="s2">&quot;LlamaIndex_storage_faiss&quot;</span>
+    <span class="n">data_path</span> <span class="o">=</span> <span class="n">workdir</span> <span class="o">/</span> <span class="s2">&quot;LlamaIndex_data&quot;</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">PERSIST_DIR</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;== Processing data ... &quot;</span><span class="p">)</span>
+
+        <span class="c1">##############################</span>
+        <span class="c1"># 1. Load the documents</span>
+        <span class="c1">##############################</span>
+        <span class="n">documents</span> <span class="o">=</span> <span class="n">SimpleDirectoryReader</span><span class="p">(</span><span class="n">data_path</span><span class="p">)</span><span class="o">.</span><span class="n">load_data</span><span class="p">()</span>
+
+        <span class="c1"># Set up FAISS vector store</span>
+        <span class="n">faiss_index</span> <span class="o">=</span> <span class="n">faiss</span><span class="o">.</span><span class="n">IndexFlatL2</span><span class="p">(</span><span class="n">embed_d</span><span class="p">)</span>
+        <span class="n">vector_store</span> <span class="o">=</span> <span class="n">FaissVectorStore</span><span class="p">(</span><span class="n">faiss_index</span><span class="o">=</span><span class="n">faiss_index</span><span class="p">)</span>
+        <span class="n">storage_context</span> <span class="o">=</span> <span class="n">StorageContext</span><span class="o">.</span><span class="n">from_defaults</span><span class="p">(</span><span class="n">vector_store</span><span class="o">=</span><span class="n">vector_store</span><span class="p">)</span>
+
+        <span class="n">index</span> <span class="o">=</span> <span class="n">VectorStoreIndex</span><span class="o">.</span><span class="n">from_documents</span><span class="p">(</span>
+            <span class="n">documents</span><span class="p">,</span> 
+            <span class="c1">##############################</span>
+            <span class="c1"># 2. Transform</span>
+            <span class="c1">##############################</span>
+            <span class="n">transformations</span><span class="o">=</span><span class="p">[</span><span class="n">SentenceSplitter</span><span class="p">(</span><span class="n">chunk_size</span><span class="o">=</span><span class="n">embedding_chunk_size</span><span class="p">)],</span>
+            <span class="c1">##############################</span>
+            <span class="c1"># 3. Embed</span>
+            <span class="c1">##############################</span>
+            <span class="n">embed_model</span><span class="o">=</span><span class="n">embed_model</span><span class="p">,</span> 
+            <span class="c1">##############################</span>
+            <span class="c1"># 4. Store</span>
+            <span class="c1">##############################</span>
+            <span class="n">storage_context</span><span class="o">=</span><span class="n">storage_context</span>
+        <span class="p">)</span>
+        <span class="n">index</span><span class="o">.</span><span class="n">storage_context</span><span class="o">.</span><span class="n">persist</span><span class="p">(</span><span class="n">persist_dir</span><span class="o">=</span><span class="n">PERSIST_DIR</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;== Finish saving vector store data ... &quot;</span><span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;== Storage exists. Loading data ...&quot;</span><span class="p">)</span>
+
+        <span class="n">vector_store</span> <span class="o">=</span> <span class="n">FaissVectorStore</span><span class="o">.</span><span class="n">from_persist_dir</span><span class="p">(</span><span class="n">PERSIST_DIR</span><span class="p">)</span>
+        <span class="n">storage_context</span> <span class="o">=</span> <span class="n">StorageContext</span><span class="o">.</span><span class="n">from_defaults</span><span class="p">(</span>
+            <span class="n">persist_dir</span><span class="o">=</span><span class="n">PERSIST_DIR</span><span class="p">,</span>
+            <span class="n">vector_store</span><span class="o">=</span><span class="n">vector_store</span><span class="p">,</span> 
+        <span class="p">)</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="n">load_index_from_storage</span><span class="p">(</span>
+            <span class="n">transformations</span><span class="o">=</span><span class="p">[</span><span class="n">SentenceSplitter</span><span class="p">(</span><span class="n">chunk_size</span><span class="o">=</span><span class="n">embedding_chunk_size</span><span class="p">)],</span>
+            <span class="n">embed_model</span><span class="o">=</span><span class="n">embed_model</span><span class="p">,</span> 
+            <span class="n">storage_context</span><span class="o">=</span><span class="n">storage_context</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;== Finish loading ...&quot;</span><span class="p">)</span>
+
+    <span class="c1">##############################</span>
+    <span class="c1"># 5. Retrieve</span>
+    <span class="c1">##############################</span>
+    <span class="n">query_engine</span> <span class="o">=</span> <span class="n">index</span><span class="o">.</span><span class="n">as_query_engine</span><span class="p">(</span><span class="n">llm</span> <span class="o">=</span> <span class="n">llm</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Selected LLM: </span><span class="si">{</span><span class="n">llm_model</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">query_engine</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Query: </span><span class="si">{</span><span class="n">query</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Response: &quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+
+
+<span class="c1"># Replace your_file_directory with your project directory string</span>
+<span class="n">file_dir</span> <span class="o">=</span> <span class="n">your_file_directory</span>
+<span class="n">workdir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">file_dir</span><span class="p">)</span>
+<span class="n">url_link</span> <span class="o">=</span> <span class="s2">&quot;https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.2&quot;</span>
+<span class="n">prep_text</span><span class="p">(</span><span class="n">workdir</span><span class="p">,</span> <span class="n">url_link</span><span class="p">)</span>
+
+
 <span class="c1"># Settings for embedding model</span>
-<span class="c1">#######################################</span>
-<span class="n">embedding_name</span> <span class="o">=</span> <span class="s2">&quot;intfloat/multilingual-e5-large-instruct&quot;</span>
-<span class="n">embedding_chunk_size</span> <span class="o">=</span> <span class="mi">512</span>
-<span class="n">embed_model</span> <span class="o">=</span> <span class="n">HuggingFaceEmbedding</span><span class="p">(</span><span class="n">model_name</span><span class="o">=</span><span class="n">embedding_name</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">512</span><span class="p">)</span>
+<span class="c1"># embedding_name = &quot;intfloat/multilingual-e5-large-instruct&quot;</span>
+<span class="n">embedding_name</span> <span class="o">=</span> <span class="s2">&quot;/kellogg/data/llm_models_opensource/e5_infloat/models--intfloat--multilingual-e5-large-instruct/snapshots/baa7be480a7de1539afce709c8f13f833a510e0a&quot;</span>
+<span class="n">embed_d</span> <span class="o">=</span> <span class="mi">1024</span> <span class="c1"># embedding dimension</span>
 
-<span class="c1">#######################################</span>
 <span class="c1"># Settings for LLM</span>
-<span class="c1">#######################################</span>
-<span class="n">LLAMA2_13B_CHAT</span> <span class="o">=</span> <span class="s2">&quot;/kellogg/data/llm_models_opensource/llama2_meta_huggingface/models--meta-llama--Llama-2-13b-chat-hf/snapshots/29655417e51232f4f2b9b5d3e1418e5a9b04e80e&quot;</span>
-<span class="n">selected_model</span> <span class="o">=</span> <span class="n">LLAMA2_13B_CHAT</span>
-<span class="n">llm</span> <span class="o">=</span> <span class="n">HuggingFaceLLM</span><span class="p">(</span>
-    <span class="n">context_window</span><span class="o">=</span><span class="mi">4096</span><span class="p">,</span>
-    <span class="n">max_new_tokens</span><span class="o">=</span><span class="mi">256</span><span class="p">,</span>
-    <span class="n">tokenizer_name</span><span class="o">=</span><span class="n">selected_model</span><span class="p">,</span>
-    <span class="n">model_name</span><span class="o">=</span><span class="n">selected_model</span><span class="p">,</span>
-    <span class="n">device_map</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span><span class="p">,</span>
-    <span class="c1"># generate_kwargs={&quot;temperature&quot;: 0.5, &quot;top_p&quot;: 0.9, &quot;top_k&quot;: 2, &quot;do_sample&quot;: True},</span>
-<span class="p">)</span>
+<span class="n">LLAMA2_7B_CHAT</span> <span class="o">=</span> <span class="s2">&quot;/kellogg/data/llm_models_opensource/llama2_meta_huggingface/models--meta-llama--Llama-2-7b-chat-hf/snapshots/92011f62d7604e261f748ec0cfe6329f31193e33&quot;</span>
+<span class="c1"># LLAMA2_13B_CHAT = &quot;/kellogg/data/llm_models_opensource/llama2_meta_huggingface/models--meta-llama--Llama-2-13b-chat-hf/snapshots/29655417e51232f4f2b9b5d3e1418e5a9b04e80e&quot;</span>
+<span class="n">llm_model</span> <span class="o">=</span> <span class="n">LLAMA2_7B_CHAT</span>
+<span class="c1"># llm_model = LLAMA2_13B_CHAT</span>
 
-<span class="c1">#######################################</span>
-<span class="c1"># === 1. Load</span>
-<span class="c1">#######################################</span>
-<span class="n">documents</span> <span class="o">=</span> <span class="n">SimpleDirectoryReader</span><span class="p">(</span><span class="n">data_folder</span><span class="p">)</span><span class="o">.</span><span class="n">load_data</span><span class="p">()</span>
+<span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;[INST]How can I use tranformers to call the Mistral 7B instruct model?[/INST]&quot;</span>
 
-<span class="c1"># Set up FAISS vector store</span>
-<span class="n">d</span> <span class="o">=</span> <span class="mi">1024</span> <span class="c1"># embedding dimension</span>
-<span class="n">faiss_index</span> <span class="o">=</span> <span class="n">faiss</span><span class="o">.</span><span class="n">IndexFlatL2</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
-<span class="n">vector_store</span> <span class="o">=</span> <span class="n">FaissVectorStore</span><span class="p">(</span><span class="n">faiss_index</span><span class="o">=</span><span class="n">faiss_index</span><span class="p">)</span>
-<span class="n">storage_context</span> <span class="o">=</span> <span class="n">StorageContext</span><span class="o">.</span><span class="n">from_defaults</span><span class="p">(</span><span class="n">vector_store</span><span class="o">=</span><span class="n">vector_store</span><span class="p">)</span>
-
-<span class="n">index</span> <span class="o">=</span> <span class="n">VectorStoreIndex</span><span class="o">.</span><span class="n">from_documents</span><span class="p">(</span>
-    <span class="n">documents</span><span class="p">,</span> 
-    <span class="c1"># === 2. Transform</span>
-    <span class="n">transformations</span><span class="o">=</span><span class="p">[</span><span class="n">SentenceSplitter</span><span class="p">(</span><span class="n">chunk_size</span><span class="o">=</span><span class="n">embedding_chunk_size</span><span class="p">)],</span>
-    <span class="c1"># === 3. Embed</span>
-    <span class="n">embed_model</span><span class="o">=</span><span class="n">embed_model</span><span class="p">,</span>
-    <span class="c1"># === 4. Store</span>
-    <span class="n">storage_context</span><span class="o">=</span><span class="n">storage_context</span>
-<span class="p">)</span>
-
-<span class="c1">#######################################</span>
-<span class="c1"># === 5. Retrieve</span>
-<span class="c1">#######################################</span>
-<span class="n">query_engine</span> <span class="o">=</span> <span class="n">index</span><span class="o">.</span><span class="n">as_query_engine</span><span class="p">(</span><span class="n">llm</span><span class="o">=</span><span class="n">llm</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;====================================&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Selected LLM: </span><span class="si">{</span><span class="n">selected_model</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;[INST]What is a Mistral 7B language model?[/INST]&quot;</span>
-<span class="n">response</span> <span class="o">=</span> <span class="n">query_engine</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;====================================&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Query: </span><span class="si">{</span><span class="n">query</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Response: &quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;====================================&quot;</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Execution time: </span><span class="si">{</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start_time</span><span class="si">}</span><span class="s2"> seconds&quot;</span><span class="p">)</span>
+<span class="n">process_llamaindex</span><span class="p">(</span><span class="n">workdir</span><span class="p">,</span> <span class="n">embedding_name</span><span class="p">,</span> <span class="n">embed_d</span><span class="p">,</span> <span class="n">llm_model</span><span class="p">,</span> <span class="n">query</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 <p><strong>Output:</strong></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Selected LLM: /kellogg/data/llm_models_opensource/llama2_meta_huggingface/models--meta-llama--Llama-2-13b-chat-hf/snapshots/29655417e51232f4f2b9b5d3e1418e5a9b04e80e
-
-Batches:   0%|          | 0/1 [00:00&lt;?, ?it/s]
-Batches: 100%|██████████| 1/1 [00:00&lt;00:00, 66.66it/s]
-====================================
-Query: [INST]What is a Mistral 7B language model?[/INST]
-Response: 
-Based on the provided context information, a Mistral 7B language model is a powerful language model developed by Mistral AI. It is a 7.3 billion parameter model that outperforms other 7B models on various benchmarks and approaches the performance of CodeLlama 7B on code tasks while remaining good at English tasks. The model is released under the Apache 2.0 license and can be used without restrictions. It is easy to fine-tune for any task and has been demonstrated to outperform Llama 2 13B chat.
-====================================
+<blockquote>
+<div><p>Selected LLM: /kellogg/data/llm_models_opensource/llama2_meta_huggingface/models–meta-llama–Llama-2-7b-chat-hf/snapshots/92011f62d7604e261f748ec0cfe6329f31193e33</p>
+<p>Batches:   0%|          | 0/1 [00:00&lt;?, ?it/s]<br />
+Batches: 100%|██████████| 1/1 [00:01&lt;00:00,  1.21s/it]<br />
+Batches: 100%|██████████| 1/1 [00:01&lt;00:00,  1.21s/it]</p>
+<p>Query: [INST]How can I use tranformers to call the Mistral 7B instruct model?[/INST]<br />
+Response:</p>
+<p>To use Transformers to call the Mistral 7B instruct model, you can follow these steps:</p>
+<ol class="arabic simple">
+<li><p>Install the Transformers library by running <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">transformers</span></code>.</p></li>
+<li><p>Import the necessary classes from the Transformers library:</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">AutoModelForCausalLM</span><span class="p">,</span> <span class="n">AutoTokenizer</span>
 </pre></div>
 </div>
+<ol class="arabic simple" start="3">
+<li><p>Load the Mistral 7B instruct model and tokenizer using the <code class="docutils literal notranslate"><span class="pre">from_pretrained</span></code> method:</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">AutoModelForCausalLM</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&quot;mistralai/Mistral-7B-Instruct-v0.2&quot;</span><span class="p">)</span>
+<span class="n">tokenizer</span> <span class="o">=</span> <span class="n">AutoTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&quot;mistralai/Mistral-7B-Instruct-v0.2&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="4">
+<li><p>Define the input message and the role of the user or assistant:</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">messages</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;What is your favourite condiment?&quot;</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;assistant&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;Well, I&#39;m quite partial to a good squeeze of fresh lemon juice. It adds just the right amount of zesty flavour to whatever I&#39;m cooking up in the kitchen!&quot;</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;Do you have mayonnaise recipes?&quot;</span><span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="5">
+<li><p>Use the <code class="docutils literal notranslate"><span class="pre">apply_chat_template</span></code> method to apply the Mistral 7B instruct model to the input message:</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">outputs</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">apply_chat_template</span><span class="p">(</span><span class="n">messages</span><span class="p">,</span> <span class="n">tokenizer</span><span class="o">=</span><span class="n">tokenizer</span><span class="p">)</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="6">
+<li><p>Print the generated response:</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">output</span> <span class="ow">in</span> <span class="n">outputs</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">output</span><span class="p">[</span><span class="s2">&quot;generated_response&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>This will generate the response from the Mistral 7B instruct model based on the input message and role.</p>
+<p>Note: In this example, we are using the <code class="docutils literal notranslate"><span class="pre">AutoModelForCausalLM</span></code> and <code class="docutils literal notranslate"><span class="pre">AutoTokenizer</span></code> classes from the Transformers library to load the Mistral 7B instruct model and tokenizer, and to apply the model to the input message. You can also use other classes from the Transformers library, such as <code class="docutils literal notranslate"><span class="pre">AutoTokenizerForCausalLM</span></code> and <code class="docutils literal notranslate"><span class="pre">CausalLM</span></code>, to customize the input and output of the model.</p>
+</div></blockquote>
 </section>
-<section id="font-color-purple-more-sample-scripts-font">
-<h2><font color='purple'>More sample scripts</font><a class="headerlink" href="#font-color-purple-more-sample-scripts-font" title="Permalink to this heading">#</a></h2>
-<p>More sample scripts can be found at the <a class="reference external" href="https://github.com/rs-kellogg/krs-openllm-cookbook/tree/main/scripts/rag">scripts/rag</a> folder of our github repo.</p>
+<section id="font-color-purple-sample-scripts-font">
+<h2><font color='purple'>Sample scripts</font><a class="headerlink" href="#font-color-purple-sample-scripts-font" title="Permalink to this heading">#</a></h2>
+<p>Sample scripts can be found at the <a class="reference external" href="https://github.com/rs-kellogg/krs-openllm-cookbook/tree/main/scripts/rag">scripts/rag</a> folder of our github repo.</p>
 </section>
 </section>
 
@@ -628,7 +728,7 @@ Based on the provided context information, a Mistral 7B language model is a powe
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-sample-uses-cases-font"><font color="purple">Sample Uses Cases</font></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-how-it-works-font"><font color="purple">How it Works</font></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-example-retrieving-information-non-existent-in-training-font"><font color="purple">Example: Retrieving Information Non-existent in Training</font></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-more-sample-scripts-font"><font color="purple">More sample scripts</font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-sample-scripts-font"><font color="purple">Sample scripts</font></a></li>
 </ul>
   </nav></div>
 

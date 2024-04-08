@@ -174,13 +174,13 @@ const thebe_selector_output = ".output, .cell_output"
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Running Open Source LLMs on KLC</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#"><font color="purple"><strong>Using GPUs at Northwestern</strong></font></a></li>
-<li class="toctree-l1"><a class="reference internal" href="transformers.html"><font color="purple"><strong>Using Transformers to run LLMs</strong></font></a></li>
+<li class="toctree-l1"><a class="reference internal" href="transformers.html"><strong>Using Transformers to run LLMs</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="llama-cpp.html">Using Llama_cpp_python to run LLMs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="use_case.html"><font color="purple"><strong>Example Use Case</strong></font></a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Advanced Techniques</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="retrieval.html"><font color="purple"><strong>Retrieval Augmented Generation</strong></font></a></li>
+<li class="toctree-l1"><a class="reference internal" href="retrieval.html"><strong>Retrieval Augmented Generation</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="fine-tuning.html"><font color="purple"><strong>Fine-Tuning</strong></font></a></li>
 <li class="toctree-l1"><a class="reference internal" href="vision.html"><font color="purple"><strong>Process Images with bakllava</strong></font></a></li>
 </ul>
@@ -422,18 +422,18 @@ document.write(`
 </div>
 <div class="admonition-font-color-purple-multiple-cpu-cores-font admonition">
 <p class="admonition-title"><font color='purple'><strong>Multiple CPU Cores</strong></font></p>
-<p>One way to speed up processing is through <font color='purple'><em>parallel computing</em></font> across multiple CPU cores. Parallel computing is a method of solving a single problem by breaking it down into smaller chunks that run <strong>simultaneously</strong>.  This essentially breaks up a task and distributes it over multiple cores.</p>
+<p>One way to speed up processing is through <font color='purple'><em>parallel computing</em></font> across multiple CPU cores. Parallel computing is a method of solving a single problem by breaking it down into smaller chunks that run <strong>simultaneously</strong>.  A CPU can break up a task and distributes it over multiple CPU cores.</p>
 <figure class="align-default" id="cpu-parallel">
 <a class="reference internal image-reference" href="_images/cpu_parallel.png"><img alt="_images/cpu_parallel.png" src="_images/cpu_parallel.png" style="width: 350px;" /></a>
 </figure>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The latest generation of <a class="reference external" href="https://www.kellogg.northwestern.edu/academics-research/research-support/computing/kellogg-linux-cluster.aspx">KLC nodes</a> have 64 CPU cores and 2TB of shared RAM 🚀. This means you could in theory run 64 parallel processes on a single KLC node.</p>
+<p>The latest generation of <a class="reference external" href="https://www.kellogg.northwestern.edu/academics-research/research-support/computing/kellogg-linux-cluster.aspx">KLC nodes</a> have 64 CPU cores and 2TB of shared RAM 🚀. This means you could in theory run 64 parallel (simultaneous) processes on a single KLC node.</p>
 </div>
 <div class="admonition-font-color-purple-gpus-font admonition">
 <p class="admonition-title"><font color='purple'><strong>GPUs</strong></font></p>
-<p>A graphics card or <font color='purple'><strong>graphics processing unit (GPU)</strong></font> is a specialized hardware component that can efficiently handle parallel mathematical operations. In comparison to the 24 cores you can use on KLC, a A100 GPU contains 6,912 <font color='purple'>GPU</font> cores.  While a GPU core is less powerful than an individual CPU core, their sheer volume make them ideal for handling certain kinds of large amounts of computations in parallel, especially the vector and matrix operations for which GPUs were designed. We will see an example later of the speedup that GPUs provide for this kind of task.</p>
+<p>A graphics card or <font color='purple'><strong>graphics processing unit (GPU)</strong></font> is a specialized hardware component that can efficiently handle parallel mathematical operations. In comparison to the 24 cores you can use on KLC, a A100 GPU contains 6,912 CUDA cores (the H100 GPU has an astounding 18,432 CUDA cores).  While a GPU core is less powerful than an individual CPU core, their sheer volume make them ideal for handling certain kinds of large amounts of computations in parallel, especially the vector and matrix operations for which GPUs were designed. We will see an example later of the speedup that GPUs provide for this kind of task.</p>
 <figure class="align-default" id="gpu">
 <a class="reference internal image-reference" href="_images/gpu.png"><img alt="_images/gpu.png" src="_images/gpu.png" style="width: 350px;" /></a>
 </figure>
@@ -502,6 +502,7 @@ document.write(`
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
+<p><strong>Let’s play this up!!!</strong></p>
 <p>We are in the process of setting up GPU nodes for exclusive use by the Kellogg research community as part of the <a class="reference external" href="https://www.kellogg.northwestern.edu/academics-research/research-support/computing/kellogg-linux-cluster.aspx">Kellogg Linux Cluster</a>. Accessing these nodes will be identical to accessing GPU nodes on Quest, but will require only a KLC account and not a separate Quest allocation.</p>
 </div>
 </section>
@@ -604,7 +605,7 @@ document.write(`
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><font color='purple'><strong>Using Transformers to run LLMs</strong></font></p>
+        <p class="prev-next-title"><strong>Using Transformers to run LLMs</strong></p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

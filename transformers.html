@@ -174,13 +174,13 @@ const thebe_selector_output = ".output, .cell_output"
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Running Open Source LLMs on KLC</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="slurm_gpu_usage.html"><font color="purple"><strong>Using GPUs at Northwestern</strong></font></a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#"><font color="purple"><strong>Using Transformers to run LLMs</strong></font></a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#"><strong>Using Transformers to run LLMs</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="llama-cpp.html">Using Llama_cpp_python to run LLMs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="use_case.html"><font color="purple"><strong>Example Use Case</strong></font></a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Advanced Techniques</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="retrieval.html"><font color="purple"><strong>Retrieval Augmented Generation</strong></font></a></li>
+<li class="toctree-l1"><a class="reference internal" href="retrieval.html"><strong>Retrieval Augmented Generation</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="fine-tuning.html"><font color="purple"><strong>Fine-Tuning</strong></font></a></li>
 <li class="toctree-l1"><a class="reference internal" href="vision.html"><font color="purple"><strong>Process Images with bakllava</strong></font></a></li>
 </ul>
@@ -370,7 +370,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1><font color='purple'>Using Transformers to run LLMs</font></h1>
+    <h1>Using Transformers to run LLMs</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -399,12 +399,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section id="font-color-purple-using-transformers-to-run-llms-font">
-<h1><font color='purple'><strong>Using Transformers to run LLMs</strong></font><a class="headerlink" href="#font-color-purple-using-transformers-to-run-llms-font" title="Permalink to this heading">#</a></h1>
-<p><strong>Transformer</strong> model is a deep learning architecture with attention mechanism, proposed in the 2017 paper “Attention is All You Need”.
-<img alt="transformers" src="_images/transformers.png" /><br />
-<em>Adapted from teaching materials created by <a class="reference external" href="http://DeepLearning.AI">DeepLearning.AI</a>.</em></p>
-<p><strong>Transformers</strong> provides APIs and tools to easily download and train state-of-the-art pretrained models.</p>
+  <section id="using-transformers-to-run-llms">
+<h1><strong>Using Transformers to run LLMs</strong><a class="headerlink" href="#using-transformers-to-run-llms" title="Permalink to this heading">#</a></h1>
 <section id="font-color-purple-basic-workflow-for-using-transformers-font">
 <h2><font color='purple'>Basic workflow for using transformers</font><a class="headerlink" href="#font-color-purple-basic-workflow-for-using-transformers-font" title="Permalink to this heading">#</a></h2>
 <ol class="arabic simple">
@@ -413,6 +409,8 @@ document.write(`
 <li><p>Call model to process tokens and generate response tokens</p></li>
 <li><p>Decode tokens to text response</p></li>
 </ol>
+<p><img alt="transformers" src="_images/transformers.png" /></p>
+<p><em>Adapted from teaching materials created by <a class="reference external" href="http://DeepLearning.AI">DeepLearning.AI</a>.</em></p>
 </section>
 <section id="font-color-purple-run-llama2-model-with-transformers-font">
 <h2><font color='purple'>Run Llama2 model with transformers</font><a class="headerlink" href="#font-color-purple-run-llama2-model-with-transformers-font" title="Permalink to this heading">#</a></h2>
@@ -422,7 +420,7 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1">##################################</span>
-<span class="c1"># transformers using Llama2 model</span>
+<span class="c1"># transformers calling Llama2 model</span>
 <span class="c1">##################################</span>
 
 <span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">AutoTokenizer</span><span class="p">,</span> <span class="n">AutoModelForCausalLM</span>
@@ -431,6 +429,60 @@ document.write(`
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 
+<span class="k">def</span> <span class="nf">run_llama2</span><span class="p">(</span><span class="n">llm_dir</span><span class="p">,</span> <span class="n">llm_model</span><span class="p">,</span> <span class="n">query</span><span class="p">,</span> <span class="n">customize_setting</span><span class="p">):</span>
+
+    <span class="c1">#######################################</span>
+    <span class="c1"># 1. Load the model parameters</span>
+    <span class="c1">#######################################</span>
+    <span class="c1"># The quantization_config is optional; use it for very large model; it reduces memory and computational costs by representing weights and activations with lower-precision data types</span>
+    <span class="c1"># To use quantization, uncomment the following two lines and comment out the current &quot;model = &quot; line</span>
+    <span class="c1"># quantization_config = BitsAndBytesConfig(load_in_8bit=True)</span>
+    <span class="c1"># model = AutoModelForCausalLM.from_pretrained(llm_model,cache_dir=llm_dir, device_map=&quot;auto&quot;, quantization_config=quantization_config)</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">AutoModelForCausalLM</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="n">llm_model</span><span class="p">,</span><span class="n">cache_dir</span><span class="o">=</span><span class="n">llm_dir</span><span class="p">,</span> <span class="n">device_map</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span><span class="p">)</span>
+    <span class="n">tokenizer</span> <span class="o">=</span> <span class="n">AutoTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="n">llm_model</span><span class="p">,</span> <span class="n">cache_dir</span><span class="o">=</span><span class="n">llm_dir</span><span class="p">)</span>
+
+    <span class="c1">#######################################</span>
+    <span class="c1"># 2. Convert prompt query to tokens</span>
+    <span class="c1">#######################################</span>
+    <span class="n">device</span> <span class="o">=</span> <span class="s2">&quot;cuda&quot;</span>
+    <span class="n">model_input</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">return_tensors</span><span class="o">=</span><span class="s2">&quot;pt&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;=== Customized setting:&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">customize_setting</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="c1">#######################################</span>
+    <span class="c1"># 3. Call model to process tokens and generate response tokens</span>
+    <span class="c1">#######################################</span>
+    <span class="n">outputs</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="o">**</span><span class="n">model_input</span><span class="p">,</span> <span class="o">**</span><span class="n">customize_setting</span><span class="p">)</span>
+
+    <span class="c1">#######################################</span>
+    <span class="c1"># 4. Decode tokens to text response</span>
+    <span class="c1">#######################################</span>
+    <span class="n">decoded</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">outputs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">skip_special_tokens</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;====================&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;LLM model: </span><span class="si">{</span><span class="n">llm_model</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Query: </span><span class="si">{</span><span class="n">query</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Response: &quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">decoded</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;====================&quot;</span><span class="p">)</span>
+
+    <span class="c1">#######################################</span>
+    <span class="c1"># Logging</span>
+    <span class="c1">#######################################</span>
+    <span class="n">finished_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">localtime</span><span class="p">())</span>
+    <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;llm_model&quot;</span><span class="p">,</span> <span class="s2">&quot;query&quot;</span><span class="p">,</span> <span class="s2">&quot;response&quot;</span><span class="p">,</span> <span class="s2">&quot;finished_time&quot;</span><span class="p">]</span>
+    <span class="n">row</span> <span class="o">=</span> <span class="p">[</span><span class="n">llm_model</span><span class="p">,</span> <span class="n">query</span><span class="p">,</span> <span class="n">decoded</span><span class="p">,</span> <span class="n">finished_time</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">customize_setting</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">columns</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+        <span class="n">row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="n">row</span><span class="p">],</span> <span class="n">columns</span><span class="o">=</span><span class="n">columns</span><span class="p">)</span>
+    <span class="n">llm_name</span> <span class="o">=</span> <span class="n">llm_model</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">log_file</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;./log_</span><span class="si">{</span><span class="n">llm_name</span><span class="si">}</span><span class="s2">.csv&quot;</span><span class="p">)</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">log_file</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="ow">not</span> <span class="n">log_file</span><span class="o">.</span><span class="n">exists</span><span class="p">())</span>
+
+
 <span class="c1"># Set up model directory info; set to your own project space if using new model </span>
 <span class="n">llm_dir</span> <span class="o">=</span> <span class="s2">&quot;/kellogg/data/llm_models_opensource/llama2_meta_huggingface&quot;</span>
 <span class="c1"># Model name from Huggingface site</span>
@@ -438,24 +490,8 @@ document.write(`
 <span class="c1"># llm_model = &quot;meta-llama/Llama-2-13b-chat-hf&quot;</span>
 <span class="c1"># llm_model = &quot;meta-llama/Llama-2-70b-chat-hf&quot;</span>
 
-<span class="c1">#######################################</span>
-<span class="c1"># 1. Load the model parameters</span>
-<span class="c1">#######################################</span>
-<span class="c1"># The quantization_config is optional; use it for very large model; it reduces memory and computational costs by representing weights and activations with lower-precision data types</span>
-<span class="c1"># To use quantization, uncomment the following two lines and comment out the current &quot;model = &quot; line</span>
-<span class="c1"># quantization_config = BitsAndBytesConfig(load_in_8bit=True)</span>
-<span class="c1"># model = AutoModelForCausalLM.from_pretrained(llm_model,cache_dir=llm_dir, device_map=&quot;auto&quot;, quantization_config=quantization_config)</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">AutoModelForCausalLM</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="n">llm_model</span><span class="p">,</span><span class="n">cache_dir</span><span class="o">=</span><span class="n">llm_dir</span><span class="p">,</span> <span class="n">device_map</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span><span class="p">)</span>
-<span class="n">tokenizer</span> <span class="o">=</span> <span class="n">AutoTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="n">llm_model</span><span class="p">,</span> <span class="n">cache_dir</span><span class="o">=</span><span class="n">llm_dir</span><span class="p">)</span>
-
 <span class="c1"># For Llama2 chat, need to enclosed your prompt by [INST] and [/INST]</span>
 <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;[INST] Tell a fun fact about Kellogg Business School. [/INST]&quot;</span>
-
-<span class="c1">#######################################</span>
-<span class="c1"># 2. Convert prompt query to tokens</span>
-<span class="c1">#######################################</span>
-<span class="n">device</span> <span class="o">=</span> <span class="s2">&quot;cuda&quot;</span>
-<span class="n">model_input</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">return_tensors</span><span class="o">=</span><span class="s2">&quot;pt&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
 
 <span class="c1"># Settings for LLM model  </span>
 <span class="n">customize_setting</span> <span class="o">=</span> <span class="p">{</span>
@@ -463,40 +499,8 @@ document.write(`
     <span class="s2">&quot;do_sample&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
     <span class="s2">&quot;temperature&quot;</span><span class="p">:</span> <span class="mf">0.8</span><span class="p">,</span>
 <span class="p">}</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;=== Customized setting:&quot;</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">customize_setting</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-<span class="c1">#######################################</span>
-<span class="c1"># 3. Call model to process tokens and generate response tokens</span>
-<span class="c1">#######################################</span>
-<span class="n">outputs</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="o">**</span><span class="n">model_input</span><span class="p">,</span> <span class="o">**</span><span class="n">customize_setting</span><span class="p">)</span>
-
-<span class="c1">#######################################</span>
-<span class="c1"># 4. Decode tokens to text response</span>
-<span class="c1">#######################################</span>
-<span class="n">decoded</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">outputs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">skip_special_tokens</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;====================&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;LLM model: </span><span class="si">{</span><span class="n">llm_model</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Query: </span><span class="si">{</span><span class="n">query</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Response: &quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">decoded</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;====================&quot;</span><span class="p">)</span>
-
-<span class="c1">#######################################</span>
-<span class="c1"># Logging</span>
-<span class="c1">#######################################</span>
-<span class="n">finished_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">localtime</span><span class="p">())</span>
-<span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;llm_model&quot;</span><span class="p">,</span> <span class="s2">&quot;query&quot;</span><span class="p">,</span> <span class="s2">&quot;response&quot;</span><span class="p">,</span> <span class="s2">&quot;finished_time&quot;</span><span class="p">]</span>
-<span class="n">row</span> <span class="o">=</span> <span class="p">[</span><span class="n">llm_model</span><span class="p">,</span> <span class="n">query</span><span class="p">,</span> <span class="n">decoded</span><span class="p">,</span> <span class="n">finished_time</span><span class="p">]</span>
-<span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">customize_setting</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-    <span class="n">columns</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-    <span class="n">row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="n">row</span><span class="p">],</span> <span class="n">columns</span><span class="o">=</span><span class="n">columns</span><span class="p">)</span>
-<span class="n">llm_name</span> <span class="o">=</span> <span class="n">llm_model</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-<span class="n">log_file</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;./log_</span><span class="si">{</span><span class="n">llm_name</span><span class="si">}</span><span class="s2">.csv&quot;</span><span class="p">)</span>
-<span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">log_file</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="ow">not</span> <span class="n">log_file</span><span class="o">.</span><span class="n">exists</span><span class="p">())</span>
+<span class="n">run_llama2</span><span class="p">(</span><span class="n">llm_dir</span><span class="p">,</span> <span class="n">llm_model</span><span class="p">,</span> <span class="n">query</span><span class="p">,</span> <span class="n">customize_setting</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -505,16 +509,10 @@ document.write(`
 </section>
 <section id="slurm-script">
 <h2>Slurm script<a class="headerlink" href="#slurm-script" title="Permalink to this heading">#</a></h2>
-<p>The following script is for running the GPU job on Quest. To run with Kellogg GPU, change the “#SBATCH -A” and “#SBATCH -p” lines to</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#SBATCH -A kellogg</span>
-<span class="c1">#SBATCH -p kellogg</span>
-</pre></div>
-</div>
-<p><strong># run_batch_llama2.sh</strong></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Run on Quest</span>
 <span class="c1">#!/bin/bash</span>
 
-<span class="c1">#SBATCH -A your_quest_allocation_account</span>
+<span class="c1">#SBATCH -A e32337</span>
 <span class="c1">#SBATCH -p gengpu</span>
 <span class="c1">#SBATCH --gres=gpu:a100:1</span>
 <span class="c1">#SBATCH -N 1</span>
