@@ -182,7 +182,7 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#"><strong>Retrieval Augmented Generation</strong></a></li>
 <li class="toctree-l1"><a class="reference internal" href="fine-tuning.html"><font color="purple"><strong>Fine-Tuning</strong></font></a></li>
-<li class="toctree-l1"><a class="reference internal" href="vision.html"><font color="purple"><strong>Process Images with bakllava</strong></font></a></li>
+<li class="toctree-l1"><a class="reference internal" href="vision.html"><strong>Process Images with bakllava</strong></a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Summary</span></p>
 <ul class="nav bd-sidenav">
@@ -509,7 +509,7 @@ We can use RAG to feed up-to-date information. The code below will take the cont
     <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">stream</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
     <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">()</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">StreamHandler</span><span class="p">(</span><span class="n">stream</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">))</span>
 
-    <span class="n">embedding_chunk_size</span> <span class="o">=</span> <span class="mi">512</span>
+    <span class="n">embedding_chunk_size</span> <span class="o">=</span> <span class="mi">1024</span>
     <span class="n">embed_model</span> <span class="o">=</span> <span class="n">HuggingFaceEmbedding</span><span class="p">(</span><span class="n">model_name</span><span class="o">=</span><span class="n">embedding_name</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">512</span><span class="p">)</span>
 
     <span class="n">llm</span> <span class="o">=</span> <span class="n">HuggingFaceLLM</span><span class="p">(</span>
@@ -610,50 +610,44 @@ We can use RAG to feed up-to-date information. The code below will take the cont
 <blockquote>
 <div><p>Selected LLM: /kellogg/data/llm_models_opensource/llama2_meta_huggingface/models–meta-llama–Llama-2-7b-chat-hf/snapshots/92011f62d7604e261f748ec0cfe6329f31193e33</p>
 <p>Batches:   0%|          | 0/1 [00:00&lt;?, ?it/s]<br />
-Batches: 100%|██████████| 1/1 [00:01&lt;00:00,  1.21s/it]<br />
-Batches: 100%|██████████| 1/1 [00:01&lt;00:00,  1.21s/it]</p>
+Batches: 100%|██████████| 1/1 [00:00&lt;00:00, 63.51it/s]</p>
 <p>Query: [INST]How can I use tranformers to call the Mistral 7B instruct model?[/INST]<br />
 Response:</p>
-<p>To use Transformers to call the Mistral 7B instruct model, you can follow these steps:</p>
+<p>To use transformers to call the Mistral 7B Instruct model, you can follow these steps:</p>
 <ol class="arabic simple">
-<li><p>Install the Transformers library by running <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">transformers</span></code>.</p></li>
-<li><p>Import the necessary classes from the Transformers library:</p></li>
+<li><p>Install the transformers library by running <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">transformers</span></code> in your terminal.</p></li>
+<li><p>Import the AutoModelForCausalLM and AutoTokenizer classes from the transformers library:</p></li>
 </ol>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">AutoModelForCausalLM</span><span class="p">,</span> <span class="n">AutoTokenizer</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">AutoModelForCausalLM</span><span class="p">,</span> <span class="n">AutoTokenizer</span>  
 </pre></div>
 </div>
 <ol class="arabic simple" start="3">
-<li><p>Load the Mistral 7B instruct model and tokenizer using the <code class="docutils literal notranslate"><span class="pre">from_pretrained</span></code> method:</p></li>
+<li><p>Load the Mistral 7B Instruct model using the <code class="docutils literal notranslate"><span class="pre">from_pretrained</span></code> method:</p></li>
 </ol>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">AutoModelForCausalLM</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&quot;mistralai/Mistral-7B-Instruct-v0.2&quot;</span><span class="p">)</span>
-<span class="n">tokenizer</span> <span class="o">=</span> <span class="n">AutoTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&quot;mistralai/Mistral-7B-Instruct-v0.2&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">AutoModelForCausalLM</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&quot;mistralai/Mistral-7B-Instruct-v0.2&quot;</span><span class="p">)</span>  
 </pre></div>
 </div>
 <ol class="arabic simple" start="4">
-<li><p>Define the input message and the role of the user or assistant:</p></li>
+<li><p>Use the <code class="docutils literal notranslate"><span class="pre">apply_chat_template</span></code> method to apply the instruction format to a given set of messages:</p></li>
 </ol>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">messages</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;What is your favourite condiment?&quot;</span><span class="p">},</span>
-    <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;assistant&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;Well, I&#39;m quite partial to a good squeeze of fresh lemon juice. It adds just the right amount of zesty flavour to whatever I&#39;m cooking up in the kitchen!&quot;</span><span class="p">},</span>
-    <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;Do you have mayonnaise recipes?&quot;</span><span class="p">}</span>
-<span class="p">]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">messages</span> <span class="o">=</span> <span class="p">[</span>  
+    <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;What is your favourite condiment?&quot;</span><span class="p">},</span>  
+    <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;assistant&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;Well, I&#39;m quite partial to a good squeeze of fresh lemon juice. It adds just the right amount of zesty flavour to whatever I&#39;m cooking up in the kitchen!&quot;</span><span class="p">},</span>  
+    <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;Do you have mayonnaise recipes?&quot;</span><span class="p">}</span>  
+<span class="p">]</span>  
+  
+<span class="n">encodeds</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">apply_chat_template</span><span class="p">(</span><span class="n">messages</span><span class="p">,</span> <span class="n">return_tensors</span><span class="o">=</span><span class="s2">&quot;pt&quot;</span><span class="p">)</span>  
+<span class="n">model_inputs</span> <span class="o">=</span> <span class="n">encodeds</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>  
+<span class="n">model</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>  
+<span class="n">generated_ids</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">model_inputs</span><span class="p">,</span> <span class="n">max_new_tokens</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">do_sample</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  
+<span class="n">decoded</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">batch_decode</span><span class="p">(</span><span class="n">generated_ids</span><span class="p">)</span>  
+<span class="nb">print</span><span class="p">(</span><span class="n">decoded</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>  
 </pre></div>
 </div>
 <ol class="arabic simple" start="5">
-<li><p>Use the <code class="docutils literal notranslate"><span class="pre">apply_chat_template</span></code> method to apply the Mistral 7B instruct model to the input message:</p></li>
+<li><p>Fine-tune the model by adjusting the hyperparameters or adding additional data to improve its performance.</p></li>
 </ol>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">outputs</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">apply_chat_template</span><span class="p">(</span><span class="n">messages</span><span class="p">,</span> <span class="n">tokenizer</span><span class="o">=</span><span class="n">tokenizer</span><span class="p">)</span>
-</pre></div>
-</div>
-<ol class="arabic simple" start="6">
-<li><p>Print the generated response:</p></li>
-</ol>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">output</span> <span class="ow">in</span> <span class="n">outputs</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">output</span><span class="p">[</span><span class="s2">&quot;generated_response&quot;</span><span class="p">])</span>
-</pre></div>
-</div>
-<p>This will generate the response from the Mistral 7B instruct model based on the input message and role.</p>
-<p>Note: In this example, we are using the <code class="docutils literal notranslate"><span class="pre">AutoModelForCausalLM</span></code> and <code class="docutils literal notranslate"><span class="pre">AutoTokenizer</span></code> classes from the Transformers library to load the Mistral 7B instruct model and tokenizer, and to apply the model to the input message. You can also use other classes from the Transformers library, such as <code class="docutils literal notranslate"><span class="pre">AutoTokenizerForCausalLM</span></code> and <code class="docutils literal notranslate"><span class="pre">CausalLM</span></code>, to customize the input and output of the model.</p>
+<p>Note: The <code class="docutils literal notranslate"><span class="pre">mistralai</span></code> name is a placeholder for the actual model name, which you can replace with the name of your own model. Also, make sure to install the transformers library by running <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">transformers</span></code> in your terminal.</p>
 </div></blockquote>
 </section>
 <section id="font-color-purple-sample-scripts-font">
