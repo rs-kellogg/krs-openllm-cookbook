@@ -113,7 +113,7 @@ def process_llamaindex(workdir, embedding_name, embed_d, llm_model, query):
 
 
 # Replace your_file_directory with your project directory string
-file_dir = "/kellogg/proj/plu781/klc_workshops/krs-openllm-cookbook/test/mistral_rag_localembed"
+file_dir = your_file_directory
 workdir = Path(file_dir)
 url_link = "https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.2"
 prep_text(workdir, url_link)
