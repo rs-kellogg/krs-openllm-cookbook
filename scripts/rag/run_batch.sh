@@ -14,5 +14,5 @@ module load mamba/23.1.0
 source /hpc/software/mamba/23.1.0/etc/profile.d/conda.sh
 source activate /kellogg/software/envs/gpu-llama2
 
-python proc_llamaindex_embed_e5_short.py
+python proc_llamaindex.py
 
