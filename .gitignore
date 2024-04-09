@@ -2,10 +2,10 @@
 .DS_Store
 
 # misc
-Papers/
+temp/
 **/*.log
 **/.env
-**/openai.txt
+
 
 
 # jupyterbook
