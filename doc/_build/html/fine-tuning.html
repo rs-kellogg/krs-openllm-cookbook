@@ -1,13 +1,12 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="./" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Fine-Tuning &#8212; Kellogg Research Support Open Source LLM Cookbook</title>
   
@@ -19,49 +18,45 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+  <link href="_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
-  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
 
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/clipboard.min.js"></script>
-    <script src="_static/copybutton.js"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js"></script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script src="_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'fine-tuning';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -76,10 +71,9 @@ const thebe_selector_output = ".output, .cell_output"
 
   
   
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
   
   <div id="pst-scroll-pixel-helper"></div>
-
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
     <i class="fa-solid fa-arrow-up"></i>
@@ -120,11 +114,14 @@ const thebe_selector_output = ".output, .cell_output"
 </form></div>
   </div>
   
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
   
+
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
+      
+      
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -139,6 +136,7 @@ const thebe_selector_output = ".output, .cell_output"
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
   
 
 <a class="navbar-brand logo" href="welcome.html">
@@ -157,7 +155,18 @@ const thebe_selector_output = ".output, .cell_output"
   
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -341,6 +350,7 @@ const thebe_selector_output = ".output, .cell_output"
 </button>
 
 
+
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
@@ -350,6 +360,7 @@ document.write(`
   </button>
 `);
 </script>
+
 
 <script>
 document.write(`
@@ -381,16 +392,16 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-tradeoffs-between-techniques-font"><font color="purple"><em>Tradeoffs between Techniques</em></font></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-load-and-test-original-model-font"><font color="purple"><em>Load and Test Original Model</em></font></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-prepare-dataset-font"><font color="purple"><em>Prepare Dataset</em></font></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-fine-tuning-steps-font"><font color="purple"><em>Fine Tuning Steps</em></font></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-techniques-font"><font color="purple"><strong>Techniques</strong></font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tradeoffs-between-techniques"><font color="purple"><em>Tradeoffs between Techniques</em></font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-and-test-original-model"><font color="purple"><em>Load and Test Original Model</em></font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prepare-dataset"><font color="purple"><em>Prepare Dataset</em></font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fine-tuning-steps"><font color="purple"><em>Fine Tuning Steps</em></font></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#techniques"><font color="purple"><strong>Techniques</strong></font></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1"><font color="purple"><strong>Fine-Tuning Steps</strong></font></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-test-fine-tuned-model-font"><font color="purple"><em>Test Fine-Tuned Model</em></font></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-reference-sources-font"><font color="purple"><em>Reference Sources</em></font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#test-fine-tuned-model"><font color="purple"><em>Test Fine-Tuned Model</em></font></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reference-sources"><font color="purple"><em>Reference Sources</em></font></a></li>
 </ul>
 </li>
 </ul>
@@ -402,10 +413,10 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article" role="main">
+                <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="fine-tuning">
-<h1>Fine-Tuning<a class="headerlink" href="#fine-tuning" title="Permalink to this heading">#</a></h1>
+<h1>Fine-Tuning<a class="headerlink" href="#fine-tuning" title="Link to this heading">#</a></h1>
 <p><font color='purple'><strong>Fine-tuning</strong></font> takes large language models beyond basic prompting. It allows you to train a model on a dataset specifically tailored to your desired task, leading to several advantages:</p>
 <ul class="simple">
 <li><p><em><strong>Superior Results</strong></em>: Compared to prompting, fine-tuning can deliver higher quality outputs because the model is updating its weights based off of supervised training examples you provide it, producing a model that is specially tailored to your needs.</p></li>
@@ -413,8 +424,8 @@ document.write(`
 <li><p><em><strong>Specificity</strong></em>: Fine-tuning excels at tasks requiring specific styles, tones, formats, or consistent outputs. It enhances reliability in achieving your desired results, handles complex instructions better, and tackles edge cases effectively.</p></li>
 <li><p><em><strong>New Skills</strong></em>: Fine-tuning empowers the model to master new skills or complete tasks that are difficult to articulate through simple prompts.</p></li>
 </ul>
-<section id="font-color-purple-tradeoffs-between-techniques-font">
-<h2><font color='purple'><em>Tradeoffs between Techniques</em></font><a class="headerlink" href="#font-color-purple-tradeoffs-between-techniques-font" title="Permalink to this heading">#</a></h2>
+<section id="tradeoffs-between-techniques">
+<h2><font color='purple'><em>Tradeoffs between Techniques</em></font><a class="headerlink" href="#tradeoffs-between-techniques" title="Link to this heading">#</a></h2>
 <p>Before delving into the mechanics of fine-tuning; note that it might not always be the best solution.  Here’s a breakdown of when to apply prompt-engineering, RAG, or fine-tuning:</p>
 <ul class="simple">
 <li><p><font color='purple'><em>Use Prompt Engineering for</em></font>:</p>
@@ -443,8 +454,8 @@ document.write(`
 <p>Our advice is to experiment with crafting effective instructions and prompts for the model before attempting fine-tuning. Prompt engineering is low-cost and does not require any programming. Different prompting techniques can be used, such as few-shot in-context learning and chain-of-thought prompts. Fine-tuning requires more effort – it requires a collection of supervised training examples, some programming work, extra GPU resources, and extra storage for a model with updated weights.</p>
 </div>
 </section>
-<section id="font-color-purple-load-and-test-original-model-font">
-<h2><font color='purple'><em>Load and Test Original Model</em></font><a class="headerlink" href="#font-color-purple-load-and-test-original-model-font" title="Permalink to this heading">#</a></h2>
+<section id="load-and-test-original-model">
+<h2><font color='purple'><em>Load and Test Original Model</em></font><a class="headerlink" href="#load-and-test-original-model" title="Link to this heading">#</a></h2>
 <p>In this workshop, we’ll demonstrate how to fine-tune a Mistral model. Mistral is especially apt for performing classification tasks.</p>
 <p>The first step in fine-tuning should always be to properly load and test the out-of-the-box model. The code below loads a quantized Mistral model using Transformers.  It uses the first text example from the <em>AG News</em> dataset on Hugging Face here: <a class="reference external" href="https://huggingface.co/datasets/ag_news">https://huggingface.co/datasets/ag_news</a>.  It asks the model to classify this text into 1 of 4 categories:</p>
 <ul class="simple">
@@ -547,8 +558,8 @@ of ultra-cynics, are seeing green again.
 </div>
 <p>You’ll notice that while it provides the correct answer, the response is very verbose.  This a prime example of where fine-tuning can help!</p>
 </section>
-<section id="font-color-purple-prepare-dataset-font">
-<h2><font color='purple'><em>Prepare Dataset</em></font><a class="headerlink" href="#font-color-purple-prepare-dataset-font" title="Permalink to this heading">#</a></h2>
+<section id="prepare-dataset">
+<h2><font color='purple'><em>Prepare Dataset</em></font><a class="headerlink" href="#prepare-dataset" title="Link to this heading">#</a></h2>
 <p>As described earlier, we can use the <em>AG News</em> dataset on Hugging Face to fine-tune Mistral 7B.  To apply a training dataset, you need to make sure it is in <strong>json</strong> format with a text column that provides the prompt and response (preferably in the model syntax). You can find <code class="docutils literal notranslate"><span class="pre">prepare_data.py</span></code> script in the <a class="reference external" href="https://github.com/rs-kellogg/krs-openllm-cookbook/tree/main/scripts/fine_tune">scripts/fine_tune</a> folder of our github repo.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -616,11 +627,11 @@ of ultra-cynics, are seeing green again.
 </pre></div>
 </div>
 </section>
-<section id="font-color-purple-fine-tuning-steps-font">
-<h2><font color='purple'><em>Fine Tuning Steps</em></font><a class="headerlink" href="#font-color-purple-fine-tuning-steps-font" title="Permalink to this heading">#</a></h2>
+<section id="fine-tuning-steps">
+<h2><font color='purple'><em>Fine Tuning Steps</em></font><a class="headerlink" href="#fine-tuning-steps" title="Link to this heading">#</a></h2>
 <p>Once the data is prepared, we can fine-tune the pre-trained Mistral model using a combination of techniques for efficiency and effectiveness.</p>
-<section id="font-color-purple-techniques-font">
-<h3><font color='purple'><strong>Techniques</strong></font><a class="headerlink" href="#font-color-purple-techniques-font" title="Permalink to this heading">#</a></h3>
+<section id="techniques">
+<h3><font color='purple'><strong>Techniques</strong></font><a class="headerlink" href="#techniques" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p><font color='purple'><strong>PEFT (Parameter-Efficient Fine-Tuning)</strong></font>: Imagine a large toolbox filled with tools. Standard fine-tuning would pull out every tool and try to adjust them all. PEFT, however, uses “adapter modules” like smaller, specialized toolkits. These focus updates on the most relevant parts of the model, saving time and resources by not retraining everything.</p></li>
 <li><p><font color='purple'><strong>LoRA (Low-Rank Adaptation)</strong></font>: When fine-tuning, it’s crucial to identify the areas of the model most important for the new task. LoRA acts like a spotlight, shining on these key areas within the vast network. PEFT then utilizes this information to target those specific parts with the adapter modules for focused updates.</p></li>
@@ -628,7 +639,7 @@ of ultra-cynics, are seeing green again.
 </ul>
 </section>
 <section id="id1">
-<h3><font color='purple'><strong>Fine-Tuning Steps</strong></font><a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
+<h3><font color='purple'><strong>Fine-Tuning Steps</strong></font><a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
 <p>Today we’ll load a pre-trained Mistral model and prepare it for training. We then identify the most important parts in the model using LoRA. These modules are targeted in the PEFT process. The model is then fine-tuned using the SFTTrainer, which uses the SFT method to update the model parameters.</p>
 <p>After the fine-tuning process, we save the fine-tuned model. Then, we load the base model and the fine-tuned model, and merge them together. The merged model is saved for future use. This merging process allows the fine-tuned model to benefit from the knowledge in the base model, while also incorporating the updates made during the fine-tuning process.</p>
 <p>You can find <code class="docutils literal notranslate"><span class="pre">fine_tune.py</span></code> script in the <a class="reference external" href="https://github.com/rs-kellogg/krs-openllm-cookbook/tree/main/scripts/fine_tune">scripts/fine_tune</a> folder of our github repo.</p>
@@ -752,8 +763,8 @@ of ultra-cynics, are seeing green again.
 </div>
 </section>
 </section>
-<section id="font-color-purple-test-fine-tuned-model-font">
-<h2><font color='purple'><em>Test Fine-Tuned Model</em></font><a class="headerlink" href="#font-color-purple-test-fine-tuned-model-font" title="Permalink to this heading">#</a></h2>
+<section id="test-fine-tuned-model">
+<h2><font color='purple'><em>Test Fine-Tuned Model</em></font><a class="headerlink" href="#test-fine-tuned-model" title="Link to this heading">#</a></h2>
 <p>Finally, we can test the fine-tuned model on our test dataset. Here we’ll revisit our initial query. You can find <code class="docutils literal notranslate"><span class="pre">query_finetune.py</span></code> script in the <a class="reference external" href="https://github.com/rs-kellogg/krs-openllm-cookbook/tree/main/scripts/fine_tune">scripts/fine_tune</a> folder of our github repo.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -842,8 +853,8 @@ of ultra-cynics, are seeing green again.
 </pre></div>
 </div>
 <p>While the output still contains slightly more text than we requested, it still provides a concise response of <code class="docutils literal notranslate"><span class="pre">class</span> <span class="pre">2</span> <span class="pre">-</span> <span class="pre">Business</span></code>.</p>
-<section id="font-color-purple-reference-sources-font">
-<h3><font color='purple'><em>Reference Sources</em></font><a class="headerlink" href="#font-color-purple-reference-sources-font" title="Permalink to this heading">#</a></h3>
+<section id="reference-sources">
+<h3><font color='purple'><em>Reference Sources</em></font><a class="headerlink" href="#reference-sources" title="Link to this heading">#</a></h3>
 <ul class="simple">
 <li><p><a class="reference external" href="https://adithyask.medium.com/a-beginners-guide-to-fine-tuning-mistral-7b-instruct-model-0f39647b20fe">A Beginner’s Guide to Fine-Tuning Mistral-7B Instruct Model</a></p></li>
 <li><p><a class="reference external" href="https://adithyask.medium.com/a-beginners-guide-to-fine-tuning-mistral-7b-instruct-model-0f39647b20fe">Running Fine Tuning with qlora and sft</a></p></li>
@@ -883,7 +894,7 @@ of ultra-cynics, are seeing green again.
               
               
                 <footer class="prev-next-footer">
-                  <!-- Previous / next buttons -->
+                  
 <div class="prev-next-area">
     <a class="left-prev"
        href="retrieval.html"
@@ -912,22 +923,23 @@ of ultra-cynics, are seeing green again.
               
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
+
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
     <i class="fa-solid fa-list"></i> Contents
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-tradeoffs-between-techniques-font"><font color="purple"><em>Tradeoffs between Techniques</em></font></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-load-and-test-original-model-font"><font color="purple"><em>Load and Test Original Model</em></font></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-prepare-dataset-font"><font color="purple"><em>Prepare Dataset</em></font></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-fine-tuning-steps-font"><font color="purple"><em>Fine Tuning Steps</em></font></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-techniques-font"><font color="purple"><strong>Techniques</strong></font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tradeoffs-between-techniques"><font color="purple"><em>Tradeoffs between Techniques</em></font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-and-test-original-model"><font color="purple"><em>Load and Test Original Model</em></font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prepare-dataset"><font color="purple"><em>Prepare Dataset</em></font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fine-tuning-steps"><font color="purple"><em>Fine Tuning Steps</em></font></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#techniques"><font color="purple"><strong>Techniques</strong></font></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1"><font color="purple"><strong>Fine-Tuning Steps</strong></font></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-test-fine-tuned-model-font"><font color="purple"><em>Test Fine-Tuned Model</em></font></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-reference-sources-font"><font color="purple"><em>Reference Sources</em></font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#test-fine-tuned-model"><font color="purple"><em>Test Fine-Tuned Model</em></font></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reference-sources"><font color="purple"><em>Reference Sources</em></font></a></li>
 </ul>
 </li>
 </ul>
@@ -951,9 +963,10 @@ By Kellogg Research Support
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
-      © Copyright 2022.
+      © Copyright 2023.
       <br/>
     
   </p>
@@ -977,8 +990,8 @@ By Kellogg Research Support
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
+  <script src="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
 
   <footer class="bd-footer">
   </footer>
