@@ -7,9 +7,6 @@ import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig
 import bitsandbytes as bnb
 
-# model path
-llm_path = "/kellogg/proj/awc6034/fine_tune/ag_news/mistralai-Code-Instruct-ag_news"
-
 # quantized model loading
 bnb_config = BitsAndBytesConfig(
     load_in_4bit=True,
@@ -18,8 +15,8 @@ bnb_config = BitsAndBytesConfig(
     bnb_4bit_compute_dtype=torch.bfloat16
 )
 
-# model loading
-llm_path = "/kellogg/proj/awc6034/fine_tune/ag_news/mistralai-Code-Instruct-ag_news"
+# model path
+llm_path = "/kellogg/data/llm_models_opensource/mistral_mistralAI/fine_tune/ag_news/mistralai-Code-Instruct-ag_news"
 
 model = AutoModelForCausalLM.from_pretrained(llm_path, quantization_config=bnb_config, device_map={"":0})
 tokenizer = AutoTokenizer.from_pretrained(llm_path, add_eos_token=True)
