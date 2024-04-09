@@ -169,14 +169,15 @@ const thebe_selector_output = ".output, .cell_output"
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction to Open Source Large Language Models (LLMs)</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="introduction.html"><font color="purple"><strong>Introduction</strong></font></a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Running Open Source LLMs on KLC</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#"><font color="purple"><strong>Using GPUs at Northwestern</strong></font></a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Using GPUs at Northwestern</a></li>
 <li class="toctree-l1"><a class="reference internal" href="transformers.html">Using Transformers to run LLMs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="llama-cpp.html">Using Llama_cpp_python to run LLMs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="use_case.html"><font color="purple"><strong>Example Use Case</strong></font></a></li>
+<li class="toctree-l1"><a class="reference internal" href="use_case.html">Example Use Case</a></li>
+
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Advanced Techniques</span></p>
 <ul class="nav bd-sidenav">
@@ -370,7 +371,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1><font color='purple'>Using GPUs at Northwestern</font></h1>
+    <h1>Using GPUs at Northwestern</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -380,9 +381,9 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-parallel-computing-for-llms-font"><font color="purple"><em>Parallel Computing for LLMs</em></font></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-sample-gpu-python-code-font"><font color="purple"><em>Sample GPU Python Code</em></font></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-slurm-script-to-access-gpu-nodes-font"><font color="purple"><em>SLURM Script to Access GPU Nodes</em></font></a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parallel-computing-for-llms">Parallel Computing for LLMs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-gpu-python-code">Sample GPU Python Code</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#slurm-script-to-access-gpu-nodes">SLURM Script to Access GPU Nodes</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-reference-sources-font"><font color="purple"><em>Reference Sources</em></font></a></li>
 </ul>
 </li>
@@ -397,8 +398,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="font-color-purple-using-gpus-at-northwestern-font">
-<h1><font color='purple'><strong>Using GPUs at Northwestern</strong></font><a class="headerlink" href="#font-color-purple-using-gpus-at-northwestern-font" title="Permalink to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="using-gpus-at-northwestern">
+<h1>Using GPUs at Northwestern<a class="headerlink" href="#using-gpus-at-northwestern" title="Permalink to this heading">#</a></h1>
 <p>In this workshop, we’ll leverage the power of Quest GPU nodes to run our open-source LLMs. To do so, please use the temporary Quest allocation: <font color='purple'><strong>e32337</strong></font>.</p>
 <p>Afterwards, you can request your own Quest allocation <a class="reference external" href="https://www.it.northwestern.edu/departments/it-services-support/research/computing/quest/general-access-allocation-types.html">here</a></p>
 <div class="admonition note">
@@ -411,8 +412,8 @@ document.write(`
 <li><p>You can buy your own if you have the budget and expertise</p></li>
 </ul>
 </div>
-<section id="font-color-purple-parallel-computing-for-llms-font">
-<h2><font color='purple'><em>Parallel Computing for LLMs</em></font><a class="headerlink" href="#font-color-purple-parallel-computing-for-llms-font" title="Permalink to this heading">#</a></h2>
+<section id="parallel-computing-for-llms">
+<h2>Parallel Computing for LLMs<a class="headerlink" href="#parallel-computing-for-llms" title="Permalink to this heading">#</a></h2>
 <div class="admonition-font-color-purple-cpus-font admonition">
 <p class="admonition-title"><font color='purple'><strong>CPUs</strong></font></p>
 <p>Much like your own computer, some of our KLC and Quest nodes are equipped with both processors and graphics cards. A processor or <font color='purple'><strong>central processing unit (CPU)</strong></font> is responsible for all the mathematical and logical calculations on a node. In a nutshell, it runs code. While CPUs are extremely powerful and complete most tasks in an infinitesimally short amount of time, a CPU core can only handle one task at a time and runs things <strong>sequentially</strong>.</p>
@@ -456,8 +457,8 @@ document.write(`
 <p>For vector and matrix operations, GPUs can be orders of magnitude faster than CPUs!</p>
 </div>
 </section>
-<section id="font-color-purple-sample-gpu-python-code-font">
-<h2><font color='purple'><em>Sample GPU Python Code</em></font><a class="headerlink" href="#font-color-purple-sample-gpu-python-code-font" title="Permalink to this heading">#</a></h2>
+<section id="sample-gpu-python-code">
+<h2>Sample GPU Python Code<a class="headerlink" href="#sample-gpu-python-code" title="Permalink to this heading">#</a></h2>
 <p>To get started with the GPU nodes, here is a sample Python script. The code below allows you to test whether GPUs are available on a node and runs tensors. This file is located in the course <a class="reference external" href="https://github.com/rs-kellogg/krs-openllm-cookbook/blob/main/scripts/slurm_basics">github repository</a></p>
 <div class="admonition-pytorch-gpu-test-py admonition">
 <p class="admonition-title">pytorch_gpu_test.py</p>
@@ -506,8 +507,8 @@ document.write(`
 <p>We are in the process of setting up GPU nodes for exclusive use by the Kellogg research community as part of the <a class="reference external" href="https://www.kellogg.northwestern.edu/academics-research/research-support/computing/kellogg-linux-cluster.aspx">Kellogg Linux Cluster</a>. Accessing these nodes will be identical to accessing GPU nodes on Quest, but will require only a KLC account and not a separate Quest allocation.</p>
 </div>
 </section>
-<section id="font-color-purple-slurm-script-to-access-gpu-nodes-font">
-<h2><font color='purple'><em>SLURM Script to Access GPU Nodes</em></font><a class="headerlink" href="#font-color-purple-slurm-script-to-access-gpu-nodes-font" title="Permalink to this heading">#</a></h2>
+<section id="slurm-script-to-access-gpu-nodes">
+<h2>SLURM Script to Access GPU Nodes<a class="headerlink" href="#slurm-script-to-access-gpu-nodes" title="Permalink to this heading">#</a></h2>
 <p>For this workshop, we’ll submit jobs to the Quest GPU nodes through a <font color='purple'>SLURM</font> (scheduler) script. You can launch the sample python code using this script.</p>
 <div class="admonition-font-color-purple-pytorch-gpu-test-sh-font admonition">
 <p class="admonition-title"><font color='purple'><em>pytorch_gpu_test.sh</em></font></p>
@@ -597,7 +598,7 @@ document.write(`
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title"><font color='purple'><strong>Introduction</strong></font></p>
+        <p class="prev-next-title">Introduction</p>
       </div>
     </a>
     <a class="right-next"
@@ -624,9 +625,9 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-parallel-computing-for-llms-font"><font color="purple"><em>Parallel Computing for LLMs</em></font></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-sample-gpu-python-code-font"><font color="purple"><em>Sample GPU Python Code</em></font></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-slurm-script-to-access-gpu-nodes-font"><font color="purple"><em>SLURM Script to Access GPU Nodes</em></font></a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parallel-computing-for-llms">Parallel Computing for LLMs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-gpu-python-code">Sample GPU Python Code</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#slurm-script-to-access-gpu-nodes">SLURM Script to Access GPU Nodes</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-reference-sources-font"><font color="purple"><em>Reference Sources</em></font></a></li>
 </ul>
 </li>
