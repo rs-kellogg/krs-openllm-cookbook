@@ -425,30 +425,36 @@ document.write(`
 </div>
 <section id="parallel-computing-for-llms">
 <h2>Parallel Computing for LLMs<a class="headerlink" href="#parallel-computing-for-llms" title="Link to this heading">#</a></h2>
-<div class="admonition-font-color-purple-cpus-font admonition">
-<p class="admonition-title"><font color='purple'><strong>CPUs</strong></font></p>
-<p>Much like your own computer, some of our KLC and Quest nodes are equipped with both processors and graphics cards. A processor or <font color='purple'><strong>central processing unit (CPU)</strong></font> is responsible for all the mathematical and logical calculations on a node. In a nutshell, it runs code. While CPUs are extremely powerful and complete most tasks in an infinitesimally short amount of time, a CPU core can only handle one task at a time and runs things <strong>sequentially</strong>.</p>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
+<div class="sd-card-body docutils">
+<p class="sd-card-text">CPUs</p>
+<p class="sd-card-text">Much like your own computer, some of our KLC and Quest nodes are equipped with both processors and graphics cards. A processor or <font color='purple'><strong>central processing unit (CPU)</strong></font> is responsible for all the mathematical and logical calculations on a node. In a nutshell, it runs code. While CPUs are extremely powerful and complete most tasks in an infinitesimally short amount of time, a CPU core can only handle one task at a time and runs things <strong>sequentially</strong>.</p>
 <figure class="align-default" id="cpu-sequential">
 <a class="reference internal image-reference" href="_images/cpu_sequential.png"><img alt="_images/cpu_sequential.png" src="_images/cpu_sequential.png" style="width: 500px;" /></a>
 </figure>
 </div>
-<div class="admonition-font-color-purple-multiple-cpu-cores-font admonition">
-<p class="admonition-title"><font color='purple'><strong>Multiple CPU Cores</strong></font></p>
-<p>One way to speed up processing is through <font color='purple'><em>parallel computing</em></font> across multiple CPU cores. Parallel computing is a method of solving a single problem by breaking it down into smaller chunks that run <strong>simultaneously</strong>.  A CPU can break up a task and distributes it over multiple CPU cores.</p>
+</div>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
+<div class="sd-card-body docutils">
+<p class="sd-card-text">Multiple CPU Cores</p>
+<p class="sd-card-text">One way to speed up processing is through <font color='purple'><em>parallel computing</em></font> across multiple CPU cores. Parallel computing is a method of solving a single problem by breaking it down into smaller chunks that run <strong>simultaneously</strong>.  A CPU can break up a task and distributes it over multiple CPU cores.</p>
 <figure class="align-default" id="cpu-parallel">
 <a class="reference internal image-reference" href="_images/cpu_parallel.png"><img alt="_images/cpu_parallel.png" src="_images/cpu_parallel.png" style="width: 350px;" /></a>
 </figure>
+</div>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The latest generation of <a class="reference external" href="https://www.kellogg.northwestern.edu/academics-research/research-support/computing/kellogg-linux-cluster.aspx">KLC nodes</a> have 64 CPU cores and 2TB of shared RAM 🚀. This means you could in theory run 64 parallel (simultaneous) processes on a single KLC node.</p>
 </div>
-<div class="admonition-font-color-purple-gpus-font admonition">
-<p class="admonition-title"><font color='purple'><strong>GPUs</strong></font></p>
-<p>A graphics card or <font color='purple'><strong>graphics processing unit (GPU)</strong></font> is a specialized hardware component that can efficiently handle parallel mathematical operations. In comparison to the 24 cores you can use on KLC, a A100 GPU contains 6,912 CUDA cores (the H100 GPU has an astounding 18,432 CUDA cores).  While a GPU core is less powerful than an individual CPU core, their sheer volume make them ideal for handling certain kinds of large amounts of computations in parallel, especially the vector and matrix operations for which GPUs were designed. We will see an example later of the speedup that GPUs provide for this kind of task.</p>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
+<div class="sd-card-body docutils">
+<p class="sd-card-text">GPUs</p>
+<p class="sd-card-text">A graphics card or <font color='purple'><strong>graphics processing unit (GPU)</strong></font> is a specialized hardware component that can efficiently handle parallel mathematical operations. In comparison to the 24 cores you can use on KLC, a A100 GPU contains 6,912 CUDA cores (the H100 GPU has an astounding 18,432 CUDA cores).  While a GPU core is less powerful than an individual CPU core, their sheer volume make them ideal for handling certain kinds of large amounts of computations in parallel, especially the vector and matrix operations for which GPUs were designed. We will see an example later of the speedup that GPUs provide for this kind of task.</p>
 <figure class="align-default" id="gpu">
 <a class="reference internal image-reference" href="_images/gpu.png"><img alt="_images/gpu.png" src="_images/gpu.png" style="width: 350px;" /></a>
 </figure>
+</div>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -458,19 +464,29 @@ document.write(`
 <li><p>Even when parallelization is possible, some tasks actually take longer if parallelized. Sometimes the overhead of coordinating processes across cores might actually take longer than having a single CPU core complete the task alone.</p></li>
 </ul>
 </div>
-<div class="admonition-font-color-purple-cuda-font admonition">
-<p class="admonition-title"><font color='purple'><strong>CUDA</strong></font></p>
-<p>The potential inefficiency of parallelization raises the question of how your system knows when to send a task to CPUs or to GPUs? For Nvidia-based GPU’s, this is where <font color='purple'><strong>CUDA</strong></font> comes in.  <font color='purple'><strong>CUDA (Compute Unified Device Architecture)</strong></font> is a powerful software platform that helps computer programs run faster. On the GPU nodes, we use it to solve performance intensive problems by optimizing when to allocate certains tasks to CPU processing or GPU processing.</p>
-<p>In the image below, CUDA determines which tasks to delegate to GPUs or to CPUs.</p>
+<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+CUDA</div>
+<p class="sd-card-text">The potential inefficiency of parallelization raises the question of how your system knows when to send a task to CPUs or to GPUs? For Nvidia-based GPU’s, this is where <font color='purple'><strong>CUDA</strong></font> comes in.  <font color='purple'><strong>CUDA (Compute Unified Device Architecture)</strong></font> is a powerful software platform that helps computer programs run faster. On the GPU nodes, we use it to solve performance intensive problems by optimizing when to allocate certains tasks to CPU processing or GPU processing.</p>
+<p class="sd-card-text">In this animation, CUDA determines which tasks to delegate to GPUs or to CPUs.</p>
 <figure class="align-default" id="giffy">
 <img alt="_images/giffy_gif.gif" src="_images/giffy_gif.gif" />
 </figure>
+</div>
 </div>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>For vector and matrix operations, GPUs can be orders of magnitude faster than CPUs!</p>
 <figure class="align-default" id="gpu-v-cpu">
 <img alt="_images/gpu-v-cpu.png" src="_images/gpu-v-cpu.png" />
+</figure>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You will not typically directy program in CUDA, nor most of you in Pytorch/Tensorflow. Most of you will probably stick to using the highest layers of abstraction, such as the Hugging Face <a class="reference external" href="https://huggingface.co/docs/transformers/index">Transformer</a> library. However, it is sometimes necessary to know which version of CUDA or Pytorch/Tensorflow you need to have installed.</p>
+<figure class="align-default" id="cuda-stack">
+<img alt="_images/cuda-stack.png" src="_images/cuda-stack.png" />
 </figure>
 </div>
 </section>
