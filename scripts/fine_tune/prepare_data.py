@@ -39,6 +39,9 @@ test_df = test_data.to_pandas()
 process_dataframe_to_jsonl(train_json_file, train_df)
 process_dataframe_to_jsonl(test_json_file, test_df)
 
+# Load the JSON file into a DataFrame
+test_df = pd.read_json(test_json_file, lines=True)
+
 print("===========================")
 print("Data processing complete.")
 print("Here is a sample of the training data:")
