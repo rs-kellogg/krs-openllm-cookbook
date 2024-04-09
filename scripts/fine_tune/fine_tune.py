@@ -27,8 +27,8 @@ model = AutoModelForCausalLM.from_pretrained(model_id, quantization_config=bnb_c
 tokenizer = AutoTokenizer.from_pretrained(model_id, add_eos_token=True, cache_dir=llm_dir)
 
 # load the train and test datasets
-train_data = load_from_disk("/kellogg/proj/awc6034/fine_tune/ag_news/data/train_data.jsonl")
-test_data = load_from_disk("/kellogg/proj/awc6034/fine_tune/ag_news/data/test_data.jsonl")
+train_data = load_from_disk("/kellogg/data/llm_models_opensource/mistral_mistralAI/fine_tune/ag_news/data/train_data.jsonl")
+test_data = load_from_disk("/kellogg/data/llm_models_opensource/mistral_mistralAI/fine_tune/ag_news/data/test_data.jsonl")
 
 # find modules in the model
 def find_all_linear_names(model):
