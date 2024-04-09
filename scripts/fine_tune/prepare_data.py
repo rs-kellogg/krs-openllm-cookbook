@@ -28,8 +28,8 @@ train_data = dataset["train"]
 test_data = dataset["test"]
 
 # jsonl file paths
-train_json_file = "/kellogg/proj/awc6034/fine_tune/ag_news/data/train_data.jsonl"
-test_json_file = "/kellogg/proj/awc6034/fine_tune/ag_news/data/test_data.jsonl"
+train_json_file = "/kellogg/data/llm_models_opensource/mistral_mistralAI/fine_tune/ag_news/data/train_data.jsonl"
+test_json_file = "/kellogg/data/llm_models_opensource/mistral_mistralAI/fine_tune/ag_news/data/test_data.jsonl"
 
 # convert data to pandas
 train_df = train_data.to_pandas()
