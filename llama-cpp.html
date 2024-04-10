@@ -183,7 +183,7 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="retrieval.html">Retrieval Augmented Generation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fine-tuning.html">Fine-Tuning</a></li>
-<li class="toctree-l1"><a class="reference internal" href="vision.html">Process Images with bakllava</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vision.html">Image Processing</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Summary</span></p>
 <ul class="nav bd-sidenav">
@@ -427,16 +427,18 @@ document.write(`
  <!-- Imagine using color-coded ingredients (rotary) instead of labels (absolute) to keep track in a recipe--></section>
 <section id="font-color-purple-basic-workflow-for-llama-cpp-python-font">
 <h2><font color='purple'><em>Basic Workflow for <strong>llama_cpp_python</strong></em></font><a class="headerlink" href="#font-color-purple-basic-workflow-for-llama-cpp-python-font" title="Permalink to this heading">#</a></h2>
-<p>In addition to the architectural improvements, <font color='purple'><strong>llma_cpp_python</strong></font> is simpler to use than Transformers. Unlike transformers, you don’t need to be familiar with libraries like PyTorch or the intricacies of token conversion and decoding. <font color='purple'><strong>llma_cpp_python</strong></font> takes care of these technical details under the hood, allowing you to focus on feeding it text and getting results directly.</p>
-<p><strong>1. Load the model parameters and weights:</strong>
-Load the pre-trained LLaMA model in a <font color='purple'><strong>GGUF</strong></font> format.</p>
+<p>In addition to the architectural improvements, <font color='purple'><strong>llama_cpp_python</strong></font> is simpler to use than the python transformers library. Unlike transformers, you don’t need to be familiar with libraries like PyTorch or the intricacies of token conversion and decoding. <font color='purple'><strong>Llama_cpp_python</strong></font> takes care of these technical details under the hood, allowing you to focus on feeding it text and getting results directly.</p>
+<p><strong>1. Load the model:</strong>
+Load the model in a <font color='purple'><strong>GGUF</strong></font> format.</p>
 <p><strong>2. Send your prompt:</strong>
 Either feed it a plain text prompt or place the query in the appropriate model prompt syntax.</p>
 <p><strong>3. Get text response:</strong>
 Retrieve the text response with no decoding necessary.</p>
 <section id="font-color-purple-quantized-models-what-is-gguf-font">
 <h3><font color='purple'><strong>Quantized Models - What is GGUF?</strong></font><a class="headerlink" href="#font-color-purple-quantized-models-what-is-gguf-font" title="Permalink to this heading">#</a></h3>
-<p>In order to run an LLM, <font color='purple'><strong>llama_cpp_python</strong></font> requires the model’s parameters and weights – the building blocks of its knowledge. These are stored as complex, multidimensional arrays called <strong>tensors</strong>. The data type chosen for these tensors (like Float64, Float16, or even integers) impacts both accuracy and memory usage. Think of the data type as the number of “digits” used to represent the information in memory:</p>
+<p>In order to run an LLM, <font color='purple'><strong>llama_cpp_python</strong></font> requires the model’s parameters – the building blocks of its knowledge. These are stored as complex, multidimensional arrays of values called <strong>tensors</strong>. In machine learning a tensor shows the values of nodes in a neural network.</p>
+<p><img alt="tensor" src="_images/tensor.png" /></p>
+<p>The data type chosen for these tensors (like Float64, Float16, or even integers) impacts both accuracy and memory usage. You can think of the data type as the number of “digits” used to represent the information in memory:</p>
 <ul class="simple">
 <li><p><strong>Higher precision data types (e.g., Float64)</strong>: Offer greater accuracy and stability during training, but require more memory and computational resources.</p></li>
 <li><p><strong>Lower precision data types (e.g., Float16)</strong>: Reduce memory requirements and potentially speed up computations, but might introduce slight accuracy trade-offs.</p></li>
@@ -446,17 +448,18 @@ Retrieve the text response with no decoding necessary.</p>
     <img src="./images/quantize.gif" width="800">
 </div> -->
 <p><img alt="quantize" src="_images/quantize.gif" /></p>
-<p>By using <font color='purple'><strong>quantization</strong></font>, <font color='purple'><strong>llama_cpp_python</strong></font> makes it easier to work with LLMs on devices with limited memory or processing power. Here you see how quantizaton reduces the size of the llama2 models you can call; making it feasible to run these models on a single GPU or even CPUs.</p>
+<p>In practice <font color='purple'><strong>quantization</strong></font> can entail moving from a float 16 (FP16) data type to an integer 4 (INT4) data type.</p>
+<p>By using <font color='purple'><strong>quantization</strong></font>, <font color='purple'><strong>llama_cpp_python</strong></font> makes it easier to work with LLMs on devices with limited memory or processing power. Here you see how quantizaton reduces the size of the llama2 models you can call.  This makes it feasible to run these models on a single GPU or even CPUs.</p>
 <!--<div style="text-align:center">
     <img src="./images/llama_size.png" width="800">
 </div>-->
 <p><img alt="llama" src="_images/llama_size.png" /></p>
-<p>While you can create your own <font color='purple'><strong>GGUF</strong></font> files for most model parameters and weights, it’s also possible to download these files from Hugging Face. The <font color='purple'><strong>GGUF</strong></font> files for llama2 can be found here: <a class="reference external" href="https://huggingface.co/TheBloke/Llama-2-7B-GGUF">https://huggingface.co/TheBloke/Llama-2-7B-GGUF</a>.</p>
+<p>While you can create your own <font color='purple'><strong>GGUF</strong></font> files for most models, it’s also possible to download these files from Hugging Face. The <font color='purple'><strong>GGUF</strong></font> files for llama2 can be found here: <a class="reference external" href="https://huggingface.co/TheBloke/Llama-2-7B-GGUF">https://huggingface.co/TheBloke/Llama-2-7B-GGUF</a>.</p>
 </section>
 </section>
 <section id="font-color-purple-tradeoffs-between-tools-font">
 <h2><font color='purple'><em>Tradeoffs between Tools</em></font><a class="headerlink" href="#font-color-purple-tradeoffs-between-tools-font" title="Permalink to this heading">#</a></h2>
-<p>Even though the architecture and basic steps suggest that <font color='purple'><strong>llama_cpp_python</strong></font> might be easier to run and more efficient than Transformers, the improvements come with some tradeoffs.</p>
+<p>Even though the architecture and basic steps suggest that <font color='purple'><strong>llama_cpp_python</strong></font> might be easier to run and more efficient than the python transformer library, the improvements come with some tradeoffs.</p>
 <ul class="simple">
 <li><p><strong>Inference only</strong>: llama_cpp_python is primarily for running inference (using the model to generate text). You can’t fine-tune the model (further train it on a specific task) or use techniques like RAG (using a retrieval model to improve factual accuracy) through llama_cpp_python. Transformers offer more comprehensive functionality for model development and experimentation.</p></li>
 <li><p><strong>Slower for small models</strong>: llama_cpp_python might be slower for very small GGUF files. The overhead of using llama_cpp_python might outweigh the benefits for tiny models. Transformers might be a better choice in such cases.</p></li>
@@ -477,43 +480,51 @@ Retrieve the text response with no decoding necessary.</p>
 </section>
 <section id="font-color-purple-run-gemma-model-font">
 <h2><font color='purple'><em>Run Gemma model</em></font><a class="headerlink" href="#font-color-purple-run-gemma-model-font" title="Permalink to this heading">#</a></h2>
-<p>Here is some sample code for the a gemma 7B instruct model:</p>
+<p>Here is some sample code to run a single prompt with the gemma 7B instruct model:</p>
 <p><font color='purple'><strong>Python script</strong></font></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1">###################################</span>
-<span class="c1"># Gemma model with llama_cpp_python</span>
-<span class="c1">###################################</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1">###########################################</span>
+<span class="c1"># Gemma model example with llama_cpp_python</span>
+<span class="c1">###########################################</span>
 <span class="c1"># libraries</span>
 <span class="kn">from</span> <span class="nn">llama_cpp</span> <span class="kn">import</span> <span class="n">Llama</span>
 
 <span class="c1">#########</span>
 <span class="c1"># Inputs</span>
-<span class="n">model_path</span> <span class="o">=</span><span class="s2">&quot;/model/gemma-7b-it.gguf&quot;</span>
+<span class="c1">#########</span>
+
+<span class="c1"># model</span>
+<span class="n">model_path</span> <span class="o">=</span><span class="s2">&quot;/kellogg/software/llama_cpp/model/gemma-7b-it.gguf&quot;</span>
+
+<span class="c1"># settings</span>
 <span class="n">context_size</span> <span class="o">=</span> <span class="mi">512</span>
+<span class="n">threads</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">gpu_layers</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
 <span class="n">max_tokens_select</span> <span class="o">=</span> <span class="mi">1000</span>
 <span class="n">temperature_select</span><span class="p">:</span> <span class="nb">float</span><span class="o">=</span><span class="mi">0</span>
 <span class="n">top_p_select</span><span class="p">:</span> <span class="nb">float</span><span class="o">=</span><span class="mf">0.9</span>
 <span class="n">top_k_select</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="mi">0</span>
+<span class="n">include_prompt</span> <span class="o">=</span> <span class="kc">False</span>
 
-<span class="c1">########</span>
-<span class="c1"># Prompt</span>
-<span class="c1">#prompt = &quot;Can you provide a summary of Guy Debord&#39;s Societe du Spectacle?&quot;</span>
+<span class="c1"># Prompts</span>
 <span class="n">prompt</span> <span class="o">=</span> <span class="s2">&quot;What kind of pickups are on an ESP LTD Alexi Ripped?&quot;</span>
 
-<span class="c1"># prompt written in gemma prompt syntax</span>
+<span class="c1"># Prompt Syntax (prompt written in gemma prompt syntax)</span>
 <span class="n">prompt_sytnax</span> <span class="o">=</span> <span class="s2">&quot;&lt;start_of_turn&gt;user&quot;</span> <span class="o">+</span> <span class="n">prompt</span> <span class="o">+</span> <span class="s2">&quot;&lt;end_of_turn&gt;&quot;</span> <span class="o">+</span> <span class="s2">&quot;&lt;start_of_turn&gt;model&quot;</span>
 
-<span class="c1">############</span>
+<span class="c1">#####################</span>
+<span class="c1"># LLaMa.cpp arguments</span>
+<span class="c1">#####################</span>
+
 <span class="c1"># load model</span>
 <span class="n">llm</span> <span class="o">=</span> <span class="n">Llama</span><span class="p">(</span>
   <span class="n">model_path</span><span class="o">=</span><span class="n">model_path</span><span class="p">,</span>  <span class="c1"># The path to the model file</span>
   <span class="n">n_ctx</span><span class="o">=</span><span class="n">context_size</span><span class="p">,</span>  <span class="c1"># The max sequence length to use - adjust based on your model&#39;s requirements</span>
-  <span class="n">n_threads</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>  <span class="c1"># The number of CPU threads to use</span>
-  <span class="n">n_gpu_layers</span><span class="o">=-</span><span class="mi">1</span>  <span class="c1"># Set to 0 if you want to use CPU only and -1 if you want to use all available GPUs</span>
+  <span class="n">n_threads</span><span class="o">=</span><span class="n">threads</span><span class="p">,</span>  <span class="c1"># The number of CPU threads to use</span>
+  <span class="n">n_gpu_layers</span><span class="o">=</span><span class="n">gpu_layers</span>  <span class="c1"># Set to 0 if you want to use CPU only and -1 if you want to use all available GPUs</span>
 <span class="p">)</span>
 
-<span class="c1">##############</span>
 <span class="c1"># send prompt</span>
 <span class="n">response</span> <span class="o">=</span> <span class="n">llm</span><span class="p">(</span>
     <span class="n">prompt</span><span class="p">,</span>
@@ -521,11 +532,12 @@ Retrieve the text response with no decoding necessary.</p>
     <span class="n">temperature</span><span class="o">=</span><span class="n">temperature_select</span><span class="p">,</span>
     <span class="n">top_p</span><span class="o">=</span><span class="n">top_p_select</span><span class="p">,</span>
     <span class="n">top_k</span><span class="o">=</span><span class="n">top_k_select</span><span class="p">,</span>
-    <span class="n">echo</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">echo</span> <span class="o">=</span> <span class="n">include_prompt</span>
     <span class="p">)</span>
 
 <span class="c1">##############</span>
-<span class="c1"># get response</span>
+<span class="c1"># Get Response</span>
+<span class="c1">##############</span>
 <span class="n">response_text</span> <span class="o">=</span> <span class="n">response</span><span class="p">[</span><span class="s1">&#39;choices&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;text&#39;</span><span class="p">]</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">response_text</span><span class="p">)</span>
 </pre></div>
@@ -535,26 +547,22 @@ Retrieve the text response with no decoding necessary.</p>
 <p>Breaking down the parameter options:</p>
 <p><strong>At the model load step</strong>:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">model_path</span></code> is the path to the model file being used.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">n_ctx</span></code> of the context window for the model; max number of tokens in the prompt; default is 512</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">model_path</span></code> is the path to the model file being used. Note that you can download this file from Hugging Face here: <a class="reference external" href="https://huggingface.co/google/gemma-7b-it/tree/main">https://huggingface.co/google/gemma-7b-it/tree/main</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">n_ctx</span></code> is the context window for the model; max number of tokens in the prompt; default is 512</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">n_threads</span></code> is the number of the number of CPU threads</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">n_gpu_layers</span></code>set to 0 if you want to use CPU only and -1 if you want to use all available GPUs</p></li>
 </ul>
 <p><strong>At the model output step</strong>:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">prompt</span></code> is the input prompt for the model. Under the hood, the text is tokenized and passed to the model.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">prompt</span></code> is the input prompt for the model. Under the hood, the text is tokenized and passed to the model</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">max_tokens</span></code> is the maximum number of tokens to be generated in the model’s response</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">temperature</span></code> this value ranges from 0 to 1. The lower the value, the more deterministic the end result. A higher value leads to more randomness.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">top_p</span></code> is used to control the diversity of the predictions, meaning that it selects the most probable tokens whose cumulative probability exceeds a given threshold. Starting from zero, a higher value increases the chance of finding a better output but requires additional computations.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">echo</span></code> specifies a boolean used to determine whether the model includes the original prompt at the beginning (True) or does not include it (False).</p></li>
 </ul>
 <p><em>For more information about these parameters and additional ones, please see: <a class="reference external" href="https://llama-cpp-python.readthedocs.io/en/latest/api-reference/">https://llama-cpp-python.readthedocs.io/en/latest/api-reference/</a>.</em></p>
-<p>Note that this file is saved as <strong>gemma_test.py</strong> on KLC here:</p>
+<p>You can find this file here: <a class="reference external" href="https://github.com/rs-kellogg/krs-openllm-cookbook/blob/main/scripts/llama_cpp_python/gemma_ex.py">scripts/llama_cpp_python/gemma_ex.py</a>.  This file is saved as <strong>gemma_ex.py</strong> on KLC here:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">kelloggs</span><span class="o">/</span><span class="n">software</span><span class="o">/</span><span class="n">llama_cpp</span><span class="o">/</span><span class="n">code</span>
-</pre></div>
-</div>
-<p>This directory is bound to our llama-cpp-python module and can be accessed as:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">code</span>
 </pre></div>
 </div>
 <p><font color='purple'><strong>SLURM script</strong></font></p>
@@ -575,7 +583,16 @@ Retrieve the text response with no decoding necessary.</p>
 <span class="n">module</span> <span class="n">use</span> <span class="o">/</span><span class="n">kellogg</span><span class="o">/</span><span class="n">software</span><span class="o">/</span><span class="n">Modules</span><span class="o">/</span><span class="n">modulefiles</span>
 <span class="n">module</span> <span class="n">load</span> <span class="n">llama_cpp</span><span class="o">/</span><span class="mf">2.38</span>
 
-<span class="n">python3</span> <span class="o">/</span><span class="n">code</span><span class="o">/</span><span class="n">gemma_test</span><span class="o">.</span><span class="n">py</span>
+<span class="n">python3</span> <span class="o">/</span><span class="n">code</span><span class="o">/</span><span class="n">gemma_ex</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>You can find this file here: <a class="reference external" href="https://github.com/rs-kellogg/krs-openllm-cookbook/blob/main/scripts/llama_cpp_python/gemma_test.sh">scripts/llama_cpp_python/gemma_testh.sh</a>. This file is also saved to the same directory provided above as <strong>gemma_test.sh</strong>. You can run this shell script by making it an executable then launching it.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">chmod</span> <span class="o">+</span><span class="n">x</span> <span class="n">gemma_ex</span><span class="o">.</span><span class="n">sh</span>
+<span class="o">./</span><span class="n">gemma_test</span><span class="o">.</span><span class="n">sh</span>
 </pre></div>
 </div>
 </div>
@@ -674,14 +691,205 @@ Retrieve the text response with no decoding necessary.</p>
 
 </pre></div>
 </div>
+<p>Likewise, you can modify the python file to run multiple prompts.  The example script below is saved as <strong>gemma_workflow.py</strong> in the same directory listed above.  You can also find it here: <a class="reference external" href="https://github.com/rs-kellogg/krs-openllm-cookbook/blob/main/scripts/llama_cpp_python/gemma_workflow.py">scripts/llama_cpp_python/gemma_workflow.py</a>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1">######################################</span>
+<span class="c1"># Gemma Workflow with llama_cpp_python</span>
+<span class="c1">######################################</span>
+<span class="c1"># libraries</span>
+<span class="kn">from</span> <span class="nn">llama_cpp</span> <span class="kn">import</span> <span class="n">Llama</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="c1">#########</span>
+<span class="c1"># Inputs</span>
+<span class="c1">#########</span>
+
+<span class="c1"># model</span>
+<span class="n">model_path</span> <span class="o">=</span> <span class="s2">&quot;/kellogg/software/llama_cpp/models/gemma-7b-it.gguf&quot;</span>
+
+<span class="c1"># prompts</span>
+<span class="n">prompts</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;What is the main idea of Guy Debord&#39;s Societe du Spectacle?&quot;</span><span class="p">,</span> 
+           <span class="s2">&quot;What kind of pickups are on an ESP LTD Alexi Ripped?&quot;</span><span class="p">,</span> 
+           <span class="s2">&quot;How does Allama Iqbal&#39;s concept of the khudi relate to Nietzsche&#39;s Ubermensch?&quot;</span>
+<span class="p">]</span>
+
+<span class="c1"># output</span>
+<span class="n">output_file</span> <span class="o">=</span> <span class="s2">&quot;/kellogg/software/llama_cpp/output/gemma_test.csv&quot;</span>
+
+<span class="c1"># settings</span>
+<span class="n">context_size</span> <span class="o">=</span> <span class="mi">512</span> <span class="c1"># The max sequence length to use - adjust based on your model&#39;s requirements</span>
+<span class="n">threads</span> <span class="o">=</span> <span class="mi">1</span> <span class="c1"># The number of CPU threads to use</span>
+<span class="n">gpu_layers</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span> <span class="c1"># Set to 0 if you want to use CPU only and -1 if you want to use all available GPUs</span>
+<span class="n">max_tokens_select</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="n">temperature_select</span><span class="p">:</span> <span class="nb">float</span><span class="o">=</span><span class="mi">0</span> 
+<span class="n">top_p_select</span><span class="p">:</span> <span class="nb">float</span><span class="o">=</span><span class="mf">0.9</span>
+<span class="n">top_k_select</span><span class="p">:</span> <span class="nb">int</span><span class="o">=</span><span class="mi">0</span>
+<span class="n">include_prompt</span> <span class="o">=</span> <span class="kc">False</span>
+
+<span class="c1">############</span>
+<span class="c1"># Functions</span>
+<span class="c1">############</span>
+
+<span class="c1"># get prompt response</span>
+<span class="k">def</span> <span class="nf">get_completion</span><span class="p">(</span><span class="n">llm</span><span class="p">,</span> <span class="n">prompt</span><span class="p">,</span> <span class="n">max_tokens_select</span><span class="p">,</span> <span class="n">temperature_select</span><span class="p">,</span> <span class="n">top_p_select</span><span class="p">,</span> <span class="n">top_k_select</span><span class="p">,</span> <span class="n">include_prompt</span><span class="p">):</span>
+  <span class="k">try</span><span class="p">:</span>
+
+    <span class="c1"># send prompt</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">llm</span><span class="p">(</span>
+      <span class="n">prompt</span><span class="p">,</span>
+      <span class="n">max_tokens</span><span class="o">=</span><span class="n">max_tokens_select</span><span class="p">,</span> 
+      <span class="n">temperature</span><span class="o">=</span><span class="n">temperature_select</span><span class="p">,</span>
+      <span class="n">top_p</span><span class="o">=</span><span class="n">top_p_select</span><span class="p">,</span>
+      <span class="n">top_k</span><span class="o">=</span><span class="n">top_k_select</span><span class="p">,</span>
+      <span class="n">echo</span> <span class="o">=</span> <span class="n">include_prompt</span><span class="p">)</span>
+    
+    <span class="c1"># get response</span>
+    <span class="n">response_text</span> <span class="o">=</span> <span class="n">response</span><span class="p">[</span><span class="s1">&#39;choices&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;text&#39;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">response_text</span>
+  
+  <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;An error occurred: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="kc">None</span>
+
+<span class="c1"># save results to a df</span>
+<span class="k">def</span> <span class="nf">save_results</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">run_time</span><span class="p">):</span>
+
+    <span class="c1"># create empty df</span>
+    <span class="n">results_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;prompt&#39;</span><span class="p">,</span> <span class="s1">&#39;response&#39;</span><span class="p">,</span> <span class="s1">&#39;run_time&#39;</span><span class="p">])</span>
+    
+    <span class="c1"># create df from current row</span>
+    <span class="n">row_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+        <span class="s1">&#39;prompt&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">prompt</span><span class="p">],</span>
+        <span class="s1">&#39;response&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">response</span><span class="p">],</span>
+        <span class="s1">&#39;run_time&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">run_time</span><span class="p">]</span>
+    <span class="p">})</span>
+    
+    <span class="c1"># combine</span>
+    <span class="n">results_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">results_df</span><span class="p">,</span> <span class="n">row_df</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    
+    <span class="c1"># return dataframe</span>
+    <span class="k">return</span> <span class="n">results_df</span>
+
+<span class="c1">######</span>
+<span class="c1"># RUN</span>
+<span class="c1">######</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+   <span class="n">llm</span> <span class="o">=</span> <span class="n">Llama</span><span class="p">(</span><span class="n">model_path</span><span class="o">=</span><span class="n">model_path</span><span class="p">,</span>  
+               <span class="n">n_ctx</span><span class="o">=</span><span class="n">context_size</span><span class="p">,</span>  
+               <span class="n">n_threads</span><span class="o">=</span><span class="n">threads</span><span class="p">,</span>  
+               <span class="n">n_gpu_layers</span><span class="o">=</span><span class="n">gpu_layers</span><span class="p">)</span>
+
+   <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">prompts</span><span class="p">:</span>
+        <span class="c1"># run</span>
+        <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">get_completion</span><span class="p">(</span><span class="n">llm</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">max_tokens_select</span><span class="p">,</span> <span class="n">temperature_select</span><span class="p">,</span> <span class="n">top_p_select</span><span class="p">,</span> <span class="n">top_k_select</span><span class="p">,</span> <span class="n">include_prompt</span><span class="p">)</span>
+        <span class="n">run_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span>
+
+        <span class="c1"># print results</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;========================&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Prompt: </span><span class="si">{</span><span class="n">p</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Response: </span><span class="si">{</span><span class="n">response</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Run Time: </span><span class="si">{</span><span class="n">run_time</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;========================&quot;</span><span class="p">)</span>
+
+        <span class="c1"># save progress</span>
+        <span class="n">results_df</span> <span class="o">=</span> <span class="n">save_results</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">run_time</span><span class="p">)</span>
+        <span class="n">results_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">output_file</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Output:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>.....
+llama_print_timings:        load time =    5117.72 ms
+llama_print_timings:      sample time =     910.97 ms /   320 runs   (    2.85 ms per token,   351.28 tokens per second)
+llama_print_timings: prompt eval time =    5116.70 ms /    18 tokens (  284.26 ms per token,     3.52 tokens per second)
+llama_print_timings:        eval time =   85380.73 ms /   319 runs   (  267.65 ms per token,     3.74 tokens per second)
+llama_print_timings:       total time =   96673.56 ms /   337 tokens
+========================
+Prompt: What is the main idea of Guy Debord&#39;s Societe du Spectacle?
+Response: 
+
+The Society of Control (1973) argues that in advanced capitalist societies, social life itself has become a spectacle. This society rests on two pillars: control and simulation—the latter being more powerful than even economic power because it controls our perception as individuals as well as our understanding as collective beings.&lt;br&gt; 
+Guy debord argued against this view claiming instead for an understanding rooted firmly within historical materialism.&lt;br&gt; 
+Debord argued against seeing contemporary capitalism as primarily concerned with production for profit but rather with production for consumption.&lt; He argued this shift was evident not only from changes to labor practices but also from changes to consumer behavior.&lt;br&gt; 
+Therefore his primary concern was not with individual perception but with collective behavior.&lt; He argued this shift was evident not only from changes to labor practices but also from changes to consumer behavior.&lt;br&gt; 
+Run Time: 96.674813747406
+========================
+
+llama_print_timings:        load time =    5117.72 ms
+llama_print_timings:      sample time =     107.74 ms /    34 runs   (    3.17 ms per token,   315.57 tokens per second)
+llama_print_timings: prompt eval time =    1299.31 ms /    13 tokens (   99.95 ms per token,    10.01 tokens per second)
+llama_print_timings:        eval time =    8821.49 ms /    33 runs   (  267.32 ms per token,     3.74 tokens per second)
+llama_print_timings:       total time =   10758.35 ms /    46 tokens
+
+========================
+Prompt: What kind of pickups are on an ESP LTD Alexi Ripped?
+
+The Esp Ltd.AlexI Ripper has ceramic humbuckers with coil tapping capabilities, which give you a wide range from clean to overdrive tones and everything in between
+Run Time: 10.760140419006348
+
+========================
+
+llama_print_timings:        load time =    5268.39 ms
+llama_print_timings:      sample time =    1060.79 ms /   377 runs   (    2.81 ms per token,   355.40 tokens per second)
+llama_print_timings: prompt eval time =    1910.34 ms /    20 tokens (   95.52 ms per token,    10.47 tokens per second)
+llama_print_timings:        eval time =   99700.63 ms /   376 runs   (  265.16 ms per token,     3.77 tokens per second)
+llama_print_timings:       total time =  108664.66 ms /   396 tokens
+========================
+Prompt: How does Allama Iqbal&#39;s concept of the khudi relate to Nietzsche&#39;s Ubermensch?
+Response: 
+
+Allama MuhammadIqbal and FriedrichNietzsche were two prominent philosophers who explored similar themes in their respective works. One such theme is that  of self-cultivation, which they referred as Khudī (Urdu) or Übermenschen(German). 
+
+
+**Khüdî by Allaima IQBAL:**
+In his poetry collection &quot;The Secrets,&quot; Allaima IQBAL argued for a spiritual awakening through individual effort: 
+&quot;Khüdî hai har insān ka apna,&quot; meaning &quot;Selfhood&quot; or &quot;Individuality&quot; for every human being.&quot; 
+He believed individuals should cultivate inner strength through moral development rather than material possessions or external validation . 
+
+
+**Übermenschen by NIETZSCHE:**
+Friedrich NIETZSCHE proposed a different approach towards selffactualization: through overcoming limitations rather than conforming with societal norms:
+&quot;The Übermenschen... are those individuals whose spiritual strength has overcome all limitations.&quot;
+He emphasized individual strength over conformity , urging humans not be afraid challenge existing structures .
+
+
+**Comparison:**
+Both concepts emphasize individual empowerment through spiritual awakening or overcoming limitations . However , there are some key differences between them:
+* **Emphasis:**
+ - **IQBAL:** Focuses on moral development through individual effort
+ - **NIETZSCHE:** Emphasizes spiritual strength through overcoming limitations
+* **Approach:**
+ - **IQBAL:** Advocates for spiritual awakening through moral development
+ - **NIETZSCHE:** Encourages overcoming limitations through individual strength
+* **Cultural Context:**
+ - **IQBAL:** Rooted within South Asian cultural values
+ - **NIETZSCHE:** Developed within European philosophical tradition
+
+**Conclusion:**
+While both concepts share similarities , each philosopher offers a unique perspective on individual empowerment through spiritual awakening or overcoming limitations . IQBAL emphasizes moral development within a cultural context , while NIETZSCHE encourages individual strength beyond societal norms .
+Run Time: 108.66637086868286
+
+</pre></div>
+</div>
 </section>
 <section id="font-color-purple-run-mistral-model-font">
 <h2><font color='purple'><em>Run Mistral model</em></font><a class="headerlink" href="#font-color-purple-run-mistral-model-font" title="Permalink to this heading">#</a></h2>
-<p>Check out <a class="reference external" href="https://github.com/rs-kellogg/krs-openllm-cookbook/blob/main/scripts/llama_cpp_python/mistral_test.py">scripts/llama_cpp_python/misral_test.py</a>.</p>
+<p>Please see <a class="reference external" href="https://github.com/rs-kellogg/krs-openllm-cookbook/blob/main/scripts/llama_cpp_python/mistral_ex.py">scripts/llama_cpp_python/misral_ex.py</a>.</p>
+<p>Note that you can download this file from Hugging Face here: <a class="reference external" href="https://huggingface.co/TheBloke/Mistral-7B-v0.1-GGUF">https://huggingface.co/TheBloke/Mistral-7B-v0.1-GGUF</a></p>
 </section>
 <section id="font-color-purple-run-llama2-model-font">
 <h2><font color='purple'><em>Run llama2 model</em></font><a class="headerlink" href="#font-color-purple-run-llama2-model-font" title="Permalink to this heading">#</a></h2>
-<p>Check out <a class="reference external" href="https://github.com/rs-kellogg/krs-openllm-cookbook/blob/main/scripts/llama_cpp_python/llama2_test.py">scripts/llama_cpp_python/llama2_test.py</a>.</p>
+<p>Please see <a class="reference external" href="https://github.com/rs-kellogg/krs-openllm-cookbook/blob/main/scripts/llama_cpp_python/llama2_ex.py">scripts/llama_cpp_python/llama2_ex.py</a>.</p>
+<p>Note that you can download this file from Hugging Face here:  <a class="reference external" href="https://huggingface.co/TheBloke/Llama-2-7B-Chat-GGUF">https://huggingface.co/TheBloke/Llama-2-7B-Chat-GGUF</a></p>
 </section>
 <section id="font-color-purple-reference-sources-font">
 <h2><font color='purple'><em>Reference Sources</em></font><a class="headerlink" href="#font-color-purple-reference-sources-font" title="Permalink to this heading">#</a></h2>

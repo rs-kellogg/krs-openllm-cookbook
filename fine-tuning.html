@@ -65,7 +65,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'fine-tuning';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Process Images with bakllava" href="vision.html" />
+    <link rel="next" title="Image Processing" href="vision.html" />
     <link rel="prev" title="Retrieval Augmented Generation" href="retrieval.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -183,7 +183,7 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="retrieval.html">Retrieval Augmented Generation</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Fine-Tuning</a></li>
-<li class="toctree-l1"><a class="reference internal" href="vision.html">Process Images with bakllava</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vision.html">Image Processing</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Summary</span></p>
 <ul class="nav bd-sidenav">
@@ -389,10 +389,8 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1"><font color="purple"><strong>Fine-Tuning Steps</strong></font></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-test-fine-tuned-model-font"><font color="purple"><em>Test Fine-Tuned Model</em></font></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-reference-sources-font"><font color="purple"><em>Reference Sources</em></font></a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-test-fine-tuned-model-font"><font color="purple"><em>Test Fine-Tuned Model</em></font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-reference-sources-font"><font color="purple"><em>Reference Sources</em></font></a></li>
 </ul>
             </nav>
         </div>
@@ -404,12 +402,12 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="fine-tuning">
+  <section id="fine-tuning">
 <h1>Fine-Tuning<a class="headerlink" href="#fine-tuning" title="Permalink to this heading">#</a></h1>
-<p><font color='purple'><strong>Fine-tuning</strong></font> takes large language models beyond basic prompting. It allows you to train a model on a dataset specifically tailored to your desired task, leading to several advantages:</p>
+<p><font color='purple'><strong>Fine-tuning</strong></font> takes large language models beyond basic prompting. It allows you to train the model on a larger dataset specifically tailored to your desired task, leading to several advantages:</p>
 <ul class="simple">
-<li><p><em><strong>Superior Results</strong></em>: Compared to prompting, fine-tuning can deliver higher quality outputs because the model is updating its weights based off of supervised training examples you provide it, producing a model that is specially tailored to your needs.</p></li>
-<li><p><em><strong>Efficiency</strong></em>: The resulting fine-tuned model will typically require shorter prompts to get the desired behavior, because the model weights are already tuned to your use case. This can save on token usage and reduce latency for requests.</p></li>
+<li><p><em><strong>Superior Results</strong></em>: Compared to prompting, fine-tuning delivers higher quality outputs because the model learns directly from a wider range of examples.</p></li>
+<li><p><em><strong>Efficiency</strong></em>: You can train on more data than can fit in a single prompt, saving on token usage and reducing latency for requests.</p></li>
 <li><p><em><strong>Specificity</strong></em>: Fine-tuning excels at tasks requiring specific styles, tones, formats, or consistent outputs. It enhances reliability in achieving your desired results, handles complex instructions better, and tackles edge cases effectively.</p></li>
 <li><p><em><strong>New Skills</strong></em>: Fine-tuning empowers the model to master new skills or complete tasks that are difficult to articulate through simple prompts.</p></li>
 </ul>
@@ -427,7 +425,6 @@ document.write(`
 <ul>
 <li><p>Situations with a large, relevant document database.</p></li>
 <li><p>Tasks requiring factual accuracy where context retrieval is beneficial.</p></li>
-<li><p>Tasks requiring access to information that is newer than a model’s training cutoff date.</p></li>
 </ul>
 </li>
 <li><p><font color='purple'><em>Use Fine-Tuning for</em></font>:</p>
@@ -438,10 +435,7 @@ document.write(`
 </ul>
 </li>
 </ul>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Our advice is to experiment with crafting effective instructions and prompts for the model before attempting fine-tuning. Prompt engineering is low-cost and does not require any programming. Different prompting techniques can be used, such as few-shot in-context learning and chain-of-thought prompts. Fine-tuning requires more effort – it requires a collection of supervised training examples, some programming work, extra GPU resources, and extra storage for a model with updated weights.</p>
-</div>
+<p>Our advice is to experiment with crafting effective instructions and prompts for the model before attempting fine-tuning.</p>
 </section>
 <section id="font-color-purple-load-and-test-original-model-font">
 <h2><font color='purple'><em>Load and Test Original Model</em></font><a class="headerlink" href="#font-color-purple-load-and-test-original-model-font" title="Permalink to this heading">#</a></h2>
@@ -559,6 +553,7 @@ of ultra-cynics, are seeing green again.
 <span class="c1"># import libraries</span>
 <span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">from</span> <span class="nn">datasets</span> <span class="kn">import</span> <span class="n">load_dataset</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
 <span class="c1"># create a prompt/response row</span>
 <span class="k">def</span> <span class="nf">create_text_row</span><span class="p">(</span><span class="n">row</span><span class="p">):</span>
@@ -582,8 +577,8 @@ of ultra-cynics, are seeing green again.
 <span class="n">test_data</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">[</span><span class="s2">&quot;test&quot;</span><span class="p">]</span>
 
 <span class="c1"># jsonl file paths</span>
-<span class="n">train_json_file</span> <span class="o">=</span> <span class="s2">&quot;/kellogg/proj/awc6034/fine_tune/ag_news/data/train_data.jsonl&quot;</span>
-<span class="n">test_json_file</span> <span class="o">=</span> <span class="s2">&quot;/kellogg/proj/awc6034/fine_tune/ag_news/data/test_data.jsonl&quot;</span>
+<span class="n">train_json_file</span> <span class="o">=</span> <span class="s2">&quot;/kellogg/data/llm_models_opensource/mistral_mistralAI/fine_tune/ag_news/data/train_data.jsonl&quot;</span>
+<span class="n">test_json_file</span> <span class="o">=</span> <span class="s2">&quot;/kellogg/data/llm_models_opensource/mistral_mistralAI/fine_tune/ag_news/data/test_data.jsonl&quot;</span>
 
 <span class="c1"># convert data to pandas</span>
 <span class="n">train_df</span> <span class="o">=</span> <span class="n">train_data</span><span class="o">.</span><span class="n">to_pandas</span><span class="p">()</span>
@@ -593,10 +588,14 @@ of ultra-cynics, are seeing green again.
 <span class="n">process_dataframe_to_jsonl</span><span class="p">(</span><span class="n">train_json_file</span><span class="p">,</span> <span class="n">train_df</span><span class="p">)</span>
 <span class="n">process_dataframe_to_jsonl</span><span class="p">(</span><span class="n">test_json_file</span><span class="p">,</span> <span class="n">test_df</span><span class="p">)</span>
 
+<span class="c1"># Load the JSON file into a DataFrame</span>
+<span class="n">test_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_json</span><span class="p">(</span><span class="n">test_json_file</span><span class="p">,</span> <span class="n">lines</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;===========================&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Data processing complete.&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Here is a sample of the training data:&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">test_df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;test_df text value:&quot;</span> <span class="o">+</span> <span class="n">test_df</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;===========================&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -607,12 +606,13 @@ of ultra-cynics, are seeing green again.
 <span class="n">Data</span> <span class="n">processing</span> <span class="n">complete</span><span class="o">.</span>
 <span class="n">Here</span> <span class="ow">is</span> <span class="n">a</span> <span class="n">sample</span> <span class="n">of</span> <span class="n">the</span> <span class="n">training</span> <span class="n">data</span><span class="p">:</span>
                                                 <span class="n">text</span>  <span class="n">label</span>
-<span class="mi">0</span>  <span class="n">Christopher</span> <span class="n">Lee</span> <span class="n">Becoming</span> <span class="n">a</span> <span class="n">Video</span> <span class="n">Game</span> <span class="n">Wizard</span> <span class="p">(</span><span class="o">...</span>      <span class="mi">3</span>
-<span class="mi">1</span>  <span class="n">Law</span> <span class="n">Must</span> <span class="n">Respond</span> <span class="n">to</span> <span class="n">Internet</span> <span class="n">Revolution</span> <span class="n">CURREN</span><span class="o">...</span>      <span class="mi">3</span>
-<span class="mi">2</span>  <span class="n">Woods</span> <span class="n">give</span> <span class="n">up</span> <span class="n">number</span> <span class="n">one</span> <span class="n">to</span> <span class="n">Vijay</span> <span class="n">Fame</span> <span class="ow">is</span> <span class="n">nice</span><span class="o">...</span>      <span class="mi">1</span>
-<span class="mi">3</span>  <span class="n">Alcoa</span> <span class="n">announces</span> <span class="n">a</span> <span class="n">profits</span> <span class="n">warning</span> <span class="n">US</span> <span class="n">aluminium</span><span class="o">...</span>      <span class="mi">2</span>
-<span class="mi">4</span>  <span class="n">India</span> <span class="n">lauds</span> <span class="n">Arafat</span><span class="s1">&#39;s lifetime devotion to Pale...      0</span>
+<span class="mi">0</span>  <span class="o">&lt;</span><span class="n">s</span><span class="o">&gt;</span><span class="p">[</span><span class="n">INST</span><span class="p">]</span> <span class="n">Classify</span> <span class="n">the</span> <span class="n">following</span> <span class="n">text</span> <span class="n">into</span> <span class="n">one</span><span class="o">...</span>      <span class="mi">3</span>
+<span class="mi">1</span>  <span class="o">&lt;</span><span class="n">s</span><span class="o">&gt;</span><span class="p">[</span><span class="n">INST</span><span class="p">]</span> <span class="n">Classify</span> <span class="n">the</span> <span class="n">following</span> <span class="n">text</span> <span class="n">into</span> <span class="n">one</span><span class="o">...</span>      <span class="mi">1</span>
+<span class="mi">2</span>  <span class="o">&lt;</span><span class="n">s</span><span class="o">&gt;</span><span class="p">[</span><span class="n">INST</span><span class="p">]</span> <span class="n">Classify</span> <span class="n">the</span> <span class="n">following</span> <span class="n">text</span> <span class="n">into</span> <span class="n">one</span><span class="o">...</span>      <span class="mi">2</span>
+<span class="mi">3</span>  <span class="o">&lt;</span><span class="n">s</span><span class="o">&gt;</span><span class="p">[</span><span class="n">INST</span><span class="p">]</span> <span class="n">Classify</span> <span class="n">the</span> <span class="n">following</span> <span class="n">text</span> <span class="n">into</span> <span class="n">one</span><span class="o">...</span>      <span class="mi">0</span>
+<span class="mi">4</span>  <span class="o">&lt;</span><span class="n">s</span><span class="o">&gt;</span><span class="p">[</span><span class="n">INST</span><span class="p">]</span> <span class="n">Classify</span> <span class="n">the</span> <span class="n">following</span> <span class="n">text</span> <span class="n">into</span> <span class="n">one</span><span class="o">...</span>      <span class="mi">1</span>
 <span class="o">===========================</span>
+
 </pre></div>
 </div>
 </section>
@@ -630,7 +630,7 @@ of ultra-cynics, are seeing green again.
 <section id="id1">
 <h3><font color='purple'><strong>Fine-Tuning Steps</strong></font><a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
 <p>Today we’ll load a pre-trained Mistral model and prepare it for training. We then identify the most important parts in the model using LoRA. These modules are targeted in the PEFT process. The model is then fine-tuned using the SFTTrainer, which uses the SFT method to update the model parameters.</p>
-<p>After the fine-tuning process, we save the fine-tuned model. Then, we load the base model and the fine-tuned model, and merge them together. The merged model is saved for future use. This merging process allows the fine-tuned model to benefit from the knowledge in the base model, while also incorporating the updates made during the fine-tuning process.</p>
+<p>After the fine-tuning process, we save the fine-tuned model. Then, we loads the base model and the fine-tuned model, and merge them together. The merged model is then saved for future use. This merging process allows the fine-tuned model to benefit from the knowledge in the base model, while also incorporating the updates made during the fine-tuning process.</p>
 <p>You can find <code class="docutils literal notranslate"><span class="pre">fine_tune.py</span></code> script in the <a class="reference external" href="https://github.com/rs-kellogg/krs-openllm-cookbook/tree/main/scripts/fine_tune">scripts/fine_tune</a> folder of our github repo.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -663,8 +663,8 @@ of ultra-cynics, are seeing green again.
 <span class="n">tokenizer</span> <span class="o">=</span> <span class="n">AutoTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="n">model_id</span><span class="p">,</span> <span class="n">add_eos_token</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cache_dir</span><span class="o">=</span><span class="n">llm_dir</span><span class="p">)</span>
 
 <span class="c1"># load the train and test datasets</span>
-<span class="n">train_data</span> <span class="o">=</span> <span class="n">load_from_disk</span><span class="p">(</span><span class="s2">&quot;/kellogg/proj/awc6034/fine_tune/ag_news/data/train_data.jsonl&quot;</span><span class="p">)</span>
-<span class="n">test_data</span> <span class="o">=</span> <span class="n">load_from_disk</span><span class="p">(</span><span class="s2">&quot;/kellogg/proj/awc6034/fine_tune/ag_news/data/test_data.jsonl&quot;</span><span class="p">)</span>
+<span class="n">train_data</span> <span class="o">=</span> <span class="n">load_from_disk</span><span class="p">(</span><span class="s2">&quot;/kellogg/data/llm_models_opensource/mistral_mistralAI/fine_tune/ag_news/data/train_data.jsonl&quot;</span><span class="p">)</span>
+<span class="n">test_data</span> <span class="o">=</span> <span class="n">load_from_disk</span><span class="p">(</span><span class="s2">&quot;/kellogg/data/llm_models_opensource/mistral_mistralAI/fine_tune/ag_news/data/test_data.jsonl&quot;</span><span class="p">)</span>
 
 <span class="c1"># find modules in the model</span>
 <span class="k">def</span> <span class="nf">find_all_linear_names</span><span class="p">(</span><span class="n">model</span><span class="p">):</span>
@@ -766,8 +766,6 @@ of ultra-cynics, are seeing green again.
 <span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">AutoTokenizer</span><span class="p">,</span> <span class="n">AutoModelForCausalLM</span><span class="p">,</span> <span class="n">BitsAndBytesConfig</span>
 <span class="kn">import</span> <span class="nn">bitsandbytes</span> <span class="k">as</span> <span class="nn">bnb</span>
 
-<span class="c1"># model path</span>
-<span class="n">llm_path</span> <span class="o">=</span> <span class="s2">&quot;/kellogg/proj/awc6034/fine_tune/ag_news/mistralai-Code-Instruct-ag_news&quot;</span>
 
 <span class="c1"># quantized model loading</span>
 <span class="n">bnb_config</span> <span class="o">=</span> <span class="n">BitsAndBytesConfig</span><span class="p">(</span>
@@ -777,8 +775,8 @@ of ultra-cynics, are seeing green again.
     <span class="n">bnb_4bit_compute_dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">bfloat16</span>
 <span class="p">)</span>
 
-<span class="c1"># model loading</span>
-<span class="n">llm_path</span> <span class="o">=</span> <span class="s2">&quot;/kellogg/proj/awc6034/fine_tune/ag_news/mistralai-Code-Instruct-ag_news&quot;</span>
+<span class="c1"># model path</span>
+<span class="n">llm_path</span> <span class="o">=</span> <span class="s2">&quot;/kellogg/data/llm_models_opensource/mistral_mistralAI/fine_tune/ag_news/mistralai-Code-Instruct-ag_news&quot;</span>
 
 <span class="n">model</span> <span class="o">=</span> <span class="n">AutoModelForCausalLM</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="n">llm_path</span><span class="p">,</span> <span class="n">quantization_config</span><span class="o">=</span><span class="n">bnb_config</span><span class="p">,</span> <span class="n">device_map</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;&quot;</span><span class="p">:</span><span class="mi">0</span><span class="p">})</span>
 <span class="n">tokenizer</span> <span class="o">=</span> <span class="n">AutoTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="n">llm_path</span><span class="p">,</span> <span class="n">add_eos_token</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -842,8 +840,9 @@ of ultra-cynics, are seeing green again.
 </pre></div>
 </div>
 <p>While the output still contains slightly more text than we requested, it still provides a concise response of <code class="docutils literal notranslate"><span class="pre">class</span> <span class="pre">2</span> <span class="pre">-</span> <span class="pre">Business</span></code>.</p>
+</section>
 <section id="font-color-purple-reference-sources-font">
-<h3><font color='purple'><em>Reference Sources</em></font><a class="headerlink" href="#font-color-purple-reference-sources-font" title="Permalink to this heading">#</a></h3>
+<h2><font color='purple'><em>Reference Sources</em></font><a class="headerlink" href="#font-color-purple-reference-sources-font" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://adithyask.medium.com/a-beginners-guide-to-fine-tuning-mistral-7b-instruct-model-0f39647b20fe">A Beginner’s Guide to Fine-Tuning Mistral-7B Instruct Model</a></p></li>
 <li><p><a class="reference external" href="https://adithyask.medium.com/a-beginners-guide-to-fine-tuning-mistral-7b-instruct-model-0f39647b20fe">Running Fine Tuning with qlora and sft</a></p></li>
@@ -851,7 +850,6 @@ of ultra-cynics, are seeing green again.
 <li><p><a class="reference external" href="https://huggingface.co/docs/trl/main/en/sft_trainer">Explanation for SFT</a></p></li>
 <li><p><a class="reference external" href="https://blog.paperspace.com/mistral-7b-fine-tuning/">Explanation for qlora, quantization, and finetuning</a></p></li>
 </ul>
-</section>
 </section>
 </section>
 
@@ -899,7 +897,7 @@ of ultra-cynics, are seeing green again.
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Process Images with bakllava</p>
+        <p class="prev-next-title">Image Processing</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -926,10 +924,8 @@ of ultra-cynics, are seeing green again.
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1"><font color="purple"><strong>Fine-Tuning Steps</strong></font></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-test-fine-tuned-model-font"><font color="purple"><em>Test Fine-Tuned Model</em></font></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-reference-sources-font"><font color="purple"><em>Reference Sources</em></font></a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-test-fine-tuned-model-font"><font color="purple"><em>Test Fine-Tuned Model</em></font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-reference-sources-font"><font color="purple"><em>Reference Sources</em></font></a></li>
 </ul>
   </nav></div>
 
