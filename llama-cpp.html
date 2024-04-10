@@ -187,7 +187,7 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Summary</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="takeaways.html">Summary and Takeaways</a></li>
+<li class="toctree-l1"><a class="reference internal" href="takeaways.html">Summary</a></li>
 </ul>
 
     </div>
@@ -583,12 +583,12 @@ Retrieve the text response with no decoding necessary.</p>
 <span class="n">module</span> <span class="n">use</span> <span class="o">/</span><span class="n">kellogg</span><span class="o">/</span><span class="n">software</span><span class="o">/</span><span class="n">Modules</span><span class="o">/</span><span class="n">modulefiles</span>
 <span class="n">module</span> <span class="n">load</span> <span class="n">llama_cpp</span><span class="o">/</span><span class="mf">2.38</span>
 
-<span class="n">python3</span> <span class="o">/</span><span class="n">code</span><span class="o">/</span><span class="n">gemma_ex</span><span class="o">.</span><span class="n">py</span>
+<span class="n">python3</span> <span class="n">gemma_ex</span><span class="o">.</span><span class="n">py</span>
 </pre></div>
 </div>
 </div>
 </div>
-<p>You can find this file here: <a class="reference external" href="https://github.com/rs-kellogg/krs-openllm-cookbook/blob/main/scripts/llama_cpp_python/gemma_test.sh">scripts/llama_cpp_python/gemma_testh.sh</a>. This file is also saved to the same directory provided above as <strong>gemma_test.sh</strong>. You can run this shell script by making it an executable then launching it.</p>
+<p>You can find this file here: <a class="reference external" href="https://github.com/rs-kellogg/krs-openllm-cookbook/blob/main/scripts/llama_cpp_python/gemma_ex.sh">scripts/llama_cpp_python/gemma_ex.sh</a>. This file is also saved to the same directory provided above as <strong>gemma_test.sh</strong>. You can run this shell script by making it an executable then launching it.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">chmod</span> <span class="o">+</span><span class="n">x</span> <span class="n">gemma_ex</span><span class="o">.</span><span class="n">sh</span>
@@ -832,6 +832,7 @@ llama_print_timings:       total time =   10758.35 ms /    46 tokens
 
 ========================
 Prompt: What kind of pickups are on an ESP LTD Alexi Ripped?
+Response: 
 
 The Esp Ltd.AlexI Ripper has ceramic humbuckers with coil tapping capabilities, which give you a wide range from clean to overdrive tones and everything in between
 Run Time: 10.760140419006348

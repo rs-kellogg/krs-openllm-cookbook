@@ -65,7 +65,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'vision';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Summary and Takeaways" href="takeaways.html" />
+    <link rel="next" title="Summary" href="takeaways.html" />
     <link rel="prev" title="Fine-Tuning" href="fine-tuning.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -187,7 +187,7 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Summary</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="takeaways.html">Summary and Takeaways</a></li>
+<li class="toctree-l1"><a class="reference internal" href="takeaways.html">Summary</a></li>
 </ul>
 
     </div>
@@ -406,7 +406,7 @@ document.write(`
 <p><strong>3. from a hopeless dystopian future, where the soft drink looks like it might taste good</strong></p>
 <p>This is what it provided:</p>
 <p><img alt="sodas" src="_images/sodas.png" /></p>
-<p>Then we gave the model the following prompt: “<em>You are thirsty young adult between age 25 and 30 taking a marketing survey.
+<p>Then we gave the model the following prompt: “<em>You are a young adult between age 25 and 30 taking a marketing survey.
 Can you describe if this soft drink ad appeals to you?</em>”</p>
 </section>
 <section id="font-color-purple-run-image-model-with-transformers-font">
@@ -433,7 +433,7 @@ Can you describe if this soft drink ad appeals to you?</em>”</p>
 <span class="n">llm_dir</span> <span class="o">=</span> <span class="s2">&quot;/kellogg/data/llm_models_opensource/bakLlava&quot;</span>
 
 <span class="n">prompt</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
-<span class="s2">USER: &lt;image&gt;</span><span class="se">\n</span><span class="s2">You are thirsty young adult between age 25 and 30 taking a marketing survey.</span>
+<span class="s2">USER: &lt;image&gt;</span><span class="se">\n</span><span class="s2">You are a young adult between age 25 and 30 taking a marketing survey.</span>
 <span class="s2">Can you describe if this soft drink ad appeals to you?</span>
 <span class="se">\n</span><span class="s2">ASSISTANT:</span>
 <span class="s2">&quot;&quot;&quot;</span>
@@ -529,17 +529,17 @@ Can you describe if this soft drink ad appeals to you?</em>”</p>
 </div>
 </div>
 </div>
-<p>Here is a sample SLURM script for runnning the python code provided.</p>
+<p>This python <strong>image_workflow.py</strong> script can be found here: <a class="reference external" href="https://github.com/rs-kellogg/krs-openllm-cookbook/blob/main/scripts/image/image_workflow.py">scripts/image/image_workflow.py</a>.  This sample SLURM script can be used to run the python code provided.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
-<span class="c1">#SBATCH -A your_quest_allocation_account</span>
-<span class="c1">#SBATCH -p gengpu</span>
+<span class="c1">#SBATCH --account=e32337</span>
+<span class="c1">#SBATCH --partition gengpu</span>
+<span class="c1">#SBATCH --nodes=1</span>
+<span class="c1">#SBATCH --ntasks-per-node=1</span>
 <span class="c1">#SBATCH --gres=gpu:a100:1</span>
-<span class="c1">#SBATCH -N 1</span>
-<span class="c1">#SBATCH -n 1</span>
-<span class="c1">#SBATCH -t 0:30:00</span>
+<span class="c1">#SBATCH --time 0:30:00</span>
 <span class="c1">#SBATCH --mem=40G</span>
 
 <span class="n">module</span> <span class="n">purge</span>
@@ -561,19 +561,18 @@ Special tokens have been added in the vocabulary, make sure the associated word 
 Ad: /kellogg/software/llama_cpp/code/ads/dystopia.png
 Response: 
 USER:  
-You are thirsty young adult between age 25 and 30 taking a marketing survey. 
+You are a young adult between age 25 and 30 taking a marketing survey. 
 Can you describe if this soft drink ad appeals to you?
 
 ASSISTANT:
 The image features a red can of Coca-Cola in a visually appealing setting. It is placed in front of a futuristic city landscape, possibly on a beach or near a building. The contrast between the red can and the surrounding environment creates a striking visual effect. The scene suggests that the soft drink brand is targeting a young adult audience, as the product appears &quot;cool&quot; and &quot;futuristic&quot; in the context of the ad. The ad&#39;s creative concept and design may capture the attention of the target audience and generate interest in the product.
 Run Time: 3.995788097381592
 ========================
-
 ========================
 Ad: /kellogg/software/llama_cpp/code/ads/kawaii.png
 Response: 
 USER:  
-You are thirsty young adult between age 25 and 30 taking a marketing survey. 
+You are a young adult between age 25 and 30 taking a marketing survey. 
 Can you describe if this soft drink ad appeals to you?
 
 ASSISTANT:
@@ -584,7 +583,7 @@ Run Time: 3.008307695388794
 Ad: /kellogg/software/llama_cpp/code/ads/cubs.png
 Response: 
 USER:  
-You are thirsty young adult between age 25 and 30 taking a marketing survey. 
+You are a young adult between age 25 and 30 taking a marketing survey. 
 Can you describe if this soft drink ad appeals to you?
 
 ASSISTANT:
@@ -641,7 +640,7 @@ Run Time: 4.399393796920776
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Summary and Takeaways</p>
+        <p class="prev-next-title">Summary</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
