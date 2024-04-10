@@ -17,7 +17,7 @@ llm_model = "llava-hf/bakLlava-v1-hf"
 llm_dir = "/kellogg/data/llm_models_opensource/bakLlava"
 
 prompt = """
-USER: <image>\nYou are thirsty young adult between age 25 and 30 taking a marketing survey.
+USER: <image>\nYou are a young adult between age 25 and 30 taking a marketing survey.
 Can you describe if this soft drink ad appeals to you?
 \nASSISTANT:
 """
