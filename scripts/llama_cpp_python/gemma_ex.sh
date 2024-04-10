@@ -12,4 +12,4 @@ module purge
 module use /kellogg/software/Modules/modulefiles
 module load llama_cpp/2.38
 
-python3 /code/gemma_ex.py
+python3 gemma_ex.py
