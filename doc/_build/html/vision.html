@@ -1,14 +1,15 @@
 
+
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="./" >
+<html lang="en" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Process Images with bakllava &#8212; Kellogg Research Support Open Source LLM Cookbook</title>
+    <title>Image Processing &#8212; Kellogg Research Support Open Source LLM Cookbook</title>
   
   
   
@@ -18,45 +19,49 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
-    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
-    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
-  <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
 
-    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
-    <script src="_static/doctools.js?v=888ff710"></script>
-    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
-    <script src="_static/copybutton.js?v=f281be69"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="_static/design-tabs.js?v=36754332"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'vision';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -71,9 +76,10 @@
 
   
   
-  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
   
   <div id="pst-scroll-pixel-helper"></div>
+
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
     <i class="fa-solid fa-arrow-up"></i>
@@ -114,14 +120,11 @@
 </form></div>
   </div>
   
-    <header class="bd-header navbar navbar-expand-lg bd-navbar">
-    </header>
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
   
-
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
-      
-      
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -136,7 +139,6 @@
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
-
   
 
 <a class="navbar-brand logo" href="welcome.html">
@@ -155,18 +157,7 @@
   
   
 </a></div>
-        <div class="sidebar-primary-item">
-
- <script>
- document.write(`
-   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
-        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -192,7 +183,7 @@
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="retrieval.html">Retrieval Augmented Generation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fine-tuning.html">Fine-Tuning</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Process Images with bakllava</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Image Processing</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Summary</span></p>
 <ul class="nav bd-sidenav">
@@ -350,7 +341,6 @@
 </button>
 
 
-
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
@@ -360,7 +350,6 @@ document.write(`
   </button>
 `);
 </script>
-
 
 <script>
 document.write(`
@@ -382,7 +371,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Process Images with bakllava</h1>
+    <h1>Image Processing</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -392,8 +381,8 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#run-bakllava-model-with-transformers"><font color="purple">Run bakllava model with transformers</font></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#run-bakllava-model-with-llama-cpp-python"><font color="purple">Run bakllava model with llama_cpp_python</font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-toy-marketing-study-font"><font color="purple">Toy Marketing Study</font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-run-image-model-with-transformers-font"><font color="purple">Run image model with transformers</font></a></li>
 </ul>
             </nav>
         </div>
@@ -403,51 +392,144 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article">
+                <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="process-images-with-bakllava">
-<h1>Process Images with bakllava<a class="headerlink" href="#process-images-with-bakllava" title="Link to this heading">#</a></h1>
-<section id="run-bakllava-model-with-transformers">
-<h2><font color='purple'>Run bakllava model with transformers</font><a class="headerlink" href="#run-bakllava-model-with-transformers" title="Link to this heading">#</a></h2>
-<p>Here is some sample code that uses the bakllava model:</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="image-processing">
+<h1>Image Processing<a class="headerlink" href="#image-processing" title="Permalink to this heading">#</a></h1>
+<p>There are also open-source models available to run image processing.  One such model called <font color='purple'>BakLLaVa</font> is described in more detail here: <a class="github reference external" href="https://github.com/SkunkworksAI/BakLLaVA">SkunkworksAI/BakLLaVA</a>.  You can download it from Hugging Face here: <a class="reference external" href="https://huggingface.co/llava-hf/bakLlava-v1-hf">https://huggingface.co/llava-hf/bakLlava-v1-hf</a></p>
+<section id="font-color-purple-toy-marketing-study-font">
+<h2><font color='purple'>Toy Marketing Study</font><a class="headerlink" href="#font-color-purple-toy-marketing-study-font" title="Permalink to this heading">#</a></h2>
+<p>You can run this model using both transformers and llama_cpp_python. We showcase how to deploy it with transformers below in the context of a toy marketing study.</p>
+<p>For the toy study, we asked DALLE to produce 3 soft drink ads for us:</p>
+<p><strong>1. with cute kawaii characters</strong></p>
+<p><strong>2. with people at a Cubs game enjoying the drink</strong></p>
+<p><strong>3. from a hopeless dystopian future, where the soft drink looks like it might taste good</strong></p>
+<p>This is what it provided:</p>
+<p><img alt="sodas" src="_images/sodas.png" /></p>
+<p>Then we gave the model the following prompt: “<em>You are thirsty young adult between age 25 and 30 taking a marketing survey.
+Can you describe if this soft drink ad appeals to you?</em>”</p>
+</section>
+<section id="font-color-purple-run-image-model-with-transformers-font">
+<h2><font color='purple'>Run image model with transformers</font><a class="headerlink" href="#font-color-purple-run-image-model-with-transformers-font" title="Permalink to this heading">#</a></h2>
+<p>For this study, we’ll run the model with transformers using the code below.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">requests</span>
-<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
-
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1">###################################################</span>
+<span class="c1"># Toy Marketing Study - Does this ad appeal to you?</span>
+<span class="c1">###################################################</span>
+<span class="c1"># libraries</span>
 <span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">AutoProcessor</span><span class="p">,</span> <span class="n">LlavaForConditionalGeneration</span>
+<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">time</span>
 
-<span class="c1"># Huggingface model</span>
-<span class="c1"># https://huggingface.co/llava-hf/bakLlava-v1-hf</span>
-<span class="k">def</span> <span class="nf">run_bakllava</span><span class="p">(</span><span class="n">llm_model</span><span class="p">,</span> <span class="n">llm_dir</span><span class="p">,</span> <span class="n">image_file</span><span class="p">,</span> <span class="n">prompt</span><span class="p">):</span>
+<span class="c1">#########</span>
+<span class="c1"># Inputs</span>
+<span class="c1">#########</span>
+
+<span class="n">llm_model</span> <span class="o">=</span> <span class="s2">&quot;llava-hf/bakLlava-v1-hf&quot;</span>
+<span class="n">llm_dir</span> <span class="o">=</span> <span class="s2">&quot;/kellogg/data/llm_models_opensource/bakLlava&quot;</span>
+
+<span class="n">prompt</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">USER: &lt;image&gt;</span><span class="se">\n</span><span class="s2">You are thirsty young adult between age 25 and 30 taking a marketing survey.</span>
+<span class="s2">Can you describe if this soft drink ad appeals to you?</span>
+<span class="se">\n</span><span class="s2">ASSISTANT:</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+<span class="n">output_file</span> <span class="o">=</span> <span class="s2">&quot;/kellogg/software/llama_cpp/output/ad_results.csv&quot;</span>
+<span class="n">ad_dir</span> <span class="o">=</span> <span class="s2">&quot;/kellogg/software/llama_cpp/code/ads&quot;</span>
+
+
+<span class="c1">############</span>
+<span class="c1"># Functions</span>
+<span class="c1">############</span>
+
+<span class="c1"># load model and processor</span>
+<span class="k">def</span> <span class="nf">load_model</span><span class="p">(</span><span class="n">llm_model</span><span class="p">,</span> <span class="n">llm_dir</span><span class="p">):</span>
     <span class="n">model</span> <span class="o">=</span> <span class="n">LlavaForConditionalGeneration</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span>
-        <span class="n">llm_model</span><span class="p">,</span> 
-        <span class="n">torch_dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float16</span><span class="p">,</span> 
-        <span class="n">low_cpu_mem_usage</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> 
+        <span class="n">llm_model</span><span class="p">,</span>
+        <span class="n">torch_dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float16</span><span class="p">,</span>
+        <span class="n">low_cpu_mem_usage</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="n">cache_dir</span><span class="o">=</span><span class="n">llm_dir</span><span class="p">,</span>
     <span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 
     <span class="n">processor</span> <span class="o">=</span> <span class="n">AutoProcessor</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="n">llm_model</span><span class="p">)</span>
 
-    <span class="n">raw_image</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">image_file</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">raw</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">model</span><span class="p">,</span> <span class="n">processor</span>
+
+<span class="c1"># run bakllava</span>
+<span class="k">def</span> <span class="nf">run_bakllava</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">processor</span><span class="p">,</span> <span class="n">image_file</span><span class="p">,</span> <span class="n">prompt</span><span class="p">):</span>
+    <span class="c1"># open image</span>
+    <span class="n">raw_image</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">image_file</span><span class="p">)</span>
+
+    <span class="c1"># process image</span>
     <span class="n">inputs</span> <span class="o">=</span> <span class="n">processor</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="n">raw_image</span><span class="p">,</span> <span class="n">return_tensors</span><span class="o">=</span><span class="s1">&#39;pt&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">float16</span><span class="p">)</span>
 
+    <span class="c1"># generate response</span>
     <span class="n">output</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="o">**</span><span class="n">inputs</span><span class="p">,</span> <span class="n">max_new_tokens</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span> <span class="n">do_sample</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">processor</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">output</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">2</span><span class="p">:],</span> <span class="n">skip_special_tokens</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="n">processor</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">output</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">2</span><span class="p">:],</span> <span class="n">skip_special_tokens</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">output</span>
 
-<span class="n">llm_model</span> <span class="o">=</span> <span class="s2">&quot;llava-hf/bakLlava-v1-hf&quot;</span>
-<span class="n">llm_dir</span> <span class="o">=</span> <span class="s2">&quot;/kellogg/data/llm_models_opensource/bakLlava&quot;</span>
 
-<span class="n">prompt</span> <span class="o">=</span> <span class="s2">&quot;USER: &lt;image&gt;</span><span class="se">\n</span><span class="s2">You are a new mom aged between 25 and 30 taking a marketing survey. Can you describe in details how the diaper packaging appeal to you?</span><span class="se">\n</span><span class="s2">ASSISTANT:&quot;</span>
-<span class="n">image_file</span> <span class="o">=</span> <span class="s2">&quot;https://i5.walmartimages.com/seo/Baby-Diapers-Newborn-Size-0-10-lb-120-Count-Pampers-Swaddlers-ONEMONTH-SUPPLY-Packaging-May-Vary_95ea2d1c-769a-4ec2-8da8-7e6ea4829e55.3c890f8095b5b30ae263c996151f9575.jpeg&quot;</span>
+<span class="c1"># save results to a df</span>
+<span class="k">def</span> <span class="nf">save_results</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="n">image_file</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">run_time</span><span class="p">):</span>
 
-<span class="n">run_bakllava</span><span class="p">(</span><span class="n">llm_model</span><span class="p">,</span> <span class="n">llm_dir</span><span class="p">,</span> <span class="n">image_file</span><span class="p">,</span> <span class="n">prompt</span><span class="p">)</span>
+    <span class="c1"># create empty df</span>
+    <span class="n">results_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;prompt&#39;</span><span class="p">,</span> <span class="s1">&#39;image_file&#39;</span><span class="p">,</span> <span class="s1">&#39;response&#39;</span><span class="p">,</span> <span class="s1">&#39;run_time&#39;</span><span class="p">])</span>
+
+    <span class="c1"># create df from current row</span>
+    <span class="n">row_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+        <span class="s1">&#39;prompt&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">prompt</span><span class="p">],</span>
+        <span class="s1">&#39;image_file&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">image_file</span><span class="p">],</span>
+        <span class="s1">&#39;response&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">response</span><span class="p">],</span>
+        <span class="s1">&#39;run_time&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">run_time</span><span class="p">]</span>
+    <span class="p">})</span>
+
+    <span class="c1"># combine</span>
+    <span class="n">results_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">results_df</span><span class="p">,</span> <span class="n">row_df</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># return dataframe</span>
+    <span class="k">return</span> <span class="n">results_df</span>
+
+
+<span class="c1">######</span>
+<span class="c1"># RUN</span>
+<span class="c1">######</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+   <span class="c1"># list of files from a directory</span>
+    <span class="n">ads</span> <span class="o">=</span> <span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ad_dir</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">ad_dir</span><span class="p">)</span> <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ad_dir</span><span class="p">,</span> <span class="n">f</span><span class="p">))]</span>
+
+    <span class="c1"># load model</span>
+    <span class="n">model</span><span class="p">,</span> <span class="n">processor</span> <span class="o">=</span> <span class="n">load_model</span><span class="p">(</span><span class="n">llm_model</span><span class="p">,</span> <span class="n">llm_dir</span><span class="p">)</span>
+
+    <span class="c1"># loop over</span>
+    <span class="k">for</span> <span class="n">ad</span> <span class="ow">in</span> <span class="n">ads</span><span class="p">:</span>
+        <span class="c1"># run</span>
+        <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">run_bakllava</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">processor</span><span class="p">,</span> <span class="n">ad</span><span class="p">,</span> <span class="n">prompt</span><span class="p">)</span>
+        <span class="n">run_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span>
+
+        <span class="c1"># print results</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;========================&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Ad: </span><span class="si">{</span><span class="n">ad</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Response: </span><span class="si">{</span><span class="n">response</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Run Time: </span><span class="si">{</span><span class="n">run_time</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;========================&quot;</span><span class="p">)</span>
+
+        <span class="c1"># save progress</span>
+        <span class="n">results_df</span> <span class="o">=</span> <span class="n">save_results</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="n">ad</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">run_time</span><span class="p">)</span>
+        <span class="n">results_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">output_file</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 </div>
-<p>Here is a sample slurm script for runnning the above python code.</p>
+<p>Here is a sample SLURM script for runnning the python code provided.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
@@ -465,82 +547,52 @@ document.write(`
 <span class="n">source</span> <span class="o">/</span><span class="n">hpc</span><span class="o">/</span><span class="n">software</span><span class="o">/</span><span class="n">mamba</span><span class="o">/</span><span class="mf">23.1.0</span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">profile</span><span class="o">.</span><span class="n">d</span><span class="o">/</span><span class="n">conda</span><span class="o">.</span><span class="n">sh</span>
 <span class="n">source</span> <span class="n">activate</span> <span class="o">/</span><span class="n">kellogg</span><span class="o">/</span><span class="n">software</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">gpu</span><span class="o">-</span><span class="n">llama2</span>
 
-<span class="n">python</span> <span class="n">test_bakllava</span><span class="o">.</span><span class="n">py</span>
+<span class="n">python</span> <span class="n">image_workflow</span><span class="o">.</span><span class="n">py</span>
 </pre></div>
 </div>
 </div>
 </div>
-<p>Output:</p>
-<blockquote>
-<div><p>Loading checkpoint shards:   0%|          | 0/4 [00:00&lt;?, ?it/s]<br />
-Loading checkpoint shards:  25%|██▌       | 1/4 [00:00&lt;00:01,  1.61it/s]<br />
-Loading checkpoint shards:  75%|███████▌  | 3/4 [00:00&lt;00:00,  4.81it/s]<br />
-Loading checkpoint shards: 100%|██████████| 4/4 [00:00&lt;00:00,  5.02it/s]<br />
-Special tokens have been added in the vocabulary, make sure the associated word embeddings are fine-tuned or trained.<br />
-ER:<br />
-You are a new mom aged between 25 and 30 taking a marketing survey. Can you describe in details how the diaper packaging appeal to you?<br />
-ASSISTANT: The diaper packaging appeals to me as it features a heartwarming image of a parent holding a newborn baby, which evokes feelings of love, care, and the joy of parenthood. The baby is shown resting comfortably in a padded swaddler, which provides a sense of security and warmth for the infant. The swaddler also helps soothe colicky babies, ensuring better sleep for both the baby and the parents. The image on the packaging connects with new parents like me, as it represents the tender moments we experience with our newborns, and it makes me feel that the diaper brand understands the importance of bonding and comfort during this special time in our lives.</p>
-</div></blockquote>
-</section>
-<section id="run-bakllava-model-with-llama-cpp-python">
-<h2><font color='purple'>Run bakllava model with llama_cpp_python</font><a class="headerlink" href="#run-bakllava-model-with-llama-cpp-python" title="Link to this heading">#</a></h2>
-<p>Here is some sample code that uses the bakllava model:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">llm_core.llm</span> <span class="kn">import</span> <span class="n">LLaVACPPModel</span>
+<p><strong>Output:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+Loading checkpoint shards: 100%|██████████████████████████████████████████████████████████████████████████████████| 4/4 [00:00&lt;00:00,  4.70it/s]
+Special tokens have been added in the vocabulary, make sure the associated word embeddings are fine-tuned or trained.
+========================
 
-<span class="n">model</span> <span class="o">=</span> <span class="s2">&quot;BakLLaVA-1-Q4_K_M.gguf&quot;</span>
+Ad: /kellogg/software/llama_cpp/code/ads/dystopia.png
+Response: 
+USER:  
+You are thirsty young adult between age 25 and 30 taking a marketing survey. 
+Can you describe if this soft drink ad appeals to you?
 
-<span class="n">llm</span> <span class="o">=</span> <span class="n">LLaVACPPModel</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
-    <span class="n">llama_cpp_kwargs</span><span class="o">=</span><span class="p">{</span>
-        <span class="s2">&quot;logits_all&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-        <span class="s2">&quot;n_ctx&quot;</span><span class="p">:</span> <span class="mi">8000</span><span class="p">,</span>
-        <span class="s2">&quot;verbose&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-        <span class="s2">&quot;n_gpu_layers&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>  <span class="c1">#: Set to 0 if you don&#39;t have a GPU</span>
-        <span class="s2">&quot;n_threads&quot;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>       <span class="c1">#: Set to the number of available CPU cores</span>
-        <span class="s2">&quot;clip_model_path&quot;</span><span class="p">:</span> <span class="s2">&quot;BakLLaVA-1-clip-model.gguf&quot;</span>
-    <span class="p">}</span>
-<span class="p">)</span>
+ASSISTANT:
+The image features a red can of Coca-Cola in a visually appealing setting. It is placed in front of a futuristic city landscape, possibly on a beach or near a building. The contrast between the red can and the surrounding environment creates a striking visual effect. The scene suggests that the soft drink brand is targeting a young adult audience, as the product appears &quot;cool&quot; and &quot;futuristic&quot; in the context of the ad. The ad&#39;s creative concept and design may capture the attention of the target audience and generate interest in the product.
+Run Time: 3.995788097381592
+========================
 
-<span class="n">llm</span><span class="o">.</span><span class="n">load_model</span><span class="p">()</span>
+========================
+Ad: /kellogg/software/llama_cpp/code/ads/kawaii.png
+Response: 
+USER:  
+You are thirsty young adult between age 25 and 30 taking a marketing survey. 
+Can you describe if this soft drink ad appeals to you?
 
-<span class="n">history</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">{</span>
-        <span class="s1">&#39;role&#39;</span><span class="p">:</span> <span class="s1">&#39;user&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;content&#39;</span><span class="p">:</span> <span class="p">[</span>
-            <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;image_url&#39;</span><span class="p">,</span> <span class="s1">&#39;image_url&#39;</span><span class="p">:</span> <span class="s1">&#39;https://advanced-stack.com/assets/img/mappemonde.jpg&#39;</span><span class="p">}</span>
-        <span class="p">]</span>
-    <span class="p">}</span>
-<span class="p">]</span>
+ASSISTANT:
+The soft drink ad features a pink and white can with a cute cat and a small heart that says &quot;Coco Cola.&quot; A straw is sticking out of the can. The cat appears to be a popular emo symbol, which might appeal to young adults. The ad&#39;s design is visually appealing and playful, which could make the soft drink more attractive to the target audience. The use of a cute and quirky image can create a positive association with the product, potentially increasing its popularity and sales among the desired demographic.
+Run Time: 3.008307695388794
+========================
+========================
+Ad: /kellogg/software/llama_cpp/code/ads/cubs.png
+Response: 
+USER:  
+You are thirsty young adult between age 25 and 30 taking a marketing survey. 
+Can you describe if this soft drink ad appeals to you?
 
-<span class="n">response</span> <span class="o">=</span> <span class="n">llm</span><span class="o">.</span><span class="n">ask</span><span class="p">(</span><span class="s1">&#39;Describe the image as accurately as possible&#39;</span><span class="p">,</span> <span class="n">history</span><span class="o">=</span><span class="n">history</span><span class="p">)</span>
+ASSISTANT:
+The ad features a glass filled with a soft drink and a can of the same soft drink. The glass has ice in it, and the can has a straw. The ad also includes several people in the background, suggesting a social setting where people are enjoying the soft drink. The ad&#39;s visual appeal is enhanced by the presence of people, creating a sense of community and enjoyment associated with the soft drink. The combination of the glass with ice and the can with a straw presents the soft drink as a refreshing beverage that can be enjoyed in various settings, whether it&#39;s a casual gathering or a sports event. As a young adult, this ad might appeal to me because it portrays a lifestyle that I can relate to and shows the soft drink as a suitable drink for social occasions.
+Run Time: 4.399393796920776
+========================
 
-<span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">choices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
 </pre></div>
-</div>
-</div>
-</div>
-<p>Please save the bakllava models and this file to your home directory. You can run this file with the following SLURM script.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
-
-<span class="c1">#SBATCH -A your_quest_allocation_account</span>
-<span class="c1">#SBATCH -p gengpu</span>
-<span class="c1">#SBATCH --gres=gpu:a100:1</span>
-<span class="c1">#SBATCH -N 1</span>
-<span class="c1">#SBATCH -n 1</span>
-<span class="c1">#SBATCH -t 0:30:00</span>
-<span class="c1">#SBATCH --mem=40G</span>
-
-<span class="n">module</span> <span class="n">purge</span>
-<span class="n">module</span> <span class="n">use</span> <span class="n">modulefiles</span>
-<span class="n">module</span> <span class="n">load</span> <span class="n">llama_cpp</span><span class="o">/</span><span class="mf">2.38</span>
-<span class="n">python3</span> <span class="n">image_test</span><span class="o">.</span><span class="n">py</span>
-</pre></div>
-</div>
-</div>
 </div>
 </section>
 </section>
@@ -573,7 +625,7 @@ ASSISTANT: The diaper packaging appeals to me as it features a heartwarming imag
               
               
                 <footer class="prev-next-footer">
-                  
+                  <!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="fine-tuning.html"
@@ -602,15 +654,14 @@ ASSISTANT: The diaper packaging appeals to me as it features a heartwarming imag
               
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
-
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
     <i class="fa-solid fa-list"></i> Contents
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#run-bakllava-model-with-transformers"><font color="purple">Run bakllava model with transformers</font></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#run-bakllava-model-with-llama-cpp-python"><font color="purple">Run bakllava model with llama_cpp_python</font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-toy-marketing-study-font"><font color="purple">Toy Marketing Study</font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-run-image-model-with-transformers-font"><font color="purple">Run image model with transformers</font></a></li>
 </ul>
   </nav></div>
 
@@ -632,10 +683,9 @@ By Kellogg Research Support
   
   <div class="footer-item">
     
-
   <p class="copyright">
     
-      © Copyright 2023.
+      © Copyright 2022.
       <br/>
     
   </p>
@@ -659,8 +709,8 @@ By Kellogg Research Support
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+  <script src="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
 
   <footer class="bd-footer">
   </footer>
