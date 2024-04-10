@@ -1,13 +1,12 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="./" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Introduction &#8212; Kellogg Research Support Open Source LLM Cookbook</title>
   
@@ -19,49 +18,45 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+  <link href="_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
-  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
 
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/clipboard.min.js"></script>
-    <script src="_static/copybutton.js"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js"></script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script src="_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'introduction';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -76,10 +71,9 @@ const thebe_selector_output = ".output, .cell_output"
 
   
   
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
   
   <div id="pst-scroll-pixel-helper"></div>
-
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
     <i class="fa-solid fa-arrow-up"></i>
@@ -120,11 +114,14 @@ const thebe_selector_output = ".output, .cell_output"
 </form></div>
   </div>
   
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
   
+
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
+      
+      
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -139,6 +136,7 @@ const thebe_selector_output = ".output, .cell_output"
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
   
 
 <a class="navbar-brand logo" href="welcome.html">
@@ -157,7 +155,18 @@ const thebe_selector_output = ".output, .cell_output"
   
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -341,6 +350,7 @@ const thebe_selector_output = ".output, .cell_output"
 </button>
 
 
+
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
@@ -350,6 +360,7 @@ document.write(`
   </button>
 `);
 </script>
+
 
 <script>
 document.write(`
@@ -383,7 +394,7 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#define-the-use-case">Define the Use Case</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#select-a-model">Select a Model</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adapt-the-model-fine-tuning">Adapt the Model: Fine-tuning</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adapt-the-model">Adapt the Model</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#application-integration">Application Integration</a></li>
 </ul>
             </nav>
@@ -394,12 +405,17 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article" role="main">
+                <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="introduction">
-<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">#</a></h1>
+<h1>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h1>
 <div class="important admonition">
-<p class="admonition-title">Objective</p>
+<p class="admonition-title">Project Lifecycle</p>
+<p>Every LLM project goes through at least some version of this lifecycle:</p>
+<figure class="align-default" id="project-lifecycle-1">
+<a class="reference internal image-reference" href="_images/project-lifecycle-1.png"><img alt="_images/project-lifecycle-1.png" src="_images/project-lifecycle-1.png" style="width: 900px;" /></a>
+</figure>
+<p>(Diagram taken from <a class="reference external" href="https://www.deeplearning.ai/">DeepLearning.AI</a>, provided under the Creative Commons License)</p>
 <p>The goals of this workshop are to look at best practices with regard to:</p>
 <ul class="simple">
 <li><p><font color='purple'><strong>Selecting and Executing</strong></font> open source LLMs on Quest and on the Kellogg Linux Cluster (KLC)</p></li>
@@ -407,30 +423,20 @@ document.write(`
 <li><p><font color='purple'><strong>Integrating</strong></font> with external resources at run-time to improve LLM knowledge and reduce hallucinations</p></li>
 </ul>
 </div>
-<div class="admonition-project-lifecycle admonition">
-<p class="admonition-title">Project Lifecycle</p>
-<p>Every LLM project goes through at least some version of this lifecycle:</p>
-<figure class="align-default" id="project-lifecycle-1">
-<a class="reference internal image-reference" href="_images/project-lifecycle-1.png"><img alt="_images/project-lifecycle-1.png" src="_images/project-lifecycle-1.png" style="width: 900px;" /></a>
-</figure>
-<p>(Diagram taken from <a class="reference external" href="https://www.deeplearning.ai/">DeepLearning.AI</a>, provided under the Creative Commons License)</p>
-</div>
 <section id="define-the-use-case">
-<h2>Define the Use Case<a class="headerlink" href="#define-the-use-case" title="Permalink to this heading">#</a></h2>
-<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
-<div class="sd-card-body docutils">
-<p class="sd-card-text">One key to success is coming up with a well-defined use case that your LLM application will implement:</p>
+<h2>Define the Use Case<a class="headerlink" href="#define-the-use-case" title="Link to this heading">#</a></h2>
+<div class="important admonition">
+<p class="admonition-title">Determines the model you pick, evaluations, data</p>
 <figure class="align-default" id="project-lifecycle-2">
 <a class="reference internal image-reference" href="_images/project-lifecycle-2.png"><img alt="_images/project-lifecycle-2.png" src="_images/project-lifecycle-2.png" style="width: 900px;" /></a>
 </figure>
-<p class="sd-card-text">Your plan should specify:</p>
+<p>Your plan should specify:</p>
 <ul class="simple">
-<li><p class="sd-card-text">What data will I be using to achieve my research goal?</p></li>
-<li><p class="sd-card-text">How much data do I need?</p></li>
-<li><p class="sd-card-text">How will I evaluate LLM output?</p></li>
-<li><p class="sd-card-text">What counts as good enough?</p></li>
+<li><p>What data will I be using to achieve my research goal?</p></li>
+<li><p>How much data do I need?</p></li>
+<li><p>How will I evaluate LLM output?</p></li>
+<li><p>What counts as good enough?</p></li>
 </ul>
-</div>
 </div>
 <div class="admonition-types-of-use-cases admonition">
 <p class="admonition-title">Types of Use Cases</p>
@@ -441,110 +447,95 @@ document.write(`
 </div>
 </section>
 <section id="select-a-model">
-<h2>Select a Model<a class="headerlink" href="#select-a-model" title="Permalink to this heading">#</a></h2>
-<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
-<div class="sd-card-body docutils">
-<p class="sd-card-text">There are many open source model choices available. Why choose open source over closed source models like GPT-4?</p>
-<ul class="simple">
-<li><p class="sd-card-text"><strong>Reproducibility</strong></p></li>
-<li><p class="sd-card-text"><strong>Data privacy</strong></p></li>
-<li><p class="sd-card-text"><strong>Flexibility to adapt a model</strong></p></li>
-<li><p class="sd-card-text"><strong>Flexibility to incorporate external resources</strong></p></li>
-<li><p class="sd-card-text"><strong>Cost at inference time</strong></p></li>
-</ul>
-</div>
-</div>
-<div class="admonition-leaderboards admonition">
-<p class="admonition-title">Leaderboards</p>
-<p>We can use leaderboards to choose the best one for our use case, and model hubs to download and run them locally.</p>
+<h2>Select a Model<a class="headerlink" href="#select-a-model" title="Link to this heading">#</a></h2>
+<div class="important admonition">
+<p class="admonition-title">Many models to choose from</p>
 <figure class="align-default" id="project-lifecycle-3">
 <a class="reference internal image-reference" href="_images/project-lifecycle-3-annotated.png"><img alt="_images/project-lifecycle-3-annotated.png" src="_images/project-lifecycle-3-annotated.png" style="width: 900px;" /></a>
 </figure>
+<p>Why choose open source over closed source models like GPT-4?</p>
+<ul class="simple">
+<li><p><strong>Reproducibility</strong></p></li>
+<li><p><strong>Data privacy</strong></p></li>
+<li><p><strong>Flexibility to adapt a model</strong></p></li>
+<li><p><strong>Flexibility to incorporate external resources</strong></p></li>
+<li><p><strong>Cost at inference time</strong></p></li>
+</ul>
 </div>
-<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
-<div class="sd-card-body docutils">
-<div class="sd-card-title sd-font-weight-bold docutils">
-Models vs. Code</div>
+<div class="admonition-models-vs-code admonition">
+<p class="admonition-title">Models vs. Code</p>
 <figure class="align-default" id="model-v-code">
 <a class="reference internal image-reference" href="_images/model-v-code.drawio.png"><img alt="_images/model-v-code.drawio.png" src="_images/model-v-code.drawio.png" style="width: 900px;" /></a>
 </figure>
 </div>
-</div>
-<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
-<div class="sd-card-body docutils">
-<div class="sd-card-title sd-font-weight-bold docutils">
-Model Hubs</div>
-<p class="sd-card-text">One widely used model hub is from <a class="reference external" href="https://huggingface.co/docs/hub/en/models-the-hub">Hugging Face</a>:</p>
+<div class="admonition-model-hubs admonition">
+<p class="admonition-title">Model Hubs</p>
+<p>One widely used model hub is from <a class="reference external" href="https://huggingface.co/docs/hub/en/models-the-hub">Hugging Face</a>:</p>
 <figure class="align-default" id="model-hub">
 <a class="reference internal image-reference" href="_images/model-hub.png"><img alt="_images/model-hub.png" src="_images/model-hub.png" style="width: 900px;" /></a>
 </figure>
 </div>
-</div>
-<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
-<div class="sd-card-body docutils">
-<div class="sd-card-title sd-font-weight-bold docutils">
-Benchmarks and Leaderboards: Chatbot Arena</div>
-<p class="sd-card-text">This is the <a class="reference external" href="https://huggingface.co/spaces/lmsys/chatbot-arena-leaderboard">chatbot arena leaderboard</a> as of 2024-03-04:</p>
+<div class="admonition-benchmarks-and-leaderboards-chatbot-arena admonition">
+<p class="admonition-title">Benchmarks and Leaderboards: Chatbot Arena</p>
+<p>This is the <a class="reference external" href="https://huggingface.co/spaces/lmsys/chatbot-arena-leaderboard">chatbot arena leaderboard</a> as of 2024-03-04:</p>
 <figure class="align-default" id="chatbot-leaderboard">
 <a class="reference internal image-reference" href="_images/chatbot-leaderboard.png"><img alt="_images/chatbot-leaderboard.png" src="_images/chatbot-leaderboard.png" style="width: 900px;" /></a>
 </figure>
 </div>
-</div>
-<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
-<div class="sd-card-body docutils">
-<div class="sd-card-title sd-font-weight-bold docutils">
-Benchmarks and Leaderboards: Others</div>
-<p class="sd-card-text">There are many <a class="reference external" href="https://huggingface.co/collections/open-llm-leaderboard/the-big-benchmarks-collection-64faca6335a7fc7d4ffe974a">other benchmarks</a>:</p>
+<div class="admonition-benchmarks-and-leaderboards-others admonition">
+<p class="admonition-title">Benchmarks and Leaderboards: Others</p>
+<p>There are many <a class="reference external" href="https://huggingface.co/collections/open-llm-leaderboard/the-big-benchmarks-collection-64faca6335a7fc7d4ffe974a">other benchmarks</a>:</p>
 <figure class="align-default" id="big-benchmarks-collection">
 <a class="reference internal image-reference" href="_images/big-benchmarks-collection.png"><img alt="_images/big-benchmarks-collection.png" src="_images/big-benchmarks-collection.png" style="width: 900px;" /></a>
 </figure>
 </div>
-</div>
-<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
-<div class="sd-card-body docutils">
-<div class="sd-card-title sd-font-weight-bold docutils">
-Benchmarks and Leaderboards: HELM</div>
-<p class="sd-card-text">The growing capabilities of very large LLMs have inspired new and challenging benchmarks, like <a class="reference external" href="https://crfm.stanford.edu/helm/lite/latest/">HELM</a>:</p>
+<div class="admonition-benchmarks-and-leaderboards-helm admonition">
+<p class="admonition-title">Benchmarks and Leaderboards: HELM</p>
+<p>The growing capabilities of very large LLMs have inspired new and challenging benchmarks, like <a class="reference external" href="https://crfm.stanford.edu/helm/lite/latest/">HELM</a>:</p>
 <figure class="align-default" id="helm-benchmark">
 <a class="reference internal image-reference" href="_images/helm-benchmark.png"><img alt="_images/helm-benchmark.png" src="_images/helm-benchmark.png" style="width: 900px;" /></a>
 </figure>
 </div>
-</div>
-<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
-<div class="sd-card-body docutils">
-<div class="sd-card-title sd-font-weight-bold docutils">
-Executing an Open LLM</div>
-<p class="sd-card-text">Executing LLMs on a <a class="reference external" href="https://blogs.nvidia.com/blog/whats-the-difference-between-a-cpu-and-a-gpu/">GPU</a> is <strong>much</strong> faster than using CPU. We will show you how to access GPUs for training and inference on <a class="reference external" href="https://services.northwestern.edu/TDClient/30/Portal/KB/ArticleDet?ID=1112">Quest/KLC</a></p>
+<div class="admonition-executing-an-open-llm admonition">
+<p class="admonition-title">Executing an Open LLM</p>
+<p>Executing LLMs on a <a class="reference external" href="https://blogs.nvidia.com/blog/whats-the-difference-between-a-cpu-and-a-gpu/">GPU</a> is <strong>much</strong> faster than using CPU. We will show you how to access GPUs for training and inference on <a class="reference external" href="https://services.northwestern.edu/TDClient/30/Portal/KB/ArticleDet?ID=1112">Quest/KLC</a></p>
 <figure class="align-default" id="gpu-v-cpu">
 <a class="reference internal image-reference" href="_images/gpu-v-cpu.jpg"><img alt="_images/gpu-v-cpu.jpg" src="_images/gpu-v-cpu.jpg" style="width: 900px;" /></a>
 </figure>
 </div>
-</div>
 </section>
-<section id="adapt-the-model-fine-tuning">
-<h2>Adapt the Model: Fine-tuning<a class="headerlink" href="#adapt-the-model-fine-tuning" title="Permalink to this heading">#</a></h2>
-<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
-<div class="sd-card-body docutils">
-<p class="sd-card-text">While we should always start with crafting good prompts in order to achieve the best performance we can, it may sometimes be advantageous to adapt a model to improve its performance. Fine-tuning is one way to achieve this goal.</p>
+<section id="adapt-the-model">
+<h2>Adapt the Model<a class="headerlink" href="#adapt-the-model" title="Link to this heading">#</a></h2>
+<div class="important admonition">
+<p class="admonition-title">Fine-tuning</p>
+<p>While we should always start with crafting good prompts in order to achieve the best performance we can, it may sometimes be advantageous to adapt a model to improve its performance. Fine-tuning is one way to achieve this goal.</p>
 <figure class="align-default" id="project-lifecycle-4">
 <a class="reference internal image-reference" href="_images/project-lifecycle-4-annotated.png"><img alt="_images/project-lifecycle-4-annotated.png" src="_images/project-lifecycle-4-annotated.png" style="width: 900px;" /></a>
 </figure>
 </div>
+<div class="admonition-fine-tuning admonition">
+<p class="admonition-title">Fine-tuning</p>
+<p>Fine-tuning can improve model performance, and reduce the need for complex prompts (saving on context use). Fine-tuning is particularly important for smaller models, and can boost performance to levels comparable to bigger models.</p>
+<figure class="align-default">
+<a class="reference internal image-reference" href="_images/full-fine-tuning.png"><img alt="_images/full-fine-tuning.png" src="_images/full-fine-tuning.png" style="width: 900px;" /></a>
+</figure>
 </div>
 <div class="admonition-evaluation-metrics admonition">
 <p class="admonition-title">Evaluation Metrics</p>
 <p>Evaluation metrics depend on the type of task. For information extraction tasks, metrics such as <a class="reference external" href="https://en.wikipedia.org/wiki/Precision_and_recall">precision and recall</a> are appropriate</p>
+<figure class="align-default" id="precision-recall">
+<a class="reference internal image-reference" href="_images/precision-recall.png"><img alt="_images/precision-recall.png" src="_images/precision-recall.png" style="width: 300px;" /></a>
+</figure>
 </div>
 </section>
 <section id="application-integration">
-<h2>Application Integration<a class="headerlink" href="#application-integration" title="Permalink to this heading">#</a></h2>
-<div class="sd-card sd-sphinx-override sd-mb-3 sd-shadow-sm docutils">
-<div class="sd-card-body docutils">
-<p class="sd-card-text">LLMs are usually deployed as a component of a larger application. This larger application can make use of external resources, such as collections of documents, or knowledge bases. Deployment must also take into account the computational resources that are available, such as the availability of GPUs and sufficient memory.</p>
+<h2>Application Integration<a class="headerlink" href="#application-integration" title="Link to this heading">#</a></h2>
+<div class="important admonition">
+<p class="admonition-title">Deployment as an Application</p>
+<p>LLMs are usually deployed as a component of a larger application. This larger application can make use of external resources, such as collections of documents, or knowledge bases. Deployment must also take into account the computational resources that are available, such as the availability of GPUs and sufficient memory.</p>
 <figure class="align-default" id="project-lifecycle-5">
 <a class="reference internal image-reference" href="_images/project-lifecycle-5-annotated.png"><img alt="_images/project-lifecycle-5-annotated.png" src="_images/project-lifecycle-5-annotated.png" style="width: 900px;" /></a>
 </figure>
-</div>
 </div>
 <div class="admonition-model-quantization admonition">
 <p class="admonition-title">Model Quantization</p>
@@ -559,7 +550,7 @@ Executing an Open LLM</div>
 <figure class="align-default" id="rag-intro">
 <a class="reference internal image-reference" href="_images/RAG-intro.png"><img alt="_images/RAG-intro.png" src="_images/RAG-intro.png" style="width: 900px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 1 </span><span class="caption-text"><a class="reference external" href="https://docs.aws.amazon.com/sagemaker/latest/dg/jumpstart-foundation-models-customize-rag.html">source</a></span><a class="headerlink" href="#rag-intro" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 1 </span><span class="caption-text"><a class="reference external" href="https://docs.aws.amazon.com/sagemaker/latest/dg/jumpstart-foundation-models-customize-rag.html">source</a></span><a class="headerlink" href="#rag-intro" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </div>
@@ -594,7 +585,7 @@ Executing an Open LLM</div>
               
               
                 <footer class="prev-next-footer">
-                  <!-- Previous / next buttons -->
+                  
 <div class="prev-next-area">
     <a class="left-prev"
        href="welcome.html"
@@ -623,6 +614,7 @@ Executing an Open LLM</div>
               
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
+
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
     <i class="fa-solid fa-list"></i> Contents
@@ -631,7 +623,7 @@ Executing an Open LLM</div>
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#define-the-use-case">Define the Use Case</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#select-a-model">Select a Model</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adapt-the-model-fine-tuning">Adapt the Model: Fine-tuning</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adapt-the-model">Adapt the Model</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#application-integration">Application Integration</a></li>
 </ul>
   </nav></div>
@@ -654,9 +646,10 @@ By Kellogg Research Support
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
-      © Copyright 2022.
+      © Copyright 2023.
       <br/>
     
   </p>
@@ -680,8 +673,8 @@ By Kellogg Research Support
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
+  <script src="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
 
   <footer class="bd-footer">
   </footer>
