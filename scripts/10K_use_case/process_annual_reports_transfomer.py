@@ -47,23 +47,24 @@ def extract_mda(text):
         m = mda_matches[1]
         mda_text = text[m.end() :]
         return " ".join(mda_text.split()[:250])
+    
     return mda_text
 
 
 # ------------------------------------------------------------------------------
 def main(
-        cache_dir: Path = Path("/projects/kellogg/.cache"),
-        input_dir: Path = Path("/kellogg/data/EDGAR/10-K/2023"),
-        output_file: Path = Path("/projects/kellogg/output/annual_report_output.csv"),
-        model_checkpoint: str = "Falconsai/text_summarization",
-        num_files: int = 10
-    ):
-
+    cache_dir: Path = Path("/projects/kellogg/.cache"),
+    input_dir: Path = Path("/kellogg/data/EDGAR/10-K/2023"),
+    output_file: Path = Path("/projects/kellogg/output/annual_report_output.csv"),
+    model_checkpoint: str = "Falconsai/text_summarization",
+    num_files: int = 10,
+):
     # validate input parameters
     assert cache_dir.exists() and cache_dir.is_dir()
     assert input_dir.exists() and input_dir.is_dir()
     assert num_files > 0
-    
+    touch(exist_ok=True)
+
     os.environ["HF_HOME"] = str(cache_dir)
 
     # get listing of 10K files
