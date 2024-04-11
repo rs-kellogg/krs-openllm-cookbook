@@ -6,8 +6,6 @@ temp/
 **/*.log
 **/.env
 
-
-
 # jupyterbook
 _build/**
 
