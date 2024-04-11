@@ -16,17 +16,6 @@ import os
 
 
 # ------------------------------------------------------------------------------
-# Globals
-# ------------------------------------------------------------------------------
-cach_dir = "/projects/kellogg/.cache"
-input_dir = Path("/kellogg/data/EDGAR/10-K/2023")
-output_file = Path("/projects/kellogg/output/annual_report_output.csv")
-model_checkpoint = "Falconsai/text_summarization"
-
-os.environ["HF_HOME"] = cach_dir
-
-
-# ------------------------------------------------------------------------------
 # Functions
 # ------------------------------------------------------------------------------
 def clean_html(html):
@@ -62,7 +51,20 @@ def extract_mda(text):
 
 
 # ------------------------------------------------------------------------------
-def main(num_files=10):
+def main(
+        cache_dir: Path = Path("/projects/kellogg/.cache"),
+        input_dir: Path = Path("/kellogg/data/EDGAR/10-K/2023"),
+        output_file: Path = Path("/projects/kellogg/output/annual_report_output.csv"),
+        model_checkpoint: str = "Falconsai/text_summarization",
+        num_files: int = 10
+    ):
+
+    # validate input parameters
+    assert cache_dir.exists() and cache_dir.is_dir()
+    assert input_dir.exists() && input_dir.is_dir()
+    assert num_files > 0
+    os.environ["HF_HOME"] = cache_dir
+
     # get listing of 10K files
     files = list(input_dir.glob("*.txt"))[:num_files]
     files.sort()
@@ -88,7 +90,7 @@ def main(num_files=10):
         lambda batch: {
             "summary": summarizer(
                 batch["text"],
-                max_length=100,
+                max_length=50,
                 min_length=30,
                 do_sample=False,
                 truncation=True,
