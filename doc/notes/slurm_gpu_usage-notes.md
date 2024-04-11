@@ -18,6 +18,8 @@ Now many of you will have heard of something called "CUDA", and maybe have some 
 
 ## Sample Python GPU Code
 
+Here is some sample Python code to detect whether or not CUDA is available, and which version is available. Note that this code will run on both GPU and non-GPU machines. But if you're running it without a GPU, the tensor code will run thousands of times slower!
+
 ## Slurm Script to Access GPU Nodes
 
 
