@@ -63,6 +63,7 @@ def main(
     assert cache_dir.exists() and cache_dir.is_dir()
     assert input_dir.exists() and input_dir.is_dir()
     assert num_files > 0
+    
     os.environ["HF_HOME"] = str(cache_dir)
 
     # get listing of 10K files

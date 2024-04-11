@@ -418,7 +418,22 @@ document.write(`
 </div>
 <div class="admonition-create-a-summarization-pipeline admonition">
 <p class="admonition-title">Create a Summarization Pipeline</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">num_files</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+<p>Full script <a class="reference external" href="https://github.com/rs-kellogg/krs-openllm-cookbook/blob/main/scripts/10K_use_case/process_annual_reports_transfomer.py">here</a></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">main</span><span class="p">(</span>
+        <span class="n">cache_dir</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;/projects/kellogg/.cache&quot;</span><span class="p">),</span>
+        <span class="n">input_dir</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;/kellogg/data/EDGAR/10-K/2023&quot;</span><span class="p">),</span>
+        <span class="n">output_file</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;/projects/kellogg/output/annual_report_output.csv&quot;</span><span class="p">),</span>
+        <span class="n">model_checkpoint</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;Falconsai/text_summarization&quot;</span><span class="p">,</span>
+        <span class="n">num_files</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span>
+    <span class="p">):</span>
+
+    <span class="c1"># validate input parameters</span>
+    <span class="k">assert</span> <span class="n">cache_dir</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span> <span class="ow">and</span> <span class="n">cache_dir</span><span class="o">.</span><span class="n">is_dir</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="n">input_dir</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span> <span class="ow">and</span> <span class="n">input_dir</span><span class="o">.</span><span class="n">is_dir</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="n">num_files</span> <span class="o">&gt;</span> <span class="mi">0</span>
+    
+    <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;HF_HOME&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">cache_dir</span><span class="p">)</span>
+
     <span class="c1"># get listing of 10K files</span>
     <span class="n">files</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">input_dir</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;*.txt&quot;</span><span class="p">))[:</span><span class="n">num_files</span><span class="p">]</span>
     <span class="n">files</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
@@ -444,7 +459,7 @@ document.write(`
         <span class="k">lambda</span> <span class="n">batch</span><span class="p">:</span> <span class="p">{</span>
             <span class="s2">&quot;summary&quot;</span><span class="p">:</span> <span class="n">summarizer</span><span class="p">(</span>
                 <span class="n">batch</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">],</span>
-                <span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+                <span class="n">max_length</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
                 <span class="n">min_length</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
                 <span class="n">do_sample</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                 <span class="n">truncation</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
@@ -492,6 +507,14 @@ document.write(`
     <span class="k">return</span> <span class="n">mda_text</span>
 </pre></div>
 </div>
+</div>
+<div class="admonition-original-text-snippet admonition">
+<p class="admonition-title">Original text snippet:</p>
+<p>{‘text’: ‘In addition, the spread of COVID-19 has caused us to modify our business practices (including restricting employee travel, developing social distancing plans for our employees and cancelling physical participation in meetings, events and conferences), and we may take further actions as may be required by government authorities or as we determine is in the best interests of our employees, partners and customers. The outbreak has adversely impacted and may further adversely impact our workforce and operations and the operations of our partners, customers, suppliers and third-party vendors, throughout the time period during which the spread of COVID-19 continues and related restrictions remain in place, and even after the COVID-19 outbreak has subsided.   Even after the COVID-19 outbreak has subsided and despite the formal declaration of the end of the COVID-19 global health emergency by the World Health Organization in May 2023, our business may continue to experience materially adverse impacts as a result of the virus’s economic impact, including the availability and cost of funding and any recession that has occurred or may occur in the future. There are no comparable recent events that provide guidance as to the effect COVID-19 as a global pandemic may have, and, as a result, the ultimate impact of the outbreak is highly uncertain and subject to change.   Additionally, many of the other risk factors described below are heightened by the effects of the COVID-19 pandemic and related economic conditions, which in turn could materially adversely affect’}</p>
+</div>
+<div class="admonition-summary admonition">
+<p class="admonition-title">Summary:</p>
+<p>{‘summary_text’: ‘the spread of COVID-19 has caused us to modify our business practices . The outbreak has adversely impacted and may further adversely impact our workforce and operations and the operations of our partners, customers, suppliers and third-party vendors’}</p>
 </div>
 </section>
 
