@@ -1,5 +1,11 @@
 # Example Use Case: 10K Processing
 
+Here's an example application to show you some aspects of what we've learned so far. Let's look at a very large collection of financial documents - 10-K reports. A comprehensive report filed annually by all publicly traded companies. There is __a lot__ of information in these reports, and they can be very long.
+
+Note: We have all of them available on KLC
+
+We can imagine lots of things we might want to do with these reports, but to keep things simple lets just imagine we want to summarize one section: MD&A (Management Discussion and Analysis). (note: missing rigorous evaluation, previous workshop showed one with an information extraction problem)
+
 ## Find a Model
 
 ## Create a Summarization Pipeline
