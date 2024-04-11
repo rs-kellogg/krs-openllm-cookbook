@@ -462,10 +462,6 @@ document.write(`
 <p>The potential inefficiency of parallelization raises the question of how your system knows when to send a task to CPUs or to GPUs? For Nvidia-based GPU’s, this is where <font color='purple'><strong>CUDA</strong></font> comes in.  <font color='purple'><strong>CUDA (Compute Unified Device Architecture)</strong></font> is a powerful software platform that helps computer programs run faster. On the GPU nodes, we use it to solve performance intensive problems by optimizing when to allocate certains tasks to CPU processing or GPU processing.</p>
 <p>In this animation, CUDA determines which tasks to delegate to GPUs or to CPUs.</p>
 </div>
-<div class="warning admonition">
-<p class="admonition-title">Take note!</p>
-<p>For vector and matrix operations, GPUs is orders of magnitude faster than CPUs</p>
-</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>You will not typically directy program in CUDA, nor most of you in Pytorch/Tensorflow. Most of you will probably stick to using the highest layers of abstraction, such as the Hugging Face <a class="reference external" href="https://huggingface.co/docs/transformers/index">Transformer</a> library. However, it is sometimes necessary to know which version of CUDA or Pytorch/Tensorflow you need to have installed.</p>
@@ -481,9 +477,9 @@ document.write(`
 <p class="admonition-title">pytorch_gpu_test.py</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch</span>
 
-<span class="c1"># Check if CUDA is available</span>
+<span class="c1"># Check if CUDA is available, and which version</span>
 <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">():</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;CUDA is available!&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;CUDA version </span><span class="si">{</span><span class="n">torch</span><span class="o">.</span><span class="n">version</span><span class="o">.</span><span class="n">cuda</span><span class="si">}</span><span class="s2"> is available&quot;</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of GPUs available:&quot;</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">device_count</span><span class="p">())</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;GPU:&quot;</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">get_device_name</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
 <span class="k">else</span><span class="p">:</span>
@@ -509,17 +505,13 @@ document.write(`
 </pre></div>
 </div>
 </div>
+<div class="warning admonition">
+<p class="admonition-title">Take note!</p>
+<p>For vector and matrix operations, GPUs is orders of magnitude faster than CPUs</p>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Code execution in a Jupyter notebook is demonstrated in <a class="reference external" href="https://kellogg-shared.s3.us-east-2.amazonaws.com/videos/quest-on-demand-gpu-notebook.mp4">this video</a></p>
-</div>
-<div class="admonition-font-color-purple-northwestern-font-gpu-resources admonition">
-<p class="admonition-title"><font color='purple'><em>Northwestern</em></font> GPU Resources</p>
-<p><a class="reference external" href="https://services.northwestern.edu/TDClient/30/Portal/KB/ArticleDet?ID=1112">Quest</a> has dozens of Nvidia-based GPU nodes available for use. We will show you how to access them via a Jupyter notebook using <a class="reference external" href="https://services.northwestern.edu/TDClient/30/Portal/KB/ArticleDet?ID=2234">Quest on Demand</a> and using the <a class="reference external" href="https://services.northwestern.edu/TDClient/30/Portal/KB/ArticleDet?ID=1964">Slurm scheduler</a>. Both of these methods require that you are part of a Quest allocation.</p>
-</div>
-<div class="important admonition">
-<p class="admonition-title"><em>For the Kellogg Community Only</em></p>
-<p>We are in the process of setting up GPU nodes for exclusive use by the Kellogg research community as part of the <a class="reference external" href="https://www.kellogg.northwestern.edu/academics-research/research-support/computing/kellogg-linux-cluster.aspx">Kellogg Linux Cluster</a>. Accessing these nodes will be identical to accessing GPU nodes on Quest, but will require only a KLC account and not a separate Quest allocation.</p>
 </div>
 </section>
 <section id="slurm-script-to-access-gpu-nodes">
@@ -528,7 +520,21 @@ document.write(`
 <p class="admonition-title">Slurm scripts</p>
 <p>For this workshop, we’ll submit jobs to the Quest GPU nodes through a <font color='purple'>SLURM</font> (scheduler) script. You can launch the sample python code using this script.</p>
 </div>
-<div class="admonition-font-color-purple-pytorch-gpu-test-sh-font admonition">
+<div class="admonition-font-color-purple-northwestern-font-gpu-resources admonition">
+<p class="admonition-title"><font color='purple'><em>Northwestern</em></font> GPU Resources</p>
+<p><a class="reference external" href="https://services.northwestern.edu/TDClient/30/Portal/KB/ArticleDet?ID=1112">Quest</a> has dozens of Nvidia-based GPU nodes available for use. We will show you how to access them via a Jupyter notebook using <a class="reference external" href="https://services.northwestern.edu/TDClient/30/Portal/KB/ArticleDet?ID=2234">Quest on Demand</a> and using the <a class="reference external" href="https://services.northwestern.edu/TDClient/30/Portal/KB/ArticleDet?ID=1964">Slurm scheduler</a>. Both of these methods require that you are part of a Quest allocation.</p>
+</div>
+<!-- :::{admonition} _For the Kellogg Community Only_
+
+
+We are in the process of setting up GPU nodes for exclusive use by the Kellogg research community as part of the [Kellogg Linux Cluster](https://www.kellogg.northwestern.edu/academics-research/research-support/computing/kellogg-linux-cluster.aspx). Accessing these nodes will be identical to accessing GPU nodes on Quest, but will require only a KLC account and not a separate Quest allocation.
+
+```{figure} ./images/KLC-announcement.png
+---
+width: auto
+name: KLC-announcment
+---
+::: --><div class="admonition-font-color-purple-pytorch-gpu-test-sh-font admonition">
 <p class="admonition-title"><font color='purple'><em>pytorch_gpu_test.sh</em></font></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
@@ -564,7 +570,7 @@ document.write(`
 <li><p><code class="docutils literal notranslate"><span class="pre">--mem</span></code> specifies how much memory you are requesting.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--output</span></code> specifies the path and file where the stdout and stderr output streams will get saved.</p></li>
 </ul>
-<p>After accessing the GPU node, the script loads python and activates the <font color='purple'><strong>gpu-pytorch</strong></font> environment.  Finally it launches the python code.</p>
+<p>After accessing the GPU node, the script loads python and activates the <font color='purple'>llm-test-env</font> conda environmen, which has all the necessary python packages installed. Finally it executes the python code.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
