@@ -22,5 +22,5 @@ Here is some sample Python code to detect whether or not CUDA is available, and 
 
 ## Slurm Script to Access GPU Nodes
 
-
+The Northwestern Research Computing team has purchased dozens of Nvidia-based GPUs and made them available through the Quest HPC cluster. You can use the Quest allocation mentioned above to try them out. Quest GPU nodes are accessible though the "Slurm" scheduling software. Using Slurm, you write scripts that will be submitted to be executed on GPU nodes when the necessary resources are available to be used.
 
