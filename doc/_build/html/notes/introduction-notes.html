@@ -1,0 +1,587 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Introduction (duration: 10 minutes) &#8212; Kellogg Research Support Open Source LLM Cookbook</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notes/introduction-notes';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../welcome.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Kellogg Research Support Open Source LLM Cookbook - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Kellogg Research Support Open Source LLM Cookbook - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../welcome.html">
+                    Welcome
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction to Open Source Large Language Models (LLMs)</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Running Open Source LLMs on KLC</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../slurm_gpu_usage.html">Using GPUs at Northwestern</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../transformers.html">Using Transformers to run LLMs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../llama-cpp.html">Using Llama_cpp_python to run LLMs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../use_case.html">Example Use Case: 10K Processing</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Advanced Techniques</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../retrieval.html">Retrieval Augmented Generation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fine-tuning.html">Fine-Tuning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../vision.html">Image Processing</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Summary</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../takeaways.html">Summary</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/rs-kellogg/krs-openllm-cookbook" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/rs-kellogg/krs-openllm-cookbook/issues/new?title=Issue%20on%20page%20%2Fnotes/introduction-notes.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/notes/introduction-notes.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Introduction (duration: 10 minutes)</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#define-the-use-case">Define the Use Case</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#select-a-model">Select a Model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adapt-the-model">Adapt the Model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#application-integration">Application Integration</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="introduction-duration-10-minutes">
+<h1>Introduction (duration: 10 minutes)<a class="headerlink" href="#introduction-duration-10-minutes" title="Link to this heading">#</a></h1>
+<p><strong>Project Lifecycle</strong></p>
+<p>This diagram outlines the lifecycle of a machine learning (ML) project, particularly one involving a Large Language Model (LLM) such as GPT. It is divided into three main stages, each with specific steps:</p>
+<ul class="simple">
+<li><p>Scope: Define the use case: This is the initial step where the goals, requirements, and problems to be solved by the ML project are clearly defined.
+Select</p></li>
+<li><p>Select: Choose an existing model or pretrain your own: Here, a decision is made whether to utilize an existing pre-trained model or to pretrain a new model from scratch, based on the requirements of the use case.</p></li>
+<li><p>Adapt and Align Model:</p>
+<ul>
+<li><p>Prompt engineering: This involves crafting the inputs (prompts) to the model in such a way that the desired output is more likely to be generated.</p></li>
+<li><p>Fine-tuning: The chosen model is further trained (fine-tuned) on a specific dataset to better perform on tasks related to the use case.</p></li>
+<li><p>Evaluate: The model’s performance is assessed to ensure it meets the defined goals.</p></li>
+<li><p>Align with human feedback: Human judgments are used to guide the model’s outputs, ensuring they align with human values and expectations.</p></li>
+</ul>
+</li>
+<li><p>Application Integration</p>
+<ul>
+<li><p>Optimize and deploy model for inference: The model is optimized for performance (speed and accuracy) and deployed in a production environment where it can be used to make predictions or generate text.</p></li>
+<li><p>Augment model and build LLM-powered applications: The model is potentially augmented with additional capabilities, and applications that leverage the power of the LLM are built around it.</p></li>
+</ul>
+</li>
+</ul>
+<p>Each of these stages is crucial for the successful integration of an LLM into a practical application, and the process is iterative, often requiring multiple cycles through these stages to refine the model and its application.</p>
+<section id="define-the-use-case">
+<h2>Define the Use Case<a class="headerlink" href="#define-the-use-case" title="Link to this heading">#</a></h2>
+<p>Your plan should specify:</p>
+<ul class="simple">
+<li><p>What data will I be using to achieve my research goal?</p></li>
+<li><p>How much data do I need?</p></li>
+<li><p>How will I evaluate LLM output?</p></li>
+<li><p>What counts as good enough?</p></li>
+</ul>
+<p>We won’t go more into this phase of the lifecycle here, but just be aware that everything else, form model choice to data collection follows from getting this part right.</p>
+<p>Your choice of open source model is constrained by the type of use case you are implementing, for example a translation task will use a sequence2sequence architecture and correpsonding model.</p>
+</section>
+<section id="select-a-model">
+<h2>Select a Model<a class="headerlink" href="#select-a-model" title="Link to this heading">#</a></h2>
+<p>There is no question that proprietary models currently have an edge in many areas of performance. For example, the current Chatbot leaderboard [scroll down and show screenshot] is dominated by closed-source, proprietary systems.</p>
+<p>Why then, would you choose to use an open source LLM? There are a variety of reasons:</p>
+<ul class="simple">
+<li><p><strong>Reproducibility</strong>: propietary models can change at any time</p></li>
+<li><p><strong>Data privacy</strong>: if you use private knowledge sources for fine-tuning or RAG, you may not want or even be allowed to upload to proprietary models</p></li>
+<li><p><strong>Flexibility to adapt a model</strong>: While some fine-tuning possibilities exist, you have more flexibility with open source packages</p></li>
+<li><p><strong>Ability to share a model</strong>: If you modify an open-source model with fine-tuning, you can share it however you’d like, for example for open science reasons</p></li>
+<li><p><strong>Cost at inference time</strong>: Cost may or may not be an issue, but we have sunk costs at Northwestern in terms of GPU nodes and there is no marginal cost for you to use them. May also reduce latency.</p></li>
+</ul>
+<p>Models vs. Code: It’s important to understand this difference when you start using open source models. Models are very large files that store billions of weights (floating point numbers), intended to be used for a particular (transformer) model architecture. Code is available to train and run these models</p>
+<ul class="simple">
+<li><p>Models are frequently obtained from model hubs</p></li>
+<li><p>Code is obtained via python package managers, github, etc.</p></li>
+<li><p>The Hugging Face model hub is widely used</p></li>
+<li><p>You should use the nature of your task, and also look at leaderboards to select your particular model.</p></li>
+<li><p>Aside: once we have an open source model, we’re going to have to figure out how to run it locally. For that, we’ll often need GPUs in order to get any kind of reasonable performance, and that will be the topic of our next section: Runing LLMs on Northwestern GPUs</p></li>
+</ul>
+</section>
+<section id="adapt-the-model">
+<h2>Adapt the Model<a class="headerlink" href="#adapt-the-model" title="Link to this heading">#</a></h2>
+<p>We saw above that there are reasons to use open source LLMs, even though proprietary models generally have higher out-of-the-box performance on many tasks. Here we discuss ways to remedy this situation for your particular use case.</p>
+<p>As a first step however, we recommend that you always try to create the best possible prompting strategy to elicit the behavior that you want. This is a low-cost, minimal expertise approach that can often improve performance. Some strategies here include few-shot learning (providing examples of what you want), and chain-of-thought (breaking down a task into incremental steps, like solving a word problem as a sequence of logical deductions).</p>
+<p>Once you’ve exausted prompt engnieering, it could very well be time to try something else. In this section, we focus on fine-tuning, which is a way to adapt the weights of the model to generate output that is more aligned with your use case. There are a variety of strategies here, but the core of all of them is that you provide the LLM with input/output pairs of what you want, and the model will adapt its weights to match desired outputs more closely.</p>
+<p>Fine-tuning results in a new model that is based on the old model. If all works well, the new model has two core advantages: (1) improved accuracy and relevance of output, and (2) reduced needs for elaborate prompting (and thus saving your context window).</p>
+<p>If you want to measure accuracy, you’re going to have to figure out which evaluation metric to use. For classification and information extraction tasks, you can count true/false positives/negatives, and calculate precision, recall, etc.</p>
+<p>Ambreen will be your guide on fine-tuning later in this workshop.</p>
+</section>
+<section id="application-integration">
+<h2>Application Integration<a class="headerlink" href="#application-integration" title="Link to this heading">#</a></h2>
+<p>Once you’ve selected a model, and potentially adapted it through fine-tuning, you will need to deploy it as an application. How this works depends on what you’re trying to do, but here we’ll focus on two things that may be relevant to a variety of applications.</p>
+<p>First, a quick word about compute resources. Big models require big resources. A standard 70-b parameter model will not fit into the memory of a single A100 GPU node. There are some strategies to help tackle this, such as sharding a model across multiple GPUs, but you can also use something called “quantization” to reduce memory footprint. Quantization maps full precision floating point numbers to smaller precision numbers that require less memory. Such “quantized” versions of models may allow you to run even a 70b parameter model on a single A100 GPU. Ambreen will provide more details later on.</p>
+<p>Second, it is important to note that an LLM does not have to stand on its own, but can be integrated with other resources. Many of you have probably already heard of “Retrieval Augmented Generation”, or “RAG” for short. This is a technique to use a prompt to lookup relevant resources in a knowledge base (such as a document collection), use these resources to augment a prompt, and feed the augmented prompt to the LLM. This is one way to defeate the “training knowledge cut-off” problem, where an LLM only knows what it was trained on up to a certain date. It can also result in fewer “hallucinations”, improving the fidelity and factualness of replies.</p>
+<p>Peilin will be your guide on RAG later in this workshop.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./notes"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#define-the-use-case">Define the Use Case</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#select-a-model">Select a Model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adapt-the-model">Adapt the Model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#application-integration">Application Integration</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Kellogg Research Support
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
