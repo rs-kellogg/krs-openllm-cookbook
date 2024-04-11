@@ -1,25 +1,26 @@
-# Introduction (duration: 10 minutes)
+# Introduction
+
+Welcome to the workshop on using open-source Large Language Models (or "LLMs") at Kellogg. Some of you may have attended our last workshop on using OpenAI. This one shares some of the same themes, but focuses here on topics and issues that are relevant to getting open source models to run effectively using on-premise computational resources. We will show you how to select an open source LLM, run it on Northwestern Graphics Procssing Units ("GPUs"), and how to improve peformance both through offline training and online augmentation with external resources. To get the ball rolling, let's take a quick look at the following LLM project lifecycle diagram.
 
 __Project Lifecycle__
 
-This diagram outlines the lifecycle of a machine learning (ML) project, particularly one involving a Large Language Model (LLM) such as GPT. It is divided into three main stages, each with specific steps:
+An LLM project lifecycle as shown here has 4 distinct phases:
 
-* Scope: Define the use case: This is the initial step where the goals, requirements, and problems to be solved by the ML project are clearly defined.
-Select
+* __Scope__: Define the use case. This is the initial step where the goals, requirements, and problems to be solved by the ML project are clearly defined. Everything else flows from this first step, determining which models you should look at, and what data and evaluation metrics you should be using.
 
-* Select: Choose an existing model or pretrain your own: Here, a decision is made whether to utilize an existing pre-trained model or to pretrain a new model from scratch, based on the requirements of the use case.
+* __Select__: Choose an existing model or pretrain your own. We have to make a decision at this point whether to utilize an existing pre-trained model or to pretrain a new model from scratch, based on the requirements of the use case. However, we will not discuss training your own model from scratch, for most of us that is beyond our means. Instead, we'll focus on selecting an existing open source model and adapting it to our needs. Fortunately, there are plenty of model choices, and lots we can do to adapt and improve their performance.
 
-* Adapt and Align Model:
-    * Prompt engineering: This involves crafting the inputs (prompts) to the model in such a way that the desired output is more likely to be generated.
-    * Fine-tuning: The chosen model is further trained (fine-tuned) on a specific dataset to better perform on tasks related to the use case.
-    * Evaluate: The model's performance is assessed to ensure it meets the defined goals.
-    * Align with human feedback: Human judgments are used to guide the model's outputs, ensuring they align with human values and expectations.
+* __Adapt and Align Model__: Once we have selected a model, we have to make it do what we want. At this phase of the LLM project lifecycle, our goal is to make sure our performance is as good as possible for our intended use case. Some steps we can take:
+    * Prompt engineering: Crafting the inputs (prompts) to the model in such a way that the desired output is more likely to be generated.
+    * Fine-tuning: Our chosen model is further trained (fine-tuned) on a specific dataset to better perform on tasks related to the use case.
+    * Evaluate: The model's performance is assessed to ensure it meets the defined goals (can't stress enough how useful this is).
+    * Align with human feedback: Human judgments are used to guide the model's outputs, ensuring they align with human values and expectations. While absolutely [possible](https://huggingface.co/docs/trl/main/en/reward_trainer), RLHF is beyond the scope of this workshop, and we'll focus on fine-tuning as our adaptation method of choice.
 
-* Application Integration
+* __Application Integration__: Now our model is adapted and improved, it must be deployed. Two things we focus on here are (1) optimizing for model size, and (2) extending a model's knowledge by integrating external resources at run-time. More on this below.
     * Optimize and deploy model for inference: The model is optimized for performance (speed and accuracy) and deployed in a production environment where it can be used to make predictions or generate text.
     * Augment model and build LLM-powered applications: The model is potentially augmented with additional capabilities, and applications that leverage the power of the LLM are built around it.
 
-Each of these stages is crucial for the successful integration of an LLM into a practical application, and the process is iterative, often requiring multiple cycles through these stages to refine the model and its application.
+Each of these lifecycle states is crucial for the successful use of an LLM to solve research problems, and the process is iterative, often requiring multiple cycles through these stages to refine the model and its application.
 
 ## Define the Use Case
 
