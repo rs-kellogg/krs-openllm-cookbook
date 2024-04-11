@@ -1,21 +1,21 @@
-# Introduction (duration: 10 minutes)
+# Introduction
 
 __Project Lifecycle__
 
 This diagram outlines the lifecycle of a machine learning (ML) project, particularly one involving a Large Language Model (LLM) such as GPT. It is divided into three main stages, each with specific steps:
 
-* Scope: Define the use case: This is the initial step where the goals, requirements, and problems to be solved by the ML project are clearly defined.
+* __Scope__: Define the use case: This is the initial step where the goals, requirements, and problems to be solved by the ML project are clearly defined.
 Select
 
-* Select: Choose an existing model or pretrain your own: Here, a decision is made whether to utilize an existing pre-trained model or to pretrain a new model from scratch, based on the requirements of the use case.
+* __Select__: Choose an existing model or pretrain your own: Here, a decision is made whether to utilize an existing pre-trained model or to pretrain a new model from scratch, based on the requirements of the use case.
 
-* Adapt and Align Model:
+* __Adapt and Align Model__:
     * Prompt engineering: This involves crafting the inputs (prompts) to the model in such a way that the desired output is more likely to be generated.
     * Fine-tuning: The chosen model is further trained (fine-tuned) on a specific dataset to better perform on tasks related to the use case.
     * Evaluate: The model's performance is assessed to ensure it meets the defined goals.
     * Align with human feedback: Human judgments are used to guide the model's outputs, ensuring they align with human values and expectations.
 
-* Application Integration
+* __Application Integration__
     * Optimize and deploy model for inference: The model is optimized for performance (speed and accuracy) and deployed in a production environment where it can be used to make predictions or generate text.
     * Augment model and build LLM-powered applications: The model is potentially augmented with additional capabilities, and applications that leverage the power of the LLM are built around it.
 
