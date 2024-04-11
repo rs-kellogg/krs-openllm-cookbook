@@ -395,8 +395,10 @@ document.write(`
   <section class="tex2jax_ignore mathjax_ignore" id="using-gpus-at-northwestern">
 <h1>Using GPUs at Northwestern<a class="headerlink" href="#using-gpus-at-northwestern" title="Permalink to this heading">#</a></h1>
 <p>Now we’re going to discuss how you execute a model on on-premise resources, particularly on GPUs. In order to use the code shown in this workshop, you will need to be a member of a Quest allocation. Most of you have been added to one for this workshop - “e32337”. If you have not been (or don’t know how to find out if you are, please let us know and we’ll help you out. This allocation will be avaialble for several months for you to use.</p>
+<p>Note there are other ways to get access to GPUs, as shown here. For trying stuff out, I particularly like Google Colab, it’s free for lower tier GPUs, or for $10/month you can even get access to an Nvida A100 or V100.</p>
 <section id="parallel-computing-for-llms">
 <h2>Parallel Computing for LLMs<a class="headerlink" href="#parallel-computing-for-llms" title="Permalink to this heading">#</a></h2>
+<p>The first question to ask is why use GPUs? Why not good old fashioned CPUs? The answer here is speed, with GPUs several of order magnitude faster than CPUs. And the reason for that is parallelism.</p>
 </section>
 <section id="sample-python-gpu-code">
 <h2>Sample Python GPU Code<a class="headerlink" href="#sample-python-gpu-code" title="Permalink to this heading">#</a></h2>
