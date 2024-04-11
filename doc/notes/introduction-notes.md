@@ -9,15 +9,15 @@ This diagram outlines the lifecycle of a machine learning (ML) project, particul
 * __Scope__: Define the use case: This is the initial step where the goals, requirements, and problems to be solved by the ML project are clearly defined.
 Select
 
-* __Select__: Choose an existing model or pretrain your own: Here, a decision is made whether to utilize an existing pre-trained model or to pretrain a new model from scratch, based on the requirements of the use case.
+* __Select__: Choose an existing model or pretrain your own: Here, a decision is made whether to utilize an existing pre-trained model or to pretrain a new model from scratch, based on the requirements of the use case. We will not discuss traning your own model from scratch, for most of us that is beyond our means. Instead, we'll focus on selecting an existing open source model and adapting it to our needs.
 
-* __Adapt and Align Model__:
-    * Prompt engineering: This involves crafting the inputs (prompts) to the model in such a way that the desired output is more likely to be generated.
-    * Fine-tuning: The chosen model is further trained (fine-tuned) on a specific dataset to better perform on tasks related to the use case.
-    * Evaluate: The model's performance is assessed to ensure it meets the defined goals.
-    * Align with human feedback: Human judgments are used to guide the model's outputs, ensuring they align with human values and expectations.
+* __Adapt and Align Model__: Once we have a model, we have to make it do what we want. At this phase of the process, our goal is to make sure our performance is as good as possible for our use case. These are the steps we take:
+    * Prompt engineering: Crafting the inputs (prompts) to the model in such a way that the desired output is more likely to be generated.
+    * Fine-tuning: Our chosen model is further trained (fine-tuned) on a specific dataset to better perform on tasks related to the use case.
+    * Evaluate: The model's performance is assessed to ensure it meets the defined goals (can't stress enough how useful this is).
+    * Align with human feedback: Human judgments are used to guide the model's outputs, ensuring they align with human values and expectations. We won't be doing this in this workshop, it is again probably beyond most people's means to train a new reward model from scratch using human feedback. However, note that there are existing reward models (e.g., to de-toxify output) that would not require too much work to use.
 
-* __Application Integration__
+* __Application Integration__: Now our model is adapted, it must be deployed. Two things we focus on here: optimizing for model size, and extending a model's knowledge by integrating external resources at run-time.
     * Optimize and deploy model for inference: The model is optimized for performance (speed and accuracy) and deployed in a production environment where it can be used to make predictions or generate text.
     * Augment model and build LLM-powered applications: The model is potentially augmented with additional capabilities, and applications that leverage the power of the LLM are built around it.
 
