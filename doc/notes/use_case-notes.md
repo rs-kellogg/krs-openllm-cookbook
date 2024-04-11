@@ -8,7 +8,12 @@ We can imagine lots of things we might want to do with these reports, but to kee
 
 ## Find a Model
 
+Let's go on the Hugging Face Model Hub and find an appropriate model.
+
 ## Create a Summarization Pipeline
 
+Now let's write some python code to do the work. Note how simple it is! This is the easy vanilla case, we aren't measuring performance, fine-tuning, or using any RAG techniques.
 
 ## Output
+
+Example summary. Show video.
