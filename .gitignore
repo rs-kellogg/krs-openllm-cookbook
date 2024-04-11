@@ -5,9 +5,7 @@
 temp/
 **/*.log
 **/.env
-
-# jupyterbook
-_build/**
+**/*-notes.md
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
