@@ -6,6 +6,8 @@ Note: We have all of them available on KLC
 
 We can imagine lots of things we might want to do with these reports, but to keep things simple lets just imagine we want to summarize one section: MD&A (Management Discussion and Analysis). (note: missing rigorous evaluation, previous workshop showed one with an information extraction problem)
 
+> Management discussion and analysis (MD&A) is a section of a public company's annual report or quarterly filing. The MD&A addresses the company’s performance. In this section, the company’s management and executives, also known as the C-suite, present an analysis of the company’s performance with qualitative and quantitative measures. https://www.investopedia.com/terms/m/mdanalysis.asp
+
 ## Find a Model
 
 Let's go on the Hugging Face Model Hub and find an appropriate model.
