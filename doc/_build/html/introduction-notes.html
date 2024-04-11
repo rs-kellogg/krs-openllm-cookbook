@@ -408,14 +408,50 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="introduction-duration-10-minutes">
 <h1>Introduction (duration: 10 minutes)<a class="headerlink" href="#introduction-duration-10-minutes" title="Link to this heading">#</a></h1>
+<p><strong>Project Lifecycle</strong></p>
+<p>This diagram outlines the lifecycle of a machine learning (ML) project, particularly one involving a Large Language Model (LLM) such as GPT. It is divided into three main stages, each with specific steps:</p>
 <ul class="simple">
-<li><p>Project Lifecycle</p></li>
+<li><p>Scope: Define the use case: This is the initial step where the goals, requirements, and problems to be solved by the ML project are clearly defined.
+Select</p></li>
+<li><p>Select: Choose an existing model or pretrain your own: Here, a decision is made whether to utilize an existing pre-trained model or to pretrain a new model from scratch, based on the requirements of the use case.</p></li>
+<li><p>Adapt and Align Model:</p>
+<ul>
+<li><p>Prompt engineering: This involves crafting the inputs (prompts) to the model in such a way that the desired output is more likely to be generated.</p></li>
+<li><p>Fine-tuning: The chosen model is further trained (fine-tuned) on a specific dataset to better perform on tasks related to the use case.</p></li>
+<li><p>Evaluate: The model’s performance is assessed to ensure it meets the defined goals.</p></li>
+<li><p>Align with human feedback: Human judgments are used to guide the model’s outputs, ensuring they align with human values and expectations.</p></li>
 </ul>
+</li>
+<li><p>Application Integration</p>
+<ul>
+<li><p>Optimize and deploy model for inference: The model is optimized for performance (speed and accuracy) and deployed in a production environment where it can be used to make predictions or generate text.</p></li>
+<li><p>Augment model and build LLM-powered applications: The model is potentially augmented with additional capabilities, and applications that leverage the power of the LLM are built around it.</p></li>
+</ul>
+</li>
+</ul>
+<p>Each of these stages is crucial for the successful integration of an LLM into a practical application, and the process is iterative, often requiring multiple cycles through these stages to refine the model and its application.</p>
 <section id="define-the-use-case">
 <h2>Define the Use Case<a class="headerlink" href="#define-the-use-case" title="Link to this heading">#</a></h2>
+<p>Your plan should specify:</p>
+<ul class="simple">
+<li><p>What data will I be using to achieve my research goal?</p></li>
+<li><p>How much data do I need?</p></li>
+<li><p>How will I evaluate LLM output?</p></li>
+<li><p>What counts as good enough?</p></li>
+</ul>
+<p>We won’t go more into this phase of the lifecycle here, but just be aware that everything else, form model choice to data collection follows from getting this part right.</p>
+<p>Your choice of open source model is constrained by the type of use case you are implementing, for example a translation task will use a sequence2sequence architecture and correpsonding model.</p>
 </section>
 <section id="select-a-model">
 <h2>Select a Model<a class="headerlink" href="#select-a-model" title="Link to this heading">#</a></h2>
+<p>There is no question that proprietary models currently have an edge in many areas of performance. For example, the current Chatbot leaderboard [scroll down and show screenshot] is dominated by closed-source, proprietary systems.</p>
+<p>Why then, would you choose to use an open source LLM? There are a variety of reasons:</p>
+<ul class="simple">
+<li><p>Reproducibility</p></li>
+<li><p>Data privacy</p></li>
+<li><p>Flexibility to adapt a model</p></li>
+<li><p>Cost at inference time</p></li>
+</ul>
 </section>
 <section id="adapt-the-model">
 <h2>Adapt the Model<a class="headerlink" href="#adapt-the-model" title="Link to this heading">#</a></h2>
