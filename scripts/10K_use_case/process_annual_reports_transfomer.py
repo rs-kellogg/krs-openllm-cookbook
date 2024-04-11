@@ -63,8 +63,9 @@ def main(
     assert cache_dir.exists() and cache_dir.is_dir()
     assert input_dir.exists() and input_dir.is_dir()
     assert num_files > 0
-    touch(exist_ok=True)
+    output_file.touch(exist_ok=True)
 
+    # set the huggingface model directory
     os.environ["HF_HOME"] = str(cache_dir)
 
     # get listing of 10K files
@@ -75,8 +76,7 @@ def main(
     data_dict = {"doc": [], "text": []}
     for f in files:
         print(f"loading: {f.name}")
-        text = clean_html(f.read_text())
-        mda_text = extract_mda(text)
+        mda_text = extract_mda(clean_html(f.read_text()))
         if mda_text is None:
             continue
         data_dict["doc"].append(f.name)
