@@ -61,9 +61,9 @@ def main(
 
     # validate input parameters
     assert cache_dir.exists() and cache_dir.is_dir()
-    assert input_dir.exists() && input_dir.is_dir()
+    assert input_dir.exists() and input_dir.is_dir()
     assert num_files > 0
-    os.environ["HF_HOME"] = cache_dir
+    os.environ["HF_HOME"] = str(cache_dir)
 
     # get listing of 10K files
     files = list(input_dir.glob("*.txt"))[:num_files]
