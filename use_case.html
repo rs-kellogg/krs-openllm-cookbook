@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Example Use Case &#8212; Kellogg Research Support Open Source LLM Cookbook</title>
+    <title>Example Use Case: 10K Processing &#8212; Kellogg Research Support Open Source LLM Cookbook</title>
   
   
   
@@ -176,8 +176,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="slurm_gpu_usage.html">Using GPUs at Northwestern</a></li>
 <li class="toctree-l1"><a class="reference internal" href="transformers.html">Using Transformers to run LLMs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="llama-cpp.html">Using Llama_cpp_python to run LLMs</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Example Use Case</a></li>
-
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Example Use Case: 10K Processing</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Advanced Techniques</span></p>
 <ul class="nav bd-sidenav">
@@ -358,9 +357,7 @@ document.write(`
   </button>
 `);
 </script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="fa-solid fa-list"></span>
-</label>
+
 </div></div>
       
     </div>
@@ -371,21 +368,11 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Example Use Case</h1>
+    <h1>Example Use Case: 10K Processing</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
-            <div>
-                <h2> Contents </h2>
-            </div>
-            <nav aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Example Use Case</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#k-processing">10K Processing</a></li>
-</ul>
-
-            </nav>
         </div>
     </div>
 </div>
@@ -395,12 +382,131 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section id="example-use-case">
-<h1>Example Use Case<a class="headerlink" href="#example-use-case" title="Permalink to this heading">#</a></h1>
-</section>
-<section id="k-processing">
-<h1>10K Processing<a class="headerlink" href="#k-processing" title="Permalink to this heading">#</a></h1>
-<p>Processing 10K forms, demonstrate reproducibility principle, use transformers</p>
+  <section id="example-use-case-10k-processing">
+<h1>Example Use Case: 10K Processing<a class="headerlink" href="#example-use-case-10k-processing" title="Permalink to this heading">#</a></h1>
+<div class="important admonition">
+<p class="admonition-title"><a class="reference external" href="https://www.investopedia.com/terms/1/10-k.asp">10-K filings</a></p>
+<p>Our objective: produce summaries of (portions of) 10-K filings</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>All 10-K documents are available on KLC (up to 2024)</p>
+<figure class="align-default" id="k-klc">
+<a class="reference internal image-reference" href="_images/10-K-klc.png"><img alt="_images/10-K-klc.png" src="_images/10-K-klc.png" style="width: 900px;" /></a>
+</figure>
+</div>
+<div class="admonition-find-a-model admonition">
+<p class="admonition-title">Find a Model</p>
+<p>We can search for a summarization model on the <a class="reference external" href="https://huggingface.co/Falconsai/text_summarization">Hugging Face Model Hub</a></p>
+</div>
+<div class="admonition-create-a-summarization-pipeline admonition">
+<p class="admonition-title">Create a Summarization Pipeline</p>
+<p>Full script <a class="reference external" href="https://github.com/rs-kellogg/krs-openllm-cookbook/blob/main/scripts/10K_use_case/process_annual_reports_transfomer.py">here</a></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">main</span><span class="p">(</span>
+    <span class="n">cache_dir</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;/projects/kellogg/.cache&quot;</span><span class="p">),</span>
+    <span class="n">input_dir</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;/kellogg/data/EDGAR/10-K/2023&quot;</span><span class="p">),</span>
+    <span class="n">output_file</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;/projects/kellogg/output/annual_report_output.csv&quot;</span><span class="p">),</span>
+    <span class="n">model_checkpoint</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;Falconsai/text_summarization&quot;</span><span class="p">,</span>
+    <span class="n">num_files</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="c1"># validate input parameters</span>
+    <span class="k">assert</span> <span class="n">cache_dir</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span> <span class="ow">and</span> <span class="n">cache_dir</span><span class="o">.</span><span class="n">is_dir</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="n">input_dir</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span> <span class="ow">and</span> <span class="n">input_dir</span><span class="o">.</span><span class="n">is_dir</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="n">num_files</span> <span class="o">&gt;</span> <span class="mi">0</span>
+    <span class="n">output_file</span><span class="o">.</span><span class="n">touch</span><span class="p">(</span><span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># set the huggingface model directory</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;HF_HOME&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">cache_dir</span><span class="p">)</span>
+
+    <span class="c1"># get listing of 10K files</span>
+    <span class="n">files</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">input_dir</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;*.txt&quot;</span><span class="p">))[:</span><span class="n">num_files</span><span class="p">]</span>
+    <span class="n">files</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+
+    <span class="c1"># load and clean text, extr</span>
+    <span class="n">data_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;doc&quot;</span><span class="p">:</span> <span class="p">[],</span> <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="p">[]}</span>
+    <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;loading: </span><span class="si">{</span><span class="n">f</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">mda_text</span> <span class="o">=</span> <span class="n">extract_mda</span><span class="p">(</span><span class="n">clean_html</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read_text</span><span class="p">()))</span>
+        <span class="k">if</span> <span class="n">mda_text</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="n">data_dict</span><span class="p">[</span><span class="s2">&quot;doc&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="n">data_dict</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mda_text</span><span class="p">)</span>
+
+    <span class="c1"># create a dataset object</span>
+    <span class="n">dataset_10k</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">data_dict</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;created dataset: </span><span class="si">{</span><span class="n">dataset_10k</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="c1"># apply summarization pipeline to dataset</span>
+    <span class="n">summarizer</span> <span class="o">=</span> <span class="n">pipeline</span><span class="p">(</span><span class="s2">&quot;summarization&quot;</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">model_checkpoint</span><span class="p">)</span>
+    <span class="n">dataset_10k</span> <span class="o">=</span> <span class="n">dataset_10k</span><span class="o">.</span><span class="n">map</span><span class="p">(</span>
+        <span class="k">lambda</span> <span class="n">batch</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;summary&quot;</span><span class="p">:</span> <span class="n">summarizer</span><span class="p">(</span>
+                <span class="n">batch</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">],</span>
+                <span class="n">max_length</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+                <span class="n">min_length</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
+                <span class="n">do_sample</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="n">truncation</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">},</span>
+        <span class="n">batched</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># output to file</span>
+    <span class="n">dataset_10k</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">output_file</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="toggle docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">clean_html</span><span class="p">(</span><span class="n">html</span><span class="p">):</span>
+    <span class="c1"># First we remove inline JavaScript/CSS:</span>
+    <span class="n">cleaned</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;(?is)&lt;(script|style).*?&gt;.*?(&lt;/\1&gt;)&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">html</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+    
+    <span class="c1"># Then we remove html comments. This has to be done before removing regular</span>
+    <span class="c1"># tags since comments can contain &#39;&gt;&#39; characters.</span>
+    <span class="n">cleaned</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;(?s)&lt;!--(.*?)--&gt;[\n]?&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">cleaned</span><span class="p">)</span>
+    
+    <span class="c1"># Next we can remove the remaining tags:</span>
+    <span class="n">cleaned</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;(?s)&lt;.*?&gt;&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="n">cleaned</span><span class="p">)</span>
+    
+    <span class="c1"># Finally, we deal with whitespace</span>
+    <span class="n">cleaned</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;&amp;nbsp;&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="n">cleaned</span><span class="p">)</span>
+    <span class="n">cleaned</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;  &quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="n">cleaned</span><span class="p">)</span>
+    <span class="n">cleaned</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;  &quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="n">cleaned</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">cleaned</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="toggle docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">extract_mda</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="n">mda_text</span> <span class="o">=</span> <span class="kc">None</span>
+    
+    <span class="c1"># obtain the second occurrence of &quot;Discussion and Analysis of Financial Condition&quot; with wildcards</span>
+    <span class="n">pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;Discussion[\s,.-]*and[\s,.-]*Analysis[\s,.-]*of[\s,.-]*Financial[\s,.-]*Condition&quot;</span>
+    <span class="n">mda_matches</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">finditer</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">IGNORECASE</span><span class="p">))</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">mda_matches</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="n">mda_matches</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">mda_text</span> <span class="o">=</span> <span class="n">text</span><span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">end</span><span class="p">():]</span>
+        <span class="k">return</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">mda_text</span><span class="o">.</span><span class="n">split</span><span class="p">()[:</span><span class="mi">250</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">mda_text</span>
+</pre></div>
+</div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Screen video <a class="reference external" href="https://kellogg-shared.s3.us-east-2.amazonaws.com/videos/quest-on-demand-10-k.mp4">here</a> of executing script on Quest GPU node with Slurm script.</p>
+</div>
+<div class="admonition-original-text-snippet admonition">
+<p class="admonition-title">Original text snippet:</p>
+<blockquote>
+<div><p>In addition, the spread of COVID-19 has caused us to modify our business practices (including restricting employee travel, developing social distancing plans for our employees and cancelling physical participation in meetings, events and conferences), and we may take further actions as may be required by government authorities or as we determine is in the best interests of our employees, partners and customers. The outbreak has adversely impacted and may further adversely impact our workforce and operations and the operations of our partners, customers, suppliers and third-party vendors, throughout the time period during which the spread of COVID-19 continues and related restrictions remain in place, and even after the COVID-19 outbreak has subsided.   Even after the COVID-19 outbreak has subsided and despite the formal declaration of the end of the COVID-19 global health emergency by the World Health Organization in May 2023, our business may continue to experience materially adverse impacts as a result of the virus’s economic impact, including the availability and cost of funding and any recession that has occurred or may occur in the future. There are no comparable recent events that provide guidance as to the effect COVID-19 as a global pandemic may have, and, as a result, the ultimate impact of the outbreak is highly uncertain and subject to change.   Additionally, many of the other risk factors described below are heightened by the effects of the COVID-19 pandemic and related economic conditions, which in turn could materially adversely affect…</p>
+</div></blockquote>
+</div>
+<div class="admonition-summary admonition">
+<p class="admonition-title">Summary:</p>
+<blockquote>
+<div><p>the spread of COVID-19 has caused us to modify our business practices . The outbreak has adversely impacted and may further adversely impact our workforce and operations and the operations of our partners, customers, suppliers and third-party vendors</p>
+</div></blockquote>
+</div>
 </section>
 
     <script type="text/x-thebe-config">
@@ -457,22 +563,6 @@ document.write(`
             </div>
             
             
-              
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-  <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> Contents
-  </div>
-  <nav class="bd-toc-nav page-toc">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Example Use Case</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#k-processing">10K Processing</a></li>
-</ul>
-
-  </nav></div>
-
-</div></div>
               
             
           </div>
