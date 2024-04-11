@@ -1,5 +1,7 @@
 # Introduction
 
+Welcome to the workshop on using open-source Large Language Models (henceforth: LLMs) at Kellogg. Some of you may have attended our last workshop on using OpenAI. This one shares some themes, but focuses on isses that are relevant to getting open source models to run effectively using on-prem resources. We will show you how to select an open source model, run it on Northwestern Graphics Procssing Units (GPUs), and how to improve peformance both through offline training and online augmentation with external resources. To get the ball rolling, let's take a quick look at the following project lifecycle diagram.
+
 __Project Lifecycle__
 
 This diagram outlines the lifecycle of a machine learning (ML) project, particularly one involving a Large Language Model (LLM) such as GPT. It is divided into three main stages, each with specific steps:
