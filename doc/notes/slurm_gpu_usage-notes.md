@@ -14,6 +14,8 @@ To overcome this basic fact of nature, most computers now ship with "multi-core"
 
 This is where GPUs come in. GPUs were developed (obvsiously) for displaying graphics, which involves vast number of vector and matrix operations on floating point numbers, much of which can be executed in parallel. It turns out this is exactly what is needed for training and running neural network deep learning models, and they were borrowed for this purpose. An Nvidia A100 GPU has several thousand cores, and the H100 chip has around 15,000!
 
+Now many of you will have heard of something called "CUDA", and maybe have some vague ideas about its relationship to GPUs. CUDA is a software platform created by Nvida to enable software engineers to use Nvidia GPUs, putting objects in its memory, controlling parallism, getting the output back into normal RAM. Most of us will never touch CUDA directly, as shown in this software stack. However, can be good to know which version of CUDA is supported on whatever machine your using, as the installed software layers up this stack must be configured appropriately.
+
 ## Sample Python GPU Code
 
 ## Slurm Script to Access GPU Nodes
