@@ -543,14 +543,17 @@ document.write(`
 <p class="admonition-title"><font color='purple'><em>Northwestern</em></font> GPU Resources</p>
 <p><a class="reference external" href="https://services.northwestern.edu/TDClient/30/Portal/KB/ArticleDet?ID=1112">Quest</a> has dozens of Nvidia-based GPU nodes available for use. We will show you how to access them via a Jupyter notebook using <a class="reference external" href="https://services.northwestern.edu/TDClient/30/Portal/KB/ArticleDet?ID=2234">Quest on Demand</a> and using the <a class="reference external" href="https://services.northwestern.edu/TDClient/30/Portal/KB/ArticleDet?ID=1964">Slurm scheduler</a>. Both of these methods require that you are part of a Quest allocation.</p>
 </div>
-<div class="admonition-for-the-kellogg-community-only admonition">
-<p class="admonition-title"><em>For the Kellogg Community Only</em></p>
-<p>We are in the process of setting up GPU nodes for exclusive use by the Kellogg research community as part of the <a class="reference external" href="https://www.kellogg.northwestern.edu/academics-research/research-support/computing/kellogg-linux-cluster.aspx">Kellogg Linux Cluster</a>. Accessing these nodes will be identical to accessing GPU nodes on Quest, but will require only a KLC account and not a separate Quest allocation.</p>
-<figure class="align-default" id="klc-announcment">
-<img alt="_images/KLC-announcement.png" src="_images/KLC-announcement.png" />
-</figure>
-</div>
-<div class="admonition-font-color-purple-pytorch-gpu-test-sh-font admonition">
+<!-- :::{admonition} _For the Kellogg Community Only_
+
+
+We are in the process of setting up GPU nodes for exclusive use by the Kellogg research community as part of the [Kellogg Linux Cluster](https://www.kellogg.northwestern.edu/academics-research/research-support/computing/kellogg-linux-cluster.aspx). Accessing these nodes will be identical to accessing GPU nodes on Quest, but will require only a KLC account and not a separate Quest allocation.
+
+```{figure} ./images/KLC-announcement.png
+---
+width: auto
+name: KLC-announcment
+---
+::: --><div class="admonition-font-color-purple-pytorch-gpu-test-sh-font admonition">
 <p class="admonition-title"><font color='purple'><em>pytorch_gpu_test.sh</em></font></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
@@ -586,7 +589,7 @@ document.write(`
 <li><p><code class="docutils literal notranslate"><span class="pre">--mem</span></code> specifies how much memory you are requesting.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--output</span></code> specifies the path and file where the stdout and stderr output streams will get saved.</p></li>
 </ul>
-<p>After accessing the GPU node, the script loads python and activates the <font color='purple'><strong>gpu-pytorch</strong></font> environment.  Finally it launches the python code.</p>
+<p>After accessing the GPU node, the script loads python and activates the <font color='purple'>llm-test-env</font> conda environmen, which has all the necessary python packages installed. Finally it executes the python code.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
