@@ -1,12 +1,13 @@
 
+
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="./" >
+<html lang="en" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>Using Llama-cpp-python to run LLMs &#8212; Kellogg Research Support Open Source LLM Cookbook</title>
   
@@ -18,45 +19,49 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
-    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
-    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
-  <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
 
-    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
-    <script src="_static/doctools.js?v=888ff710"></script>
-    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
-    <script src="_static/copybutton.js?v=f281be69"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="_static/design-tabs.js?v=36754332"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'llama-cpp';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -71,9 +76,10 @@
 
   
   
-  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
   
   <div id="pst-scroll-pixel-helper"></div>
+
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
     <i class="fa-solid fa-arrow-up"></i>
@@ -114,14 +120,11 @@
 </form></div>
   </div>
   
-    <header class="bd-header navbar navbar-expand-lg bd-navbar">
-    </header>
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
   
-
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
-      
-      
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -136,7 +139,6 @@
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
-
   
 
 <a class="navbar-brand logo" href="welcome.html">
@@ -155,18 +157,7 @@
   
   
 </a></div>
-        <div class="sidebar-primary-item">
-
- <script>
- document.write(`
-   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
-        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -349,7 +340,6 @@
 </button>
 
 
-
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
@@ -359,7 +349,6 @@ document.write(`
   </button>
 `);
 </script>
-
 
 <script>
 document.write(`
@@ -393,7 +382,7 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-workflow"><strong>Basic Workflow</strong></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#architecture-improvements"><strong>Architecture Improvements</strong></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantized-models-what-is-gguf"><strong>Quantized Models - What is GGUF?</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantized-models-what-is-gguf-font"><strong>Quantized Models - What is GGUF?</strong></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tradeoffs-between-tools"><strong>Tradeoffs between Tools</strong></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#run-gemma-model"><strong>Run Gemma model</strong></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#run-mistral-model"><strong>Run Mistral model</strong></a></li>
@@ -408,13 +397,13 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article">
+                <article class="bd-article" role="main">
                   
   <section id="using-llama-cpp-python-to-run-llms">
-<h1>Using Llama-cpp-python to run LLMs<a class="headerlink" href="#using-llama-cpp-python-to-run-llms" title="Link to this heading">#</a></h1>
+<h1>Using Llama-cpp-python to run LLMs<a class="headerlink" href="#using-llama-cpp-python-to-run-llms" title="Permalink to this heading">#</a></h1>
 <p>Much like Tranformers, <code class="docutils literal notranslate"><span class="pre">LLaMa.cpp</span> <span class="pre">(or</span> <span class="pre">LLaMa</span> <span class="pre">C++)</span></code> is a tool or framework to run an open-source LLM. We’ll compare the frameworks and demonstrate how to use the Python wrapper for it: <font color='purple'><strong>llama-cpp-python</strong></font>.</p>
 <section id="basic-workflow">
-<h2><strong>Basic Workflow</strong><a class="headerlink" href="#basic-workflow" title="Link to this heading">#</a></h2>
+<h2><strong>Basic Workflow</strong><a class="headerlink" href="#basic-workflow" title="Permalink to this heading">#</a></h2>
 <p>Arguably, <font color='purple'><strong>llama-cpp-python</strong></font> is simpler to use than the Transformers library for running LLMs. Unlike Transformers, you don’t need to be familiar with PyTorch or the intricacies of token conversion and decoding. <font color='purple'><strong>Llama-cpp-python</strong></font> takes care of these technical details under the hood, allowing you to focus on feeding it text and getting results directly.</p>
 <p><strong>1. Load the model:</strong></p>
 <p>Load the model in a <font color='purple'><strong>GGUF</strong></font> format <em>(explained in more detail later)</em>.</p>
@@ -424,7 +413,7 @@ document.write(`
 <p>Retrieve the text response with no decoding necessary.</p>
 </section>
 <section id="architecture-improvements">
-<h2><strong>Architecture Improvements</strong><a class="headerlink" href="#architecture-improvements" title="Link to this heading">#</a></h2>
+<h2><strong>Architecture Improvements</strong><a class="headerlink" href="#architecture-improvements" title="Permalink to this heading">#</a></h2>
 <p>Since Transformers and <code class="docutils literal notranslate"><span class="pre">LLaMa.cpp</span></code> are both derived from the Transformer architecture, they follow similar processing steps.  However, <code class="docutils literal notranslate"><span class="pre">LLaMa.cpp</span></code> applies some improvements that make it slightly more efficient and easier to run.  The diagram below details the difference between the Llama and Transformer architecture.</p>
 <!-- <div style="text-align:center">
     <img src="./images/architectures.png" width="700">
@@ -443,8 +432,8 @@ document.write(`
 <li><p><strong>Simpler positioning</strong>: LLaMA incorporates <strong>rotary embeddings</strong> which track word order in a more efficient way compared to absolute positional embeddings. Imagine that the frets at different positions of your guitar neck were color-coded instead of just metal bars. This makes it quicker to find the right notes on the fretboard.</p></li>
 </ul>
  <!-- Imagine using color-coded ingredients (rotary) instead of labels (absolute) to keep track in a recipe--></section>
-<section id="quantized-models-what-is-gguf">
-<h2><strong>Quantized Models - What is GGUF?</strong></font><a class="headerlink" href="#quantized-models-what-is-gguf" title="Link to this heading">#</a></h2>
+<section id="quantized-models-what-is-gguf-font">
+<h2><strong>Quantized Models - What is GGUF?</strong></font><a class="headerlink" href="#quantized-models-what-is-gguf-font" title="Permalink to this heading">#</a></h2>
 <p>In order to run an LLM, <font color='purple'><strong>llama-cpp-python</strong></font> requires the model’s parameters – the building blocks of its knowledge. These are stored as complex, multidimensional arrays of values called <strong>tensors</strong>. In machine learning a tensor shows the values of nodes in a neural network.</p>
 <p><img alt="tensor" src="_images/tensor.png" /></p>
 <p>The data type chosen for these tensors (like Float64, Float16, or even integers) impacts both accuracy and memory usage. You can think of the data type as the number of “digits” used to represent the information in memory:</p>
@@ -466,7 +455,7 @@ document.write(`
 <p>While you can create your own <font color='purple'><strong>GGUF</strong></font> files for most models, it’s also possible to download these files from Hugging Face. The <font color='purple'><strong>GGUF</strong></font> files for llama2 can be found here: <a class="reference external" href="https://huggingface.co/TheBloke/Llama-2-7B-GGUF">https://huggingface.co/TheBloke/Llama-2-7B-GGUF</a>.</p>
 </section>
 <section id="tradeoffs-between-tools">
-<h2><strong>Tradeoffs between Tools</strong><a class="headerlink" href="#tradeoffs-between-tools" title="Link to this heading">#</a></h2>
+<h2><strong>Tradeoffs between Tools</strong><a class="headerlink" href="#tradeoffs-between-tools" title="Permalink to this heading">#</a></h2>
 <p>Even though the architecture and basic steps suggest that <font color='purple'><strong>llama-cpp-python</strong></font> might be easier to run and more efficient than the python Transformers library, the improvements come with some tradeoffs.</p>
 <ul class="simple">
 <li><p><strong>Inference only</strong>: <font color='purple'><strong>llama-cpp-python</strong></font> is primarily for running inference (using the model to generate text). Transformers offer more comprehensive functionality for model development and experimentation, which makes it easier to fine-tune or perform RAG using Transformers.</p></li>
@@ -487,7 +476,7 @@ document.write(`
 </ul>
 </section>
 <section id="run-gemma-model">
-<h2><strong>Run Gemma model</strong><a class="headerlink" href="#run-gemma-model" title="Link to this heading">#</a></h2>
+<h2><strong>Run Gemma model</strong><a class="headerlink" href="#run-gemma-model" title="Permalink to this heading">#</a></h2>
 <p>Here is some sample code to run a single prompt with the gemma 7B instruct model:</p>
 <p><font color='purple'><strong>Python script</strong></font></p>
 <div class="cell docutils container">
@@ -897,17 +886,17 @@ Run Time: 108.66637086868286
 </div>
 </section>
 <section id="run-mistral-model">
-<h2><strong>Run Mistral model</strong><a class="headerlink" href="#run-mistral-model" title="Link to this heading">#</a></h2>
+<h2><strong>Run Mistral model</strong><a class="headerlink" href="#run-mistral-model" title="Permalink to this heading">#</a></h2>
 <p>Please see <a class="reference external" href="https://github.com/rs-kellogg/krs-openllm-cookbook/blob/main/scripts/llama_cpp_python/mistral_ex.py">scripts/llama_cpp_python/misral_ex.py</a>.</p>
 <p>Note that you can download this file from Hugging Face here: <a class="reference external" href="https://huggingface.co/TheBloke/Mistral-7B-v0.1-GGUF">https://huggingface.co/TheBloke/Mistral-7B-v0.1-GGUF</a></p>
 </section>
 <section id="run-llama2-model">
-<h2><strong>Run llama2 model</strong><a class="headerlink" href="#run-llama2-model" title="Link to this heading">#</a></h2>
+<h2><strong>Run llama2 model</strong><a class="headerlink" href="#run-llama2-model" title="Permalink to this heading">#</a></h2>
 <p>Please see <a class="reference external" href="https://github.com/rs-kellogg/krs-openllm-cookbook/blob/main/scripts/llama_cpp_python/llama2_ex.py">scripts/llama_cpp_python/llama2_ex.py</a>.</p>
 <p>Note that you can download this file from Hugging Face here:  <a class="reference external" href="https://huggingface.co/TheBloke/Llama-2-7B-Chat-GGUF">https://huggingface.co/TheBloke/Llama-2-7B-Chat-GGUF</a></p>
 </section>
 <section id="reference-sources">
-<h2><strong>Reference Sources</strong><a class="headerlink" href="#reference-sources" title="Link to this heading">#</a></h2>
+<h2><strong>Reference Sources</strong><a class="headerlink" href="#reference-sources" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://github.com/ggerganov/llama.cpp">Llama.cpp Git Repo</a></p></li>
 <li><p><a class="reference external" href="https://github.com/abetlen/llama-cpp-python">Llama.cpp.python Git Repo</a></p></li>
@@ -949,7 +938,7 @@ Run Time: 108.66637086868286
               
               
                 <footer class="prev-next-footer">
-                  
+                  <!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="transformers.html"
@@ -978,7 +967,6 @@ Run Time: 108.66637086868286
               
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
-
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
     <i class="fa-solid fa-list"></i> Contents
@@ -987,7 +975,7 @@ Run Time: 108.66637086868286
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-workflow"><strong>Basic Workflow</strong></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#architecture-improvements"><strong>Architecture Improvements</strong></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantized-models-what-is-gguf"><strong>Quantized Models - What is GGUF?</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quantized-models-what-is-gguf-font"><strong>Quantized Models - What is GGUF?</strong></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tradeoffs-between-tools"><strong>Tradeoffs between Tools</strong></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#run-gemma-model"><strong>Run Gemma model</strong></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#run-mistral-model"><strong>Run Mistral model</strong></a></li>
@@ -1014,10 +1002,9 @@ By Kellogg Research Support
   
   <div class="footer-item">
     
-
   <p class="copyright">
     
-      © Copyright 2023.
+      © Copyright 2022.
       <br/>
     
   </p>
@@ -1041,8 +1028,8 @@ By Kellogg Research Support
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+  <script src="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
 
   <footer class="bd-footer">
   </footer>
