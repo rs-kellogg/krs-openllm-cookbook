@@ -184,7 +184,7 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="slurm_gpu_usage.html">Using GPUs at Northwestern</a></li>
 <li class="toctree-l1"><a class="reference internal" href="transformers.html">Using Transformers to run LLMs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="llama-cpp.html">Using Llama_cpp_python to run LLMs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="llama-cpp.html">Using Llama-cpp-python to run LLMs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="use_case.html">Example Use Case: 10K Processing</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Advanced Techniques</span></p>
@@ -391,16 +391,17 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tradeoffs-between-techniques"><font color="purple"><em>Tradeoffs between Techniques</em></font></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-and-test-original-model"><font color="purple"><em>Load and Test Original Model</em></font></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prepare-dataset"><font color="purple"><em>Prepare Dataset</em></font></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fine-tuning-steps"><font color="purple"><em>Fine Tuning Steps</em></font></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#techniques"><font color="purple"><strong>Techniques</strong></font></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1"><font color="purple"><strong>Fine-Tuning Steps</strong></font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-you-need"><strong>What you need</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#when-to-use-it"><strong>When to use it</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-test-base-models"><strong>Step 1 - Test base models</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-prepare-dataset"><strong>Step 2 - Prepare Dataset</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3-fine-tune"><strong>Step 3 - Fine Tune</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#techniques"><font color="purple"><em>Techniques</em></font></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#steps"><font color="purple"><em>Steps</em></font></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#test-fine-tuned-model"><font color="purple"><em>Test Fine-Tuned Model</em></font></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reference-sources"><font color="purple"><em>Reference Sources</em></font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-4-test-fine-tuned-model">Step 4 - Test Fine-tuned Model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reference-sources"><strong>Reference Sources</strong></a></li>
 </ul>
             </nav>
         </div>
@@ -414,43 +415,54 @@ document.write(`
                   
   <section id="fine-tuning">
 <h1>Fine-Tuning<a class="headerlink" href="#fine-tuning" title="Link to this heading">#</a></h1>
-<p><font color='purple'><strong>Fine-tuning</strong></font> takes large language models beyond basic prompting. It allows you to train the model on a larger dataset specifically tailored to your desired task, leading to several advantages:</p>
+<p><font color='purple'><strong>Fine-tuning</strong></font> is a supervised learning process that uses a data set of labeled examples to update the weights of an LLM. The labeled examples or prompt-completion pairs are used to improve the LLM’s ability to generate good completions for a specific task.</p>
+<p><img alt="finetune" src="_images/finetuning.png" /></p>
+<p><font color='purple'><strong>Fine-tuning</strong></font> takes LLMs beyond basic prompting by allowing you to train a model on a larger dataset specifically tailored to your desired task, leading to several advantages:</p>
 <ul class="simple">
 <li><p><em><strong>Superior Results</strong></em>: Compared to prompting, fine-tuning delivers higher quality outputs because the model learns directly from a wider range of examples.</p></li>
 <li><p><em><strong>Efficiency</strong></em>: You can train on more data than can fit in a single prompt, saving on token usage and reducing latency for requests.</p></li>
 <li><p><em><strong>Specificity</strong></em>: Fine-tuning excels at tasks requiring specific styles, tones, formats, or consistent outputs. It enhances reliability in achieving your desired results, handles complex instructions better, and tackles edge cases effectively.</p></li>
 <li><p><em><strong>New Skills</strong></em>: Fine-tuning empowers the model to master new skills or complete tasks that are difficult to articulate through simple prompts.</p></li>
 </ul>
-<section id="tradeoffs-between-techniques">
-<h2><font color='purple'><em>Tradeoffs between Techniques</em></font><a class="headerlink" href="#tradeoffs-between-techniques" title="Link to this heading">#</a></h2>
+<section id="what-you-need">
+<h2><strong>What you need</strong><a class="headerlink" href="#what-you-need" title="Link to this heading">#</a></h2>
+<p><font color='purple'><strong>Fine-tuning</strong></font> is a <strong>time-intensive</strong> process that requires:</p>
+<p><strong>1.) <font color='purple'>a ground-truth dataset</strong></font> -  This is a comprehensive and high-quality dataset that the model can learn from. It should be representative of the problem space and contain examples of the types of tasks you want the model to perform.</p>
+<p><strong>2.) <font color='purple'>intricate code</strong></font> - Fine-tuning a model is not a straightforward process. It requires intricate, carefully crafted code that can effectively guide the model’s learning process. This includes setting up the learning rate, batch size, number of epochs, and other hyperparameters, as well as implementing the training loop.</p>
+<p><strong>3.) <font color='purple'>iteration</strong></font> - Fine-tuning an LLM is rarely a “one and done” task. It often involves multiple iterations of training, evaluation, and refinement. After each round of training, the model’s performance should be evaluated using a separate validation dataset. Based on the results, adjustments may need to be made to the model architecture, hyperparameters, or training data. This iterative process continues until the model’s performance meets the desired criteria.</p>
+</section>
+<section id="when-to-use-it">
+<h2><strong>When to use it</strong><a class="headerlink" href="#when-to-use-it" title="Link to this heading">#</a></h2>
 <p>Before delving into the mechanics of fine-tuning; note that it might not always be the best solution.  Here’s a breakdown of when to apply prompt-engineering, RAG, or fine-tuning:</p>
+<p><font color='purple'><em>Use Prompt Engineering for</em></font>:</p>
 <ul class="simple">
-<li><p><font color='purple'><em>Use Prompt Engineering for</em></font>:</p>
+<li><p>Achieving good results for simpler tasks without extensive training data. You can improve prompts with:</p>
 <ul>
-<li><p>Achieving good results for simpler tasks without extensive training data.</p></li>
-<li><p>Breaking down complex tasks into smaller, sequential prompts for the model to follow (prompt chaining).</p></li>
+<li><p><font color='purple'><strong>Few-shot in-context learning</strong></font> - providing examples of respsonses within the prompt</p></li>
+<li><p><font color='purple'><strong>Prompt chaining</strong></font> - breaking down complex tasks into smaller, sequential prompts for the model to follow.</p></li>
 </ul>
 </li>
-<li><p><font color='purple'><em>Use Retrieval-Augmented Generation (RAG) for</em></font>:</p>
-<ul>
+</ul>
+<p><font color='purple'><em>Use Retrieval-Augmented Generation (RAG) for</em></font>:</p>
+<ul class="simple">
 <li><p>Situations with a large, relevant document database.</p></li>
 <li><p>Tasks requiring factual accuracy where context retrieval is beneficial.</p></li>
 </ul>
-</li>
-<li><p><font color='purple'><em>Use Fine-Tuning for</em></font>:</p>
-<ul>
+<p><font color='purple'><em>Use Fine-Tuning for</em></font>:</p>
+<ul class="simple">
 <li><p>Tasks requiring consistent outputs in a particular style, tone, or format.</p></li>
 <li><p>Achieving specific behaviors from the model.</p></li>
 <li><p>Mastering complex tasks that are difficult to express through simple prompts.</p></li>
 </ul>
-</li>
-</ul>
-<p>Our advice is to experiment with crafting effective instructions and prompts for the model before attempting fine-tuning.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Our advice is to experiment with crafting effective instructions and prompts for the model before attempting fine-tuning. Prompt engineering is low-cost and does not require any programming. Different prompting techniques can be used, such as few-shot in-context learning and chain-of-thought prompts. Fine-tuning requires more effort – it requires a collection of supervised training examples, some programming work, extra GPU resources, and extra storage for a model with updated weights.</p>
+</div>
 </section>
-<section id="load-and-test-original-model">
-<h2><font color='purple'><em>Load and Test Original Model</em></font><a class="headerlink" href="#load-and-test-original-model" title="Link to this heading">#</a></h2>
-<p>In this workshop, we’ll demonstrate how to fine-tune a Mistral model. Mistral is especially apt for performing classification tasks.</p>
-<p>The first step in fine-tuning should always be to properly load and test the out-of-the-box model. The code below loads a quantized Mistral model using Transformers.  It uses the first text example from the <em>AG News</em> dataset on Hugging Face here: <a class="reference external" href="https://huggingface.co/datasets/ag_news">https://huggingface.co/datasets/ag_news</a>.  It asks the model to classify this text into 1 of 4 categories:</p>
+<section id="step-1-test-base-models">
+<h2><strong>Step 1 - Test base models</strong><a class="headerlink" href="#step-1-test-base-models" title="Link to this heading">#</a></h2>
+<p>In this workshop, we’ll demonstrate how to fine-tune a Mistral 7B model. Mistral is especially apt for performing classification tasks.</p>
+<p>The first step in fine-tuning should always be to properly load and test out-of-the-box models.  We recommend trying a few different models and model sizes. The code below loads a quantized Mistral model using Transformers.  It uses the first text example from the <em>AG News</em> dataset on Hugging Face here: <a class="reference external" href="https://huggingface.co/datasets/ag_news">https://huggingface.co/datasets/ag_news</a>.  It asks the model to classify this text into 1 of 4 categories:</p>
 <ul class="simple">
 <li><p>0 - World News</p></li>
 <li><p>1 - Sports</p></li>
@@ -551,9 +563,9 @@ of ultra-cynics, are seeing green again.
 </div>
 <p>You’ll notice that while it provides the correct answer, the response is very verbose.  This a prime example of where fine-tuning can help!</p>
 </section>
-<section id="prepare-dataset">
-<h2><font color='purple'><em>Prepare Dataset</em></font><a class="headerlink" href="#prepare-dataset" title="Link to this heading">#</a></h2>
-<p>As described earlier, we can use the <em>AG News</em> dataset on Hugging Face to fine-tune Mistral 7B.  To apply a training dataset, you need to make sure it is in <strong>json</strong> format with a text column that provides the prompt and response (preferably in the model syntax). You can find <code class="docutils literal notranslate"><span class="pre">prepare_data.py</span></code> script in the <a class="reference external" href="https://github.com/rs-kellogg/krs-openllm-cookbook/tree/main/scripts/fine_tune">scripts/fine_tune</a> folder of our github repo.</p>
+<section id="step-2-prepare-dataset">
+<h2><strong>Step 2 - Prepare Dataset</strong><a class="headerlink" href="#step-2-prepare-dataset" title="Link to this heading">#</a></h2>
+<p>As described earlier, we can use the <em>AG News</em> dataset on <strong>Hugging Face</strong> to fine-tune Mistral 7B.  To apply a training dataset, you need to make sure it is in <strong>json</strong> format with a column that provides the prompt and response (preferably in the model syntax). You can find <code class="docutils literal notranslate"><span class="pre">prepare_data.py</span></code> script in the <a class="reference external" href="https://github.com/rs-kellogg/krs-openllm-cookbook/tree/main/scripts/fine_tune">scripts/fine_tune</a> folder of our github repo.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#############################</span>
@@ -626,20 +638,25 @@ of ultra-cynics, are seeing green again.
 </pre></div>
 </div>
 </section>
-<section id="fine-tuning-steps">
-<h2><font color='purple'><em>Fine Tuning Steps</em></font><a class="headerlink" href="#fine-tuning-steps" title="Link to this heading">#</a></h2>
+<section id="step-3-fine-tune">
+<h2><strong>Step 3 - Fine Tune</strong><a class="headerlink" href="#step-3-fine-tune" title="Link to this heading">#</a></h2>
 <p>Once the data is prepared, we can fine-tune the pre-trained Mistral model using a combination of techniques for efficiency and effectiveness.</p>
 <section id="techniques">
-<h3><font color='purple'><strong>Techniques</strong></font><a class="headerlink" href="#techniques" title="Link to this heading">#</a></h3>
+<h3><font color='purple'><em>Techniques</em></font><a class="headerlink" href="#techniques" title="Link to this heading">#</a></h3>
 <ul class="simple">
-<li><p><font color='purple'><strong>PEFT (Parameter-Efficient Fine-Tuning)</strong></font>: Imagine a large toolbox filled with tools. Standard fine-tuning would pull out every tool and try to adjust them all. PEFT, however, uses “adapter modules” like smaller, specialized toolkits. These focus updates on the most relevant parts of the model, saving time and resources by not retraining everything.</p></li>
-<li><p><font color='purple'><strong>LoRA (Low-Rank Adaptation)</strong></font>: When fine-tuning, it’s crucial to identify the areas of the model most important for the new task. LoRA acts like a spotlight, shining on these key areas within the vast network. PEFT then utilizes this information to target those specific parts with the adapter modules for focused updates.</p></li>
-<li><p><font color='purple'><strong>SFT (Supervised Fine-Tuning)</strong></font>: Fine-tuning involves adjusting the model’s internal parameters. Standard training might make large, abrupt changes. SFT takes a gentler approach, making smaller, more nuanced adjustments. This allows the model to refine its understanding of the data without drastically altering its existing knowledge, potentially leading to better overall performance.</p></li>
+<li><p><font color='purple'><strong>Full Fine-Tuning</strong></font>: involves adjusting <strong>all the parameters</strong> of the LLM during the training process. This approach allows the model to fully adapt to the new task, potentially leading to higher performance. However, it requires a large amount of data and computational resources, and there’s a risk of <strong>catastrophic forgetting</strong> (the model could forget to do tasks it could before.)</p></li>
+<li><p><font color='purple'><strong>Partially Embedded Fine-Tuning (PEFT)</strong></font>, on the other hand, <strong>only fine-tunes a subset of the model’s parameters</strong>. This strategy requires less memory and computational resources to perform, making it a more efficient choice in certain scenarios. By only updating a portion of the model, it may not be as effective when the model needs to significantly alter its initial learning or “forget” tasks it initially performed poorly. Two of the most effective PEFT methods are:</p>
+<ul>
+<li><p><strong>Reparameterization</strong> - reparameterizes model weights into a low-rank format. One example is <font color='purple'><strong>LoRA (Low-Rank Adaptation)</strong></font>, which uses rank decomposition matrices to efficiently update model parameters.</p></li>
+<li><p><strong>Additive</strong> - freezes all the original LLM weights while adding trainable layers or paramters to the model. One example is called <strong>prompt tuning</strong> that freezes model weights, but adds trainable tokens (<strong>soft prompts</strong>) to the prompt embeddings.  This only updates the prompt weights.</p></li>
 </ul>
+</li>
+</ul>
+<p><img alt="lora" src="_images/lora.png" /></p>
 </section>
-<section id="id1">
-<h3><font color='purple'><strong>Fine-Tuning Steps</strong></font><a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
-<p>Today we’ll load a pre-trained Mistral model and prepare it for training. We then identify the most important parts in the model using LoRA. These modules are targeted in the PEFT process. The model is then fine-tuned using the SFTTrainer, which uses the SFT method to update the model parameters.</p>
+<section id="steps">
+<h3><font color='purple'><em>Steps</em></font><a class="headerlink" href="#steps" title="Link to this heading">#</a></h3>
+<p>We’ll load a pre-trained Mistral model and prepare it for training. We then identify the most important parts in the model using LoRA. These modules are targeted in the PEFT process. The model is then fine-tuned using the SFTTrainer, which uses the SFT method to update the model parameters.</p>
 <p>After the fine-tuning process, we save the fine-tuned model. Then, we loads the base model and the fine-tuned model, and merge them together. The merged model is then saved for future use. This merging process allows the fine-tuned model to benefit from the knowledge in the base model, while also incorporating the updates made during the fine-tuning process.</p>
 <p>You can find <code class="docutils literal notranslate"><span class="pre">fine_tune.py</span></code> script in the <a class="reference external" href="https://github.com/rs-kellogg/krs-openllm-cookbook/tree/main/scripts/fine_tune">scripts/fine_tune</a> folder of our github repo.</p>
 <div class="cell docutils container">
@@ -762,8 +779,8 @@ of ultra-cynics, are seeing green again.
 </div>
 </section>
 </section>
-<section id="test-fine-tuned-model">
-<h2><font color='purple'><em>Test Fine-Tuned Model</em></font><a class="headerlink" href="#test-fine-tuned-model" title="Link to this heading">#</a></h2>
+<section id="step-4-test-fine-tuned-model">
+<h2>Step 4 - Test Fine-tuned Model<a class="headerlink" href="#step-4-test-fine-tuned-model" title="Link to this heading">#</a></h2>
 <p>Finally, we can test the fine-tuned model on our test dataset. Here we’ll revisit our initial query. You can find <code class="docutils literal notranslate"><span class="pre">query_finetune.py</span></code> script in the <a class="reference external" href="https://github.com/rs-kellogg/krs-openllm-cookbook/tree/main/scripts/fine_tune">scripts/fine_tune</a> folder of our github repo.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -825,9 +842,8 @@ of ultra-cynics, are seeing green again.
 </div>
 </div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Output from fine tuned model
-
-/kellogg/software/envs/gpu-llama2/lib/python3.10/site-packages/diffusers/utils/outputs.py:63: UserWarning: torch.utils._pytree._register_pytree_node is deprecated. Please use torch.utils._pytree.register_pytree_node instead.
+<p><strong>Output:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>/kellogg/software/envs/gpu-llama2/lib/python3.10/site-packages/diffusers/utils/outputs.py:63: UserWarning: torch.utils._pytree._register_pytree_node is deprecated. Please use torch.utils._pytree.register_pytree_node instead.
   torch.utils._pytree._register_pytree_node(
 /kellogg/software/envs/gpu-llama2/lib/python3.10/site-packages/diffusers/utils/outputs.py:63: UserWarning: torch.utils._pytree._register_pytree_node is deprecated. Please use torch.utils._pytree.register_pytree_node instead.
   torch.utils._pytree._register_pytree_node(
@@ -852,13 +868,14 @@ of ultra-cynics, are seeing green again.
 <p>While the output still contains slightly more text than we requested, it still provides a concise response of <code class="docutils literal notranslate"><span class="pre">class</span> <span class="pre">2</span> <span class="pre">-</span> <span class="pre">Business</span></code>.</p>
 </section>
 <section id="reference-sources">
-<h2><font color='purple'><em>Reference Sources</em></font><a class="headerlink" href="#reference-sources" title="Link to this heading">#</a></h2>
+<h2><strong>Reference Sources</strong><a class="headerlink" href="#reference-sources" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://adithyask.medium.com/a-beginners-guide-to-fine-tuning-mistral-7b-instruct-model-0f39647b20fe">A Beginner’s Guide to Fine-Tuning Mistral-7B Instruct Model</a></p></li>
 <li><p><a class="reference external" href="https://adithyask.medium.com/a-beginners-guide-to-fine-tuning-mistral-7b-instruct-model-0f39647b20fe">Running Fine Tuning with qlora and sft</a></p></li>
 <li><p><a class="reference external" href="https://github.com/adithya-s-k/LLM-Alchemy-Chamber/blob/main/LLMs/Mistral-7b/Mistral_Colab_Finetune_ipynb_Colab_Final.ipynb?source=post_page-----0f39647b20fe--------------------------------">Mistral Colab Finetune Notebook</a></p></li>
 <li><p><a class="reference external" href="https://huggingface.co/docs/trl/main/en/sft_trainer">Explanation for SFT</a></p></li>
 <li><p><a class="reference external" href="https://blog.paperspace.com/mistral-7b-fine-tuning/">Explanation for qlora, quantization, and finetuning</a></p></li>
+<li><p><a class="reference external" href="https://www.ml6.eu/blogpost/low-rank-adaptation-a-technical-deep-dive">Low Rank Adaptation: A technical deep dive</a></p></li>
 </ul>
 </section>
 </section>
@@ -927,16 +944,17 @@ of ultra-cynics, are seeing green again.
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tradeoffs-between-techniques"><font color="purple"><em>Tradeoffs between Techniques</em></font></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-and-test-original-model"><font color="purple"><em>Load and Test Original Model</em></font></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prepare-dataset"><font color="purple"><em>Prepare Dataset</em></font></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fine-tuning-steps"><font color="purple"><em>Fine Tuning Steps</em></font></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#techniques"><font color="purple"><strong>Techniques</strong></font></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1"><font color="purple"><strong>Fine-Tuning Steps</strong></font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-you-need"><strong>What you need</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#when-to-use-it"><strong>When to use it</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-test-base-models"><strong>Step 1 - Test base models</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-prepare-dataset"><strong>Step 2 - Prepare Dataset</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3-fine-tune"><strong>Step 3 - Fine Tune</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#techniques"><font color="purple"><em>Techniques</em></font></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#steps"><font color="purple"><em>Steps</em></font></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#test-fine-tuned-model"><font color="purple"><em>Test Fine-Tuned Model</em></font></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reference-sources"><font color="purple"><em>Reference Sources</em></font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-4-test-fine-tuned-model">Step 4 - Test Fine-tuned Model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reference-sources"><strong>Reference Sources</strong></a></li>
 </ul>
   </nav></div>
 

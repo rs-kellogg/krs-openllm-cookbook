@@ -184,7 +184,7 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../slurm_gpu_usage.html">Using GPUs at Northwestern</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../transformers.html">Using Transformers to run LLMs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../llama-cpp.html">Using Llama_cpp_python to run LLMs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../llama-cpp.html">Using Llama-cpp-python to run LLMs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../use_case.html">Example Use Case: 10K Processing</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Advanced Techniques</span></p>
@@ -408,11 +408,11 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="introduction">
 <h1>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h1>
-<p>Welcome to the workshop on using open-source Large Language Models (or “LLMs”) at Kellogg. Some of you may have attended our last workshop on using OpenAI. This one shares some of the same themes, but focuses here on topics and issues that are relevant to getting open source models to run effectively using on-premise computational resources. We will show you how to select an open source LLM, run it on Northwestern Graphics Procssing Units (“GPUs”), and how to improve peformance both through offline training and online augmentation with external resources. To get the ball rolling, let’s take a quick look at the following LLM project lifecycle diagram.</p>
+<p>Welcome to the workshop on using open-source Large Language Models (“LLMs”) at Kellogg. Some of you may have attended our last workshop on using OpenAI. This one shares some of the same themes, but focuses here on topics and issues that are relevant to getting open source models to run effectively using on-premise computational resources. We will show you how to select an open source LLM, run it on Northwestern Graphics Procssing Units (“GPUs”), and how to improve peformance both through offline training and online augmentation with external resources. To get the ball rolling, let’s take a quick look at the following LLM project lifecycle diagram.</p>
 <p><strong>Project Lifecycle</strong></p>
-<p>An LLM project lifecycle as shown here has 4 distinct phases:</p>
+<p>The project lifecycle as shown here has 4 distinct phases:</p>
 <ul class="simple">
-<li><p><strong>Scope</strong>: Define the use case. This is the initial step where the goals, requirements, and problems to be solved by the ML project are clearly defined. Everything else flows from this first step, determining which models you should look at, and what data and evaluation metrics you should be using.</p></li>
+<li><p><strong>Scope</strong>: Define the use case. This is the initial step where the goals, requirements, and problems to be solved by the project are clearly defined. Everything else flows from this first step, determining which models you should look at, and what data and evaluation metrics you should be using.</p></li>
 <li><p><strong>Select</strong>: Choose an existing model or pretrain your own. We have to make a decision at this point whether to utilize an existing pre-trained model or to pretrain a new model from scratch, based on the requirements of the use case. However, we will not discuss training your own model from scratch, for most of us that is beyond our means. Instead, we’ll focus on selecting an existing open source model and adapting it to our needs. Fortunately, there are plenty of model choices, and lots we can do to adapt and improve their performance.</p></li>
 <li><p><strong>Adapt and Align Model</strong>: Once we have selected a model, we have to make it do what we want. At this phase of the LLM project lifecycle, our goal is to make sure our performance is as good as possible for our intended use case. Some steps we can take:</p>
 <ul>
@@ -424,12 +424,12 @@ document.write(`
 </li>
 <li><p><strong>Application Integration</strong>: Now our model is adapted and improved, it must be deployed. Two things we focus on here are (1) optimizing for model size, and (2) extending a model’s knowledge by integrating external resources at run-time. More on this below.</p>
 <ul>
-<li><p>Optimize and deploy model for inference: The model is optimized for performance (speed and accuracy) and deployed in a production environment where it can be used to make predictions or generate text.</p></li>
-<li><p>Augment model and build LLM-powered applications: The model is potentially augmented with additional capabilities, and applications that leverage the power of the LLM are built around it.</p></li>
+<li><p>Optimize and deploy model for inference: The model is optimized for performance (speed and size) and deployed in a production environment where it can be used to make predictions or generate text.</p></li>
+<li><p>Augment model and build an LLM-powered applications: The model is potentially augmented with additional capabilities, and applications that leverage the power of the LLM are built around it.</p></li>
 </ul>
 </li>
 </ul>
-<p>Each of these lifecycle states is crucial for the successful use of an LLM to solve research problems, and the process is iterative, often requiring multiple cycles through these stages to refine the model and its application.</p>
+<p>Each of these lifecycle states is important for the successful use of an LLM to solve research problems, and the process is iterative, often requiring multiple cycles through these stages to refine the model and its application.</p>
 <section id="define-the-use-case">
 <h2>Define the Use Case<a class="headerlink" href="#define-the-use-case" title="Link to this heading">#</a></h2>
 <p>Your plan should specify:</p>
