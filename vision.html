@@ -184,7 +184,7 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="slurm_gpu_usage.html">Using GPUs at Northwestern</a></li>
 <li class="toctree-l1"><a class="reference internal" href="transformers.html">Using Transformers to run LLMs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="llama-cpp.html">Using Llama_cpp_python to run LLMs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="llama-cpp.html">Using Llama-cpp-python to run LLMs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="use_case.html">Example Use Case: 10K Processing</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Advanced Techniques</span></p>
@@ -391,8 +391,8 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#toy-marketing-study"><font color="purple">Toy Marketing Study</font></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#run-image-model-with-transformers"><font color="purple">Run image model with transformers</font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#toy-marketing-study"><strong>Toy Marketing Study</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#run-with-transformers"><strong>Run with Transformers</strong></a></li>
 </ul>
             </nav>
         </div>
@@ -404,24 +404,24 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="image-processing">
+  <section id="image-processing">
 <h1>Image Processing<a class="headerlink" href="#image-processing" title="Link to this heading">#</a></h1>
-<p>There are also open-source models available to run image processing.  One such model called <font color='purple'>BakLLaVa</font> is described in more detail here: <a class="github reference external" href="https://github.com/SkunkworksAI/BakLLaVA">SkunkworksAI/BakLLaVA</a>.  You can download it from Hugging Face here: <a class="reference external" href="https://huggingface.co/llava-hf/bakLlava-v1-hf">https://huggingface.co/llava-hf/bakLlava-v1-hf</a></p>
+<p>There are also open-source models available to run image processing.  One such model called <font color='purple'>BakLLaVa</font> is described in more detail here: <a class="github reference external" href="https://github.com/SkunkworksAI/BakLLaVA">SkunkworksAI/BakLLaVA</a>.  You can download it from <strong>Hugging Face</strong> here: <a class="reference external" href="https://huggingface.co/llava-hf/bakLlava-v1-hf">https://huggingface.co/llava-hf/bakLlava-v1-hf</a></p>
 <section id="toy-marketing-study">
-<h2><font color='purple'>Toy Marketing Study</font><a class="headerlink" href="#toy-marketing-study" title="Link to this heading">#</a></h2>
+<h2><strong>Toy Marketing Study</strong><a class="headerlink" href="#toy-marketing-study" title="Link to this heading">#</a></h2>
 <p>You can run this model using both transformers and llama_cpp_python. We showcase how to deploy it with transformers below in the context of a toy marketing study.</p>
-<p>For the toy study, we asked DALLE to produce 3 soft drink ads for us:</p>
-<p><strong>1. with cute kawaii characters</strong></p>
-<p><strong>2. with people at a Cubs game enjoying the drink</strong></p>
-<p><strong>3. from a hopeless dystopian future, where the soft drink looks like it might taste good</strong></p>
+<p>For the toy study, we asked <strong>DALL-E</strong> to produce 3 soft drink ads for us:</p>
+<p><strong>1. <font color='purple'>with cute kawaii characters</font></strong></p>
+<p><strong>2. <font color='purple'>with people at a Cubs game enjoying the drink</font></strong></p>
+<p><strong>3. <font color='purple'>from a hopeless dystopian future, where the soft drink looks like it might taste good</font></strong></p>
 <p>This is what it provided:</p>
 <p><img alt="sodas" src="_images/sodas.png" /></p>
 <p>Then we gave the model the following prompt: “<em>You are a young adult between age 25 and 30 taking a marketing survey.
 Can you describe if this soft drink ad appeals to you?</em>”</p>
 </section>
-<section id="run-image-model-with-transformers">
-<h2><font color='purple'>Run image model with transformers</font><a class="headerlink" href="#run-image-model-with-transformers" title="Link to this heading">#</a></h2>
-<p>For this study, we’ll run the model with transformers using the code below.</p>
+<section id="run-with-transformers">
+<h2><strong>Run with Transformers</strong><a class="headerlink" href="#run-with-transformers" title="Link to this heading">#</a></h2>
+<p>For this study, we’ll run the model with Transformers using the code below.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1">###################################################</span>
@@ -670,8 +670,8 @@ Run Time: 4.399393796920776
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#toy-marketing-study"><font color="purple">Toy Marketing Study</font></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#run-image-model-with-transformers"><font color="purple">Run image model with transformers</font></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#toy-marketing-study"><strong>Toy Marketing Study</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#run-with-transformers"><strong>Run with Transformers</strong></a></li>
 </ul>
   </nav></div>
 
