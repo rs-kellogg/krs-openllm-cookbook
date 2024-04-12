@@ -384,7 +384,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#when-to-use-it"><strong>When to use it</strong></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-test-base-models"><strong>Step 1 - Test base models</strong></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-prepare-dataset"><strong>Step 2 - Prepare Dataset</strong></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3-fine-tune"><strong>Step 3 - Fine Tune</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3-fine-tune"><strong>Step 3 - Fine-Tune</strong></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-techniques-font"><font color="purple"><em>Techniques</em></font></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-steps-font"><font color="purple"><em>Steps</em></font></a></li>
 </ul>
@@ -628,13 +628,13 @@ of ultra-cynics, are seeing green again.
 </div>
 </section>
 <section id="step-3-fine-tune">
-<h2><strong>Step 3 - Fine Tune</strong><a class="headerlink" href="#step-3-fine-tune" title="Permalink to this heading">#</a></h2>
+<h2><strong>Step 3 - Fine-Tune</strong><a class="headerlink" href="#step-3-fine-tune" title="Permalink to this heading">#</a></h2>
 <p>Once the data is prepared, we can fine-tune the pre-trained Mistral model using a combination of techniques for efficiency and effectiveness.</p>
 <section id="font-color-purple-techniques-font">
 <h3><font color='purple'><em>Techniques</em></font><a class="headerlink" href="#font-color-purple-techniques-font" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
-<li><p><font color='purple'><strong>Full Fine-Tuning</strong></font>: involves adjusting <strong>all the parameters</strong> of the LLM during the training process. This approach allows the model to fully adapt to the new task, potentially leading to higher performance. However, it requires a large amount of data and computational resources, and there’s a risk of <strong>catastrophic forgetting</strong> (the model could forget to do tasks it perform before.)</p></li>
-<li><p><font color='purple'><strong>Partially Embedded Fine-Tuning (PEFT)</strong></font>, on the other hand, <strong>only fine-tunes a subset of the model’s parameters</strong>. This strategy requires less memory and computational resources to perform, making it a more efficient choice in certain scenarios. By only updating a portion of the model, it may not be as effective when the model needs to significantly alter its initial learning or “forget” tasks it initially performed poorly. Two of the most effective PEFT methods are:</p>
+<li><p><font color='purple'><strong>Full Fine-Tuning</strong></font>: involves adjusting <strong>all the parameters</strong> of the LLM during the training process. This approach allows the model to fully adapt to the new task, potentially leading to higher performance. However, it requires a large amount of data and computational resources, and there’s a risk of <strong>catastrophic forgetting</strong> (the model could forget to do tasks it could before.)</p></li>
+<li><p><font color='purple'><strong>Partially Embedded Fine-Tuning (PEFT)</strong></font>, on the other hand, only fine-tunes a subset of the model’s parameters. This strategy requires less memory and computational resources to perform, making it a more efficient choice in certain scenarios. By only updating a portion of the model, it may not be as effective when the model needs to significantly alter its initial learning or “forget” tasks it initially performed poorly. Two of the most effective PEFT methods are:</p>
 <ul>
 <li><p><strong>Reparameterization</strong> - reparameterizes model weights into a low-rank format. One example is <font color='purple'><strong>LoRA (Low-Rank Adaptation)</strong></font>, which uses rank decomposition matrices to efficiently update model parameters.</p></li>
 <li><p><strong>Additive</strong> - freezes all the original LLM weights while adding trainable layers or paramters to the model. One example is called <strong>prompt tuning</strong> that freezes model weights, but adds trainable tokens (<strong>soft prompts</strong>) to the prompt embeddings.  This only updates the prompt weights.</p></li>
@@ -937,7 +937,7 @@ of ultra-cynics, are seeing green again.
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#when-to-use-it"><strong>When to use it</strong></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-test-base-models"><strong>Step 1 - Test base models</strong></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-prepare-dataset"><strong>Step 2 - Prepare Dataset</strong></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3-fine-tune"><strong>Step 3 - Fine Tune</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3-fine-tune"><strong>Step 3 - Fine-Tune</strong></a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-techniques-font"><font color="purple"><em>Techniques</em></font></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-purple-steps-font"><font color="purple"><em>Steps</em></font></a></li>
 </ul>
