@@ -395,7 +395,7 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="introduction">
 <h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">#</a></h1>
-<p>Welcome to the workshop on using open-source Large Language Models (“LLMs”) at Kellogg. Some of you may have attended our last workshop on using OpenAI. This one shares some of the same themes, but focuses here on topics and issues that are relevant to getting open source models to run effectively using on-premise computational resources. We will show you how to select an open source LLM, run it on Northwestern Graphics Procssing Units (“GPUs”), and how to improve peformance both through offline training and online augmentation with external resources. To get the ball rolling, let’s take a quick look at the following LLM project lifecycle diagram.</p>
+<p>Welcome to this workshop on using open-source Large Language Models (“LLMs”) at Kellogg. Some of you may have attended our last workshop on using OpenAI. This one shares some of the same themes, but focuses here on topics and issues that are relevant to getting open source models to run effectively using on-premise computational resources. Open source involves more work than just using (for example) the OpenAI API. You have to figure out how and where to run the model, and you need to write more complex code. To get the ball rolling, let’s take a quick look at the following LLM project lifecycle diagram.</p>
 <p><strong>Project Lifecycle</strong></p>
 <p>The project lifecycle as shown here has 4 distinct phases:</p>
 <ul class="simple">
@@ -405,8 +405,8 @@ document.write(`
 <ul>
 <li><p>Prompt engineering: Crafting the inputs (prompts) to the model in such a way that the desired output is more likely to be generated.</p></li>
 <li><p>Fine-tuning: Our chosen model is further trained (fine-tuned) on a specific dataset to better perform on tasks related to the use case.</p></li>
-<li><p>Evaluate: The model’s performance is assessed to ensure it meets the defined goals (can’t stress enough how useful this is).</p></li>
 <li><p>Align with human feedback: Human judgments are used to guide the model’s outputs, ensuring they align with human values and expectations. While absolutely <a class="reference external" href="https://huggingface.co/docs/trl/main/en/reward_trainer">possible</a>, RLHF is beyond the scope of this workshop, and we’ll focus on fine-tuning as our adaptation method of choice.</p></li>
+<li><p>Evaluate: The model’s performance is assessed to ensure it meets the defined goals (can’t stress enough how useful this is).</p></li>
 </ul>
 </li>
 <li><p><strong>Application Integration</strong>: Now our model is adapted and improved, it must be deployed. Two things we focus on here are (1) optimizing for model size, and (2) extending a model’s knowledge by integrating external resources at run-time. More on this below.</p>
